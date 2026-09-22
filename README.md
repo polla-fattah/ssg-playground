@@ -1,127 +1,122 @@
-# SSG Playground — Chapter 02: Write and Publish Content Locally
+# SSG Playground — Chapter 03: Organise a Useful Website
 
-Welcome to the hands-on playground repository for **Chapter 2** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 3** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-02`) is **additive from `chapter-01`**. It introduces your website's **first article**, demonstrates **leaf page bundles**, teaches structured **Markdown**, and connects the new article to the home page.
+This branch (`chapter-03`) is **additive from `chapter-02`**. It expands your two-page starter into a complete, navigable knowledge notebook with **Information Architecture**, **section landing pages**, and **shared site navigation**.
 
 ---
 
-## 🎯 Chapter 2 Goal
+## 🎯 Chapter 3 Goal
 
-Give your website its first readable article with:
-- Structured sections, lists, emphasis, and code snippets
-- Embedded screenshot image with meaningful alternative text
-- Safe internal, external, and in-page anchor links
-- Working draft toggling (`draft: true` vs `draft: false`)
-- Discoverability via a link on the home page
+Transform your website from isolated pages into a coherent, navigable system:
+- Add a standalone **About** page
+- Provide structured section landing pages for **Articles** and **Projects**
+- Add a project description page and a curated **Resources** page
+- Implement site-wide navigation in `layouts/all.html` that works across all pages
+- Link to major sections directly from the home page under `## Explore the notebook`
+- Understand how folder names dictate URLs, and practice recovering from a broken route
+
+---
+
+## 🗺️ Complete Website Structure Map
+
+| Source File | Published Preview URL | Role & Page Type |
+| :--- | :--- | :--- |
+| `content/_index.md` | `/` | **Home page** (Branch bundle) |
+| `content/about/index.md` | `/about/` | **About page** (Standalone leaf page) |
+| `content/articles/_index.md` | `/articles/` | **Articles landing page** (Section branch) |
+| `content/articles/first-learning-note/index.md` | `/articles/first-learning-note/` | **Article** (Leaf page bundle with image) |
+| `content/projects/_index.md` | `/projects/` | **Projects landing page** (Section branch) |
+| `content/projects/learning-notebook/index.md` | `/projects/learning-notebook/` | **Project page** (Leaf page bundle) |
+| `content/resources/index.md` | `/resources/` | **Resources page** (Standalone leaf page) |
+
+### `_index.md` vs `index.md` Rule:
+- **`_index.md` (with underscore)**: Represents a **branch / section bundle** that groups child pages (Home, Articles section, Projects section).
+- **`index.md` (without underscore)**: Represents a **leaf page bundle** (About, single article, single project, Resources).
 
 ---
 
 ## 🚀 How to Run the Website Locally
 
-### 1. Preview Including Drafts
-When drafting a new article (`draft: true` in front matter), start Hugo with the `-D` flag:
-
-```bash
-hugo server -D
-```
-
-Open:
-```text
-http://localhost:1313/articles/first-learning-note/
-```
-
-### 2. Normal Preview (Published Content Only)
-When your article is finished and set to `draft: false`:
+Start the standard preview server:
 
 ```bash
 hugo server
 ```
 
-*(Without `-D`, any file with `draft: true` is excluded from the site).*
+Open:
+```text
+http://localhost:1313/
+```
+
+Navigate through the top menu: **Home**, **About**, **Articles**, **Projects**, and **Resources**.
 
 ---
 
-## 📁 What Changed in Chapter 2 (Additive from Chapter 1)
+## 📁 What Changed in Chapter 3 (Additive from Chapter 2)
 
 ```text
 my-knowledge-site/
-├── hugo.toml                                         # Inherited from Chapter 1
-├── layouts/all.html                                  # Inherited from Chapter 1
-├── static/css/site.css                               # [UPDATED] Added article img & pre rules
+├── hugo.toml                                         # Site settings
+├── layouts/
+│   └── all.html                                      # [UPDATED] Replaced <nav> with 5 site-wide links
+├── static/css/site.css                               # Styling
 └── content/
-    ├── _index.md                                     # [UPDATED] Added "Latest writing" section
-    └── articles/
-        └── first-learning-note/                      # [NEW] Leaf page bundle
-            ├── index.md                              # The new article content
-            └── notebook-preview.png                  # Embedded screenshot asset
+    ├── _index.md                                     # [UPDATED] Added "Explore the notebook" section
+    ├── about/
+    │   └── index.md                                  # [NEW] About page
+    ├── articles/
+    │   ├── _index.md                                 # [NEW] Section landing page with manual list
+    │   └── first-learning-note/                      # From Chapter 2
+    │       ├── index.md
+    │       └── notebook-preview.png
+    ├── projects/
+    │   ├── _index.md                                 # [NEW] Projects landing page with manual list
+    │   └── learning-notebook/
+    │       └── index.md                              # [NEW] Project description page
+    └── resources/
+        └── index.md                                  # [NEW] Curated resources list
 ```
-
-### Why `index.md` inside a folder?
-Hugo calls a folder containing `index.md` and related media a **leaf page bundle**. This keeps the article text and its images (`notebook-preview.png`) colocated in one self-contained directory.
 
 ---
 
-## ✍️ Guided Exercises for Chapter 2
+## ✍️ Guided Exercises for Chapter 3
 
-### 1. Front Matter & Draft Control
-- Open `content/articles/first-learning-note/index.md`.
-- Observe the YAML front matter:
-  ```yaml
-  ---
-  title: "My first learning note"
-  draft: false
-  ---
-  ```
-- Change `draft: true`, run `hugo server` (without `-D`), and observe that `/articles/first-learning-note/` returns 404.
-- Restart with `hugo server -D` to preview it while drafting.
-- Set `draft: false` when ready for normal preview.
+### 1. The Power of Shared Layouts
+- Notice `layouts/all.html`: By updating only the `<nav>` element, every single page on the site now displays the same navigation row.
 
-### 2. Markdown Formatting Features
-- **Headings**: Use `##` for main sections, `###` for subsections.
-- **Emphasis**: `**bold**` for important rules, `*italic*` for subtle emphasis.
-- **Lists**: Bulleted (`-`) for unordered collections, numbered (`1. 2. 3.`) when order matters.
-- **Inline Code & Fences**: Use backticks for commands (`` `content/_index.md` ``) and triple backticks for multiline samples.
+### 2. Relative Link Calculations
+- From `/about/`: `../articles/first-learning-note/` goes up to root, then down to the article.
+- From `/projects/learning-notebook/`: `../../articles/first-learning-note/` goes up 2 levels (`../` to projects, `../../` to root), then down to articles.
+- From `/projects/learning-notebook/`: `[Back to Projects](../)` steps up one level.
 
-### 3. Links and Anchors
-- **External link**: `[Hugo documentation](https://gohugo.io/documentation/)`
-- **In-page section anchor**: `[Jump to my next step](#my-next-step)` jumps directly to `<h2 id="my-next-step">`.
-- **Relative return link**: `[Return to my home page](../../)` navigates up two address levels to the site root.
-
-### 4. Bundled Images & Responsive CSS
-- Image syntax: `![Alternative text](notebook-preview.png)`
-- Notice that only the filename is needed because the image lives in the same leaf bundle.
-- In `static/css/site.css`, the following rules ensure images shrink on mobile screens and code blocks scroll horizontally:
-  ```css
-  article img { display: block; max-width: 100%; height: auto; }
-  article pre { max-width: 100%; overflow-x: auto; }
-  ```
-
-### 5. Break Something on Purpose (Missing Image)
-- Change `notebook-preview.png` to `notebook-preview-missing.png` in Markdown.
-- Notice that Hugo builds without error, but the image fails to load in the browser.
-- Restore the correct filename to verify recovery.
+### 3. Break and Repair a Route
+1. Rename folder `content/projects/learning-notebook` to `learning-notebook-test`.
+2. Notice that the page now lives at `/projects/learning-notebook-test/`, but the links on `/projects/` still point to `/projects/learning-notebook/` (yielding 404).
+3. Hard-refresh your browser (`Ctrl + Shift + R` or `Cmd + Shift + R`) to avoid browser cache.
+4. Rename the folder back to `learning-notebook` to restore the working route.
 
 ---
 
 ## 🧪 Automated Tests
 
-Run the Chapter 2 test suite to verify page bundle generation, HTML elements, anchor links, bundled image assets, and CSS:
+Run the Chapter 3 automated tests:
 
 ```bash
-python -m unittest tests/test_chapter_02.py
+python -m unittest tests/test_chapter_03.py
 ```
 
-To run all tests across Chapter 1 and Chapter 2:
+Run the full suite across all three chapters (19 assertions):
+
 ```bash
 python -m unittest discover tests
 ```
 
 Expected output:
 ```text
-.............
+...................
 ----------------------------------------------------------------------
-Ran 13 tests in 0.35s
+Ran 19 tests in 0.55s
 
 OK
 ```
@@ -130,14 +125,14 @@ OK
 
 ## 🛠️ Common Troubleshooting
 
-| Problem | Cause & Fix |
+| Issue | Cause & Fix |
 | :--- | :--- |
-| **Article returns 404** | Check that `draft: false` is set, or that you started Hugo with `hugo server -D`. |
-| **Image does not display** | Ensure `notebook-preview.png` is inside `content/articles/first-learning-note/` right next to `index.md`. |
-| **Image overflows screen** | Verify that `article img { max-width: 100%; }` is saved at the bottom of `static/css/site.css`. |
-| **Return home link goes to wrong page** | From `/articles/first-learning-note/`, you need `../../` (two parent hops) to reach the root. |
+| **Only navigation appears, rest of page is gone** | You accidentally replaced the entire `layouts/all.html` instead of just replacing the `<nav>...</nav>` block. |
+| **Articles page has title but no links** | Make sure you saved the Markdown list body in `content/articles/_index.md`. |
+| **Browser shows old page after rename** | Browser cached the response. Use `Ctrl + Shift + R` (hard refresh) or restart Hugo. |
+| **Section returns 404** | Verify the section file is named `_index.md` with an underscore, not `index.md`. |
 
 ---
 
 ## ⏭️ What's Next?
-In **Chapter 3**, we will organise this into a structured website with an **About** page, sections, categories, and site-wide navigation.
+In **Chapter 4**, we will open Developer Tools and inspect the actual **HTML structure** behind these pages, connecting your Markdown source directly to browser elements.

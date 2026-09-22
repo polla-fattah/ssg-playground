@@ -82,9 +82,15 @@ class Chapter01ValidationTests(unittest.TestCase):
         index_file = self.public_dir / "index.html"
         content = index_file.read_text(encoding="utf-8")
 
-        # Links in navigation
-        self.assertIn("#my-interests", content, "Navigation link to #my-interests missing.")
-        self.assertIn("#next-steps", content, "Navigation link to #next-steps missing.")
+        # Links in navigation (Chapter 1 starter) or section headings
+        self.assertTrue(
+            "#my-interests" in content or re.search(r'id=["\']my-interests["\']', content),
+            "Section my-interests missing from page.",
+        )
+        self.assertTrue(
+            "#next-steps" in content or re.search(r'id=["\']next-steps["\']', content),
+            "Section next-steps missing from page.",
+        )
 
         # Destination IDs in rendered HTML headings
         self.assertTrue(

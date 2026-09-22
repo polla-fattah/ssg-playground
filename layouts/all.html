@@ -12,8 +12,10 @@
     <p class="site-name">{{ .Site.Title }}</p>
     <nav aria-label="Main navigation">
       <a href="{{ "" | relURL }}">Home</a>
-      <a href="{{ "" | relURL }}#my-interests">My interests</a>
-      <a href="{{ "" | relURL }}#next-steps">Next steps</a>
+      <a href="{{ "about/" | relURL }}">About</a>
+      <a href="{{ "articles/" | relURL }}">Articles</a>
+      <a href="{{ "projects/" | relURL }}">Projects</a>
+      <a href="{{ "resources/" | relURL }}">Resources</a>
     </nav>
   </header>
   <main id="main" tabindex="-1">

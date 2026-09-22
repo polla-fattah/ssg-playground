@@ -18,3 +18,11 @@ I will use this notebook to publish my first article and organise useful resourc
 
 - [My first learning note](articles/first-learning-note/)
 
+## Explore the notebook
+
+- [About](about/): What this notebook is for.
+- [Articles](articles/): Explanations and learning notes.
+- [Projects](projects/): Work in progress and what I have learned from it.
+- [Resources](resources/): References and useful examples.
+
+
