@@ -1,126 +1,120 @@
-# SSG Playground — Chapter 08: Work with an AI Agent on Your Hugo Site
+# SSG Playground — Chapter 09: Give Your Hugo Content a Consistent Structure
 
-Welcome to the hands-on playground repository for **Chapter 8** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 9** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-08`) is **additive from `chapter-07`**. It introduces the professional methodology for collaborating safely with an **AI coding agent** on your Hugo website—defining project boundaries via `AGENTS.md`, crafting bounded tasks, inspecting changes independently, and maintaining human control over commits and deployments.
-
----
-
-## 🎯 Chapter 8 Goal
-
-Establish a disciplined, repeatable human-in-the-loop agent workflow:
-- Configure persistent project guidance and safety guardrails in `AGENTS.md`.
-- Distinguish between **Inspection (Read-Only)** and **Execution (Workspace-Write)** modes.
-- Provide bounded prompts with observable constraints (specific target files, exact section placements, word limits, preserved front matter).
-- Perform independent code and rendered review using `git diff` and local Hugo preview rather than relying solely on the agent's summary.
-- Add the **"How to use these resources"** guidance section to `content/resources/index.md`.
-- Catch link and path mistakes that pass `hugo build` but fail at runtime (e.g. relative vs absolute URLs on project sites).
+This branch (`chapter-09`) is **additive from `chapter-08`**. It establishes a clear, predictable **content model** across project pages, introduces Hugo **archetypes** as reusable starters, covers clean YAML front matter editing, and adds a second project page for a planned reading list.
 
 ---
 
-## 📁 What Changed in Chapter 8 (Additive from Chapter 7)
+## 🎯 Chapter 9 Goals
+
+- **Define a Content Model**: Agree on a minimal, purposeful schema for project pages without overcomplicating fields.
+- **Master Practical YAML**: Safely write and edit strings, booleans, nested mappings, and lists in Hugo front matter.
+- **Separate Readiness from Progress**: Distinguish page publication state (`draft: false`) from real-world project status (`params.status: "planned"`).
+- **Create an Archetype Starter**: Write `archetypes/projects.md` and generate new content using `hugo new content --kind projects projects/reading-list/index.md`.
+- **Maintain Section Navigation**: Add the new project to the manual section index in `content/projects/_index.md`.
+- **Catch & Fix Syntax Errors**: Deliberately test malformed YAML with `hugo --minify --panicOnWarning` and repair it.
+
+---
+
+## 📁 What Changed in Chapter 9 (Additive from Chapter 8)
 
 ```text
 my-knowledge-site/
-├── AGENTS.md                                  # [NEW] Persistent project guidance & safety agreements
+├── archetypes/
+│   └── projects.md                            # [NEW] Reusable starter template for project pages
 ├── content/
-│   └── resources/
-│       └── index.md                           # [UPDATED] Added "How to use these resources" section
+│   └── projects/
+│       ├── _index.md                          # [UPDATED] Added link to the new reading-list project
+│       ├── learning-notebook/
+│       │   └── index.md                       # [UPDATED] Added description, params.status, params.tools, Next step
+│       └── reading-list/
+│           └── index.md                       # [NEW] Created via archetype; truthful planned reading list
+├── AGENTS.md                                  # [From Chapter 8] Project rules and boundaries
 ├── layouts/
+│   └── all.html                               # [From Chapter 4] Minimal base layout (shows title + body)
 ├── static/
-├── .github/
-│   └── workflows/
-│       └── hugo.yaml
-├── hugo.toml
+│   └── css/site.css                           # [From Chapter 5] Hand-crafted CSS
+├── hugo.toml                                  # [From Chapter 1] Base site configuration
 └── tests/
-    └── test_chapter_08.py                     # [NEW] Automated validation tests for Chapter 8
+    ├── test_chapter_01.py ... test_chapter_08.py
+    └── test_chapter_09.py                     # [NEW] Automated tests for content model, archetype, and links
 ```
 
 ---
 
-## 📜 The `AGENTS.md` Specification
+## 📋 The Project Content Model
 
-`AGENTS.md` is an open standard file located at the repository root that AI agents read at the beginning of each session:
+A content model is an editorial agreement about the information a specific kind of page should contain:
 
-```markdown
-# Project guidance
+| Location | Field / Heading | Value Shape | Our Editorial Agreement |
+|---|---|---|---|
+| **Front Matter** | `title` | Text (quoted string) | A concise, readable project name |
+| **Front Matter** | `description` | Text (quoted string) | One sentence explaining the project's purpose |
+| **Front Matter** | `draft` | Boolean (`true` / `false`) | Is this page ready for public site builds? |
+| **Front Matter** | `params.status` | Choice string | One of: `"planned"`, `"in-progress"`, `"complete"` |
+| **Front Matter** | `params.tools` | List of strings | Array of relevant tools (e.g. `["Hugo", "Markdown"]` or `[]`) |
+| **Body (Markdown)** | `## Purpose` | Section heading | What the project aims to accomplish |
+| **Body (Markdown)** | `## Current status` | Section heading | Truthful explanation of what has actually occurred |
+| **Body (Markdown)** | `## What I have learned` | Section heading | Concrete learnings or an honest statement that work has not begun |
+| **Body (Markdown)** | `## Next step` | Section heading | One actionable next step or a completion notice |
+| **Body (Markdown)** | `[Back to Projects](../)` | Relative link | Navigation back to the parent section |
 
-This is a small Hugo knowledge website using Markdown and plain CSS.
-
-## Files
-
-- Content lives in content/.
-- The shared layout is layouts/all.html.
-- The stylesheet is static/css/site.css.
-- Site configuration is hugo.toml.
-- The publishing workflow is .github/workflows/hugo.yaml.
-
-## Working agreements
-
-- Read the relevant source before proposing or making a change.
-- Change only the source files requested for the current task.
-- Preserve existing front matter, URLs, and authored facts unless the task asks otherwise.
-- Do not invent experiences, qualifications, sources, or claims about the author.
-- Use the installed Hugo; do not add dependencies or change the publishing workflow unless requested.
-- Do not edit generated public/ or resources/ files by hand.
-- When asked to check a change, run hugo --minify --panicOnWarning and report the result accurately.
-- If a check cannot run, explain what prevented it and what remains unchecked.
-- Leave staging, committing, pushing, and deployment to the reader unless explicitly delegated.
-```
+> **Important Note:** In this chapter, `params.status` and `params.tools` are stored in front matter, but they are **not yet visible** in the browser. Our existing layout (`layouts/all.html`) only outputs `{{ .Title }}` and `{{ .Content }}`. Storing metadata today prepares the site for Chapter 10, where Hugo template expressions, conditions, and loops will display them.
 
 ---
 
-## ✍️ Content Update: `content/resources/index.md`
+## 🚀 Key Workflows & Commands
 
-The agent successfully authored the following bounded section (under 70 words, exactly 3 bullets, reusing existing destinations):
-
-```markdown
-## How to use these resources
-
-- Consult the [Hugo documentation](https://gohugo.io/documentation/) when you need details about configuration, content, or templates.
-- Read [my first learning note](../articles/first-learning-note/) for a practical editing and checking example.
-- Visit [my knowledge notebook project](../projects/learning-notebook/) to understand this website's purpose.
+### 1. Creating Content from an Archetype
+```bash
+# Uses archetypes/projects.md to scaffold the leaf bundle
+hugo new content --kind projects projects/reading-list/index.md
 ```
 
----
+### 2. Previewing Drafts vs Normal Site
+```bash
+# Preview drafts while writing and revising:
+hugo server -D
 
-## 🔍 The 6-Step Agent Review Method
+# Normal preview (only pages where draft: false appear):
+hugo server
+```
 
-1. **Clean Baseline**: Ensure `git status` is clean before invoking an agent.
-2. **Context & Boundaries**: Point the agent to `AGENTS.md` and define the exact target file.
-3. **Bounded Task**: Specify exact headings, bullet counts, word limits, and files to leave untouched.
-4. **Git Inspection**: Run `git diff` and `git status` in your own terminal to verify every modified line.
-5. **Runtime Verification**: Run `hugo server` and click the links yourself. (Remember: `hugo build` can pass even when an internal link omits the project subfolder!).
-6. **Human Staging & Commit**: You decide whether to accept the work and record the commit.
+### 3. Syntax Verification & Panic on Warning
+```bash
+# Verifies that YAML front matter parses without errors:
+hugo --minify --panicOnWarning
+```
 
 ---
 
 ## 🧪 Automated Testing
 
-Automated tests for Chapters 1 through 8 are in the `tests/` directory:
+Run the automated test suite across all chapters:
 
 ```bash
-# Run all chapter tests
-python -m unittest discover tests
+# Run Chapter 9 specific tests:
+python -m unittest tests/test_chapter_09.py
 
-# Or run Chapter 8 tests specifically
-python tests/test_chapter_08.py
+# Run all tests across Chapters 1 through 9:
+python -m unittest discover tests
 ```
 
-### What `test_chapter_08.py` Verifies:
-1. **Build Success**: Validates `hugo --minify --panicOnWarning` compiles cleanly.
-2. **`AGENTS.md` Presence & Rules**: Ensures the project guidance file exists with essential safety guardrails.
-3. **No Unintended Pages**: Confirms `AGENTS.md` is not accidentally rendered as a public web page.
-4. **Resources Section Criteria**:
-   - Section heading `## How to use these resources` exists.
-   - Contains exactly 3 bullet points.
-   - Strict word limit (under 70 words).
-   - Valid relative internal links (`../articles/first-learning-note/` and `../projects/learning-notebook/`).
-   - Original sections (`Website publishing` and `Examples from this notebook`) preserved.
-5. **Rendered HTML Output**: Verifies the compiled page renders all links correctly.
+### Test Coverage in `test_chapter_09.py`:
+1. `test_hugo_build_clean`: Verifies zero warnings and exit code 0 on `--minify --panicOnWarning`.
+2. `test_archetype_exists_and_valid`: Verifies `archetypes/projects.md` exists with all required front matter keys and body section prompts.
+3. `test_learning_notebook_structure`: Verifies `content/projects/learning-notebook/index.md` has `status: "in-progress"`, tools `["Hugo", "Markdown"]`, and the new `Next step` section.
+4. `test_reading_list_structure`: Verifies `content/projects/reading-list/index.md` has `status: "planned"`, tool `["Markdown"]`, `draft: false`, and all 4 body sections.
+5. `test_projects_section_index_links`: Verifies `content/projects/_index.md` links to both projects.
+6. `test_reading_list_links_resolve`: Verifies that `../../resources/` and `../` resolve to physical files on disk.
 
 ---
 
-## ⏩ Next Step: Chapter 9
+## 🔗 Git Checkpoint
 
-In **Chapter 9: Give Your Hugo Content a Consistent Structure**, you will learn how to standardize your content using Archetypes, structured Front Matter, and Hugo content taxonomies!
+Commit the four chapter files cleanly:
+```bash
+git add archetypes/projects.md content/projects/_index.md content/projects/learning-notebook/index.md content/projects/reading-list/index.md tests/test_chapter_09.py README.md
+git commit -m "Define a consistent project model and add a reading-list project"
+```
