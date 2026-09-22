@@ -1,128 +1,143 @@
-# SSG Playground — Chapter 01: Your First Hugo Website
+# SSG Playground — Chapter 02: Write and Publish Content Locally
 
-Welcome to the hands-on playground repository for **Chapter 1** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 2** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-01`) contains the minimal, working starter project for **My Knowledge Notebook**.
-
----
-
-## 🎯 Chapter 1 Goal
-
-By the end of this exercise, you should be able to say:
-> **"I know which file contains these words, I can change them, and I can put them back."**
+This branch (`chapter-02`) is **additive from `chapter-01`**. It introduces your website's **first article**, demonstrates **leaf page bundles**, teaches structured **Markdown**, and connects the new article to the home page.
 
 ---
 
-## 📋 Prerequisites
+## 🎯 Chapter 2 Goal
 
-Before starting, ensure that **Hugo** is installed and accessible in your terminal:
-
-```bash
-hugo version
-```
-
-> **Note:** You need **Hugo v0.146.0** or later (Extended or Standard edition). For Hugo v0.158.0+, the site configuration uses `locale = 'en'`.
+Give your website its first readable article with:
+- Structured sections, lists, emphasis, and code snippets
+- Embedded screenshot image with meaningful alternative text
+- Safe internal, external, and in-page anchor links
+- Working draft toggling (`draft: true` vs `draft: false`)
+- Discoverability via a link on the home page
 
 ---
 
 ## 🚀 How to Run the Website Locally
 
-1. Open your terminal in this project folder (`ssg-playground`).
-2. Start the Hugo development preview server:
+### 1. Preview Including Drafts
+When drafting a new article (`draft: true` in front matter), start Hugo with the `-D` flag:
+
+```bash
+hugo server -D
+```
+
+Open:
+```text
+http://localhost:1313/articles/first-learning-note/
+```
+
+### 2. Normal Preview (Published Content Only)
+When your article is finished and set to `draft: false`:
 
 ```bash
 hugo server
 ```
 
-3. Open your browser and navigate to:
-   ```text
-   http://localhost:1313/
-   ```
-   *(Or click the link in your VS Code terminal using `Ctrl + Click` / `Cmd + Click`).*
-
-4. To stop the server at any time, click inside the terminal and press `Ctrl + C`.
+*(Without `-D`, any file with `draft: true` is excluded from the site).*
 
 ---
 
-## 📁 Project Structure & Roles
+## 📁 What Changed in Chapter 2 (Additive from Chapter 1)
 
-This starter deliberately keeps responsibilities cleanly separated across 4 files:
+```text
+my-knowledge-site/
+├── hugo.toml                                         # Inherited from Chapter 1
+├── layouts/all.html                                  # Inherited from Chapter 1
+├── static/css/site.css                               # [UPDATED] Added article img & pre rules
+└── content/
+    ├── _index.md                                     # [UPDATED] Added "Latest writing" section
+    └── articles/
+        └── first-learning-note/                      # [NEW] Leaf page bundle
+            ├── index.md                              # The new article content
+            └── notebook-preview.png                  # Embedded screenshot asset
+```
 
-| File | Role / Purpose | When to edit |
-| :--- | :--- | :--- |
-| `content/_index.md` | **Page Content & Metadata** | To edit the homepage headings, intro, and lists. |
-| `hugo.toml` | **Site Configuration** | To change site-wide settings such as `title` and `locale`. |
-| `layouts/all.html` | **HTML Structure** | Supplied layout template combining content with presentation. |
-| `static/css/site.css` | **Visual Styling** | Supplied stylesheet controlling fonts, spacing, and colors. |
+### Why `index.md` inside a folder?
+Hugo calls a folder containing `index.md` and related media a **leaf page bundle**. This keeps the article text and its images (`notebook-preview.png`) colocated in one self-contained directory.
 
 ---
 
-## ✍️ Guided Exercises for Chapter 1
+## ✍️ Guided Exercises for Chapter 2
 
-### 1. Personalize Your Introduction
-- Open `content/_index.md`.
-- Find:
-  ```markdown
-  Hello! I am Dana. This is where I collect useful ideas, learning notes, and small projects.
-  ```
-- Replace it with your own name and description.
-- Save (`Ctrl + S` / `Cmd + S`) and verify that your browser preview updates immediately without a page reload.
-
-### 2. Change the Page Heading (Front Matter)
-- In `content/_index.md`, find the front matter block at the top between `---` lines:
+### 1. Front Matter & Draft Control
+- Open `content/articles/first-learning-note/index.md`.
+- Observe the YAML front matter:
   ```yaml
   ---
-  title: "Welcome to my knowledge notebook"
+  title: "My first learning note"
+  draft: false
   ---
   ```
-- Change the `title` to your own headline (e.g., `title: "Welcome to Sara's learning space"`).
-- Save and verify the large heading on the webpage.
+- Change `draft: true`, run `hugo server` (without `-D`), and observe that `/articles/first-learning-note/` returns 404.
+- Restart with `hugo server -D` to preview it while drafting.
+- Set `draft: false` when ready for normal preview.
 
-### 3. Practice Recovery (Break Something Deliberately)
-- Replace your introduction paragraph with:
-  ```markdown
-  This paragraph was changed by mistake.
+### 2. Markdown Formatting Features
+- **Headings**: Use `##` for main sections, `###` for subsections.
+- **Emphasis**: `**bold**` for important rules, `*italic*` for subtle emphasis.
+- **Lists**: Bulleted (`-`) for unordered collections, numbered (`1. 2. 3.`) when order matters.
+- **Inline Code & Fences**: Use backticks for commands (`` `content/_index.md` ``) and triple backticks for multiline samples.
+
+### 3. Links and Anchors
+- **External link**: `[Hugo documentation](https://gohugo.io/documentation/)`
+- **In-page section anchor**: `[Jump to my next step](#my-next-step)` jumps directly to `<h2 id="my-next-step">`.
+- **Relative return link**: `[Return to my home page](../../)` navigates up two address levels to the site root.
+
+### 4. Bundled Images & Responsive CSS
+- Image syntax: `![Alternative text](notebook-preview.png)`
+- Notice that only the filename is needed because the image lives in the same leaf bundle.
+- In `static/css/site.css`, the following rules ensure images shrink on mobile screens and code blocks scroll horizontally:
+  ```css
+  article img { display: block; max-width: 100%; height: auto; }
+  article pre { max-width: 100%; overflow-x: auto; }
   ```
-- Save and see the wrong content live in your browser.
-- Use **Undo** (`Ctrl + Z` / `Cmd + Z`) in your editor to restore the original text, then save again.
-- *Key Takeaway:* A website can build cleanly and still present incorrect information!
 
-### 4. Independent Challenge
-- Add one new bullet under `## My interests`.
-- Rewrite the sentence under `## Next steps`.
-- Check both changes in the browser.
-
----
-
-## 🛠️ Common Troubleshooting
-
-| Issue | Cause & Fix |
-| :--- | :--- |
-| **`hugo` command not recognized** | Hugo is not in your system `PATH`. Restart your terminal or VS Code after installing. |
-| **Port 1313 is already in use** | An earlier Hugo server is still running. Stop it with `Ctrl+C` or run: `hugo server --port 1314`. |
-| **Browser shows connection error** | Check whether `hugo server` was accidentally stopped in your terminal. |
-| **Changes don't show in browser** | Ensure you saved the file (`Ctrl+S`) and that the terminal reports no syntax errors. |
+### 5. Break Something on Purpose (Missing Image)
+- Change `notebook-preview.png` to `notebook-preview-missing.png` in Markdown.
+- Notice that Hugo builds without error, but the image fails to load in the browser.
+- Restore the correct filename to verify recovery.
 
 ---
 
 ## 🧪 Automated Tests
 
-You can verify that your Hugo installation, template layout, generated HTML, navigation anchors, and CSS assets all meet the Chapter 1 requirements by running the automated test suite:
+Run the Chapter 2 test suite to verify page bundle generation, HTML elements, anchor links, bundled image assets, and CSS:
 
 ```bash
-python -m unittest tests/test_chapter_01.py
+python -m unittest tests/test_chapter_02.py
+```
+
+To run all tests across Chapter 1 and Chapter 2:
+```bash
+python -m unittest discover tests
 ```
 
 Expected output:
 ```text
-......
+.............
 ----------------------------------------------------------------------
-Ran 6 tests in 0.23s
+Ran 13 tests in 0.35s
 
 OK
 ```
 
 ---
 
+## 🛠️ Common Troubleshooting
+
+| Problem | Cause & Fix |
+| :--- | :--- |
+| **Article returns 404** | Check that `draft: false` is set, or that you started Hugo with `hugo server -D`. |
+| **Image does not display** | Ensure `notebook-preview.png` is inside `content/articles/first-learning-note/` right next to `index.md`. |
+| **Image overflows screen** | Verify that `article img { max-width: 100%; }` is saved at the bottom of `static/css/site.css`. |
+| **Return home link goes to wrong page** | From `/articles/first-learning-note/`, you need `../../` (two parent hops) to reach the root. |
+
+---
+
 ## ⏭️ What's Next?
-In **Chapter 2**, we will add standalone articles, understand Markdown in depth, and link internal pages.
+In **Chapter 3**, we will organise this into a structured website with an **About** page, sections, categories, and site-wide navigation.

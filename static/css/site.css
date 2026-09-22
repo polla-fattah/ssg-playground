@@ -31,3 +31,20 @@ a:focus-visible { outline: 3px solid #005b66; outline-offset: 4px; }
   padding: 0.5rem 1rem;
   background: #ffffff;
 }
+
+article img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-block: 1rem;
+}
+
+article pre {
+  max-width: 100%;
+  overflow-x: auto;
+  background: #eae8e1;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+
