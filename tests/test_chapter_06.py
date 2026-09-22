@@ -98,7 +98,11 @@ class Chapter06ValidationTests(unittest.TestCase):
         git_cmd = ["git", "rev-parse", "--abbrev-ref", "HEAD"]
         result = subprocess.run(git_cmd, cwd=str(PROJECT_ROOT), capture_output=True, text=True)
         self.assertEqual(result.returncode, 0)
-        self.assertIn("chapter-06", result.stdout.strip())
+        branch = result.stdout.strip()
+        self.assertTrue(
+            bool(re.match(r"^chapter-(0[6-9]|[1-9]\d+)$", branch)),
+            f"Expected branch chapter-06 or later, got: {branch}",
+        )
 
 
 if __name__ == "__main__":

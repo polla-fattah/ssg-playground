@@ -46,6 +46,7 @@ I can consult the [Hugo documentation](https://gohugo.io/documentation/) when I 
 - Read the page in the local preview.
 - Check its links and image description.
 - Review the changed files before recording a checkpoint.
+- Check the published page after deployment.
 
 ## My next step
 

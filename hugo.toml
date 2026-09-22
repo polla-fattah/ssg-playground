@@ -1,4 +1,3 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://YOUR-USERNAME.github.io/my-knowledge-site/'
 locale = 'en'
-languageCode = 'en'
 title = 'My Knowledge Notebook'
