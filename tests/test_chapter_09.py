@@ -91,15 +91,23 @@ class TestChapter09(unittest.TestCase):
         self.assertIn("[Back to Projects](../)", body)
 
     def test_projects_section_index_links(self):
-        """content/projects/_index.md links to both learning-notebook and reading-list."""
+        """Projects section links to both learning-notebook and reading-list (either manual in Markdown or dynamic in HTML)."""
         idx_path = os.path.join(self.repo_root, "content", "projects", "_index.md")
         self.assertTrue(os.path.exists(idx_path), "content/projects/_index.md not found")
 
         with open(idx_path, "r", encoding="utf-8") as f:
             content = f.read()
 
-        self.assertIn("[My knowledge notebook](learning-notebook/)", content)
-        self.assertIn("[My website reading list](reading-list/)", content)
+        html_path = os.path.join(self.repo_root, "public", "projects", "index.html")
+        html_content = ""
+        if os.path.exists(html_path):
+            with open(html_path, "r", encoding="utf-8") as f:
+                html_content = f.read()
+
+        has_notebook = ("[My knowledge notebook](learning-notebook/)" in content) or ("learning-notebook" in html_content)
+        has_reading_list = ("[My website reading list](reading-list/)" in content) or ("reading-list" in html_content)
+        self.assertTrue(has_notebook, "Projects section does not link to learning-notebook")
+        self.assertTrue(has_reading_list, "Projects section does not link to reading-list")
 
     def test_reading_list_links_resolve(self):
         """Links in reading-list/index.md must resolve to valid target files in content/."""

@@ -21,7 +21,44 @@
   <main id="main" tabindex="-1">
     <article>
       <h1>{{ .Title }}</h1>
+
+      {{ with .Description }}
+        <p>{{ . }}</p>
+      {{ end }}
+
+      {{ with .Params.status }}
+        <p><strong>Status:</strong> {{ . }}</p>
+      {{ end }}
+
+      {{ with .Params.tools }}
+        <p><strong>Tools:</strong></p>
+        <ul>
+          {{ range . }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+      {{ end }}
+
       {{ .Content }}
+
+      {{ if and .IsSection (eq .Section "projects") }}
+        <h2>Current work</h2>
+        <ul>
+          {{ range .RegularPages.ByTitle }}
+            <li>
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              {{ with .Description }}
+                <p>{{ . }}</p>
+              {{ end }}
+              {{ with .Params.status }}
+                <p><strong>Status:</strong> {{ . }}</p>
+              {{ end }}
+            </li>
+          {{ else }}
+            <li>No projects to display yet.</li>
+          {{ end }}
+        </ul>
+      {{ end }}
     </article>
   </main>
   <footer>
