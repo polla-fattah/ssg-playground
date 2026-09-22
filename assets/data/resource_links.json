@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Hugo documentation",
+    "url": "https://gohugo.io/documentation/",
+    "description": "The official reference for Hugo configuration, content, and templates.",
+    "topics": ["Hugo", "Reference"],
+    "start_here": true
+  },
+  {
+    "title": "Hugo template introduction",
+    "url": "https://gohugo.io/templates/introduction/",
+    "description": "An introduction to template expressions, functions, and context in Hugo.",
+    "topics": ["Hugo", "Templates"],
+    "start_here": false
+  },
+  {
+    "title": "Hugo page bundles",
+    "url": "https://gohugo.io/content-management/page-bundles/",
+    "description": "An explanation of grouping a page with related resources.",
+    "topics": ["Hugo", "Content organisation"],
+    "start_here": false
+  }
+]

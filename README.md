@@ -1,106 +1,116 @@
-# SSG Playground — Chapter 11: Build Reusable Hugo Layouts
+# SSG Playground — Chapter 12: Build a Resource Directory with JSON
 
-Welcome to the hands-on playground repository for **Chapter 11** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 12** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-11`) is **additive from `chapter-10`**. It refactors our single, all-in-one layout (`layouts/all.html`) into a clean, modular architecture: a shared document base template (`layouts/baseof.html`), reusable partials (`layouts/_partials/`), and a dedicated section layout (`layouts/projects/section.html`), while preserving all existing content, styling, links, and behavior.
-
----
-
-## 🎯 Chapter 11 Goals
-
-- **Modular Template Architecture**: Break down a multi-purpose layout into single-responsibility components without altering the rendered output.
-- **Base Template & Blocks**: Establish `layouts/baseof.html` with `{{ block "main" . }}{{ end }}` to define the shared HTML document frame (head, skip-link, header, navigation, main wrapper, and footer).
-- **Matching Content Definitions**: Use `{{ define "main" }} ... {{ end }}` in content templates (`all.html` and `section.html`) to inject page-specific markup into the base frame.
-- **Component Partials (`_partials/`)**: Extract reusable markup into `layouts/_partials/`:
-  - `footer.html`: Global site footer with relative link.
-  - `page-meta.html`: Conditional description, status, and tools metadata.
-  - `project-list.html`: Sorted list of project pages with titles, descriptions, and statuses.
-- **Section-Specific Layout**: Give the Projects section its own template (`layouts/projects/section.html`) that calls `project-list.html` directly, removing section conditionals from general layouts.
-- **Scope-Specific Content**: Add a brief introductory sentence only to the Projects landing page.
-- **Maintain Accurate Agent Guidance**: Update `AGENTS.md` to reflect the new template file map.
-- **Diagnose Block/Define Mismatches**: Catch and fix silent template rendering failures where `hugo build` succeeds but content fails to display.
+This branch (`chapter-12`) is **additive from `chapter-11`**. It demonstrates how to manage structured, repeatable content using **local JSON data** and Hugo's resource-processing pipeline (`resources.Get` and `transform.Unmarshal`), separating data authoring from template presentation.
 
 ---
 
-## 📁 What Changed in Chapter 11 (Additive from Chapter 10)
+## 🎯 Chapter 12 Goals
+
+- **Structured Data in JSON**: Move repeated resource records into an external JSON asset (`assets/data/resource_links.json`).
+- **The 5-Field Resource Model**: Adhere to an explicit editorial schema:
+  - `title` (String): Resource name.
+  - `url` (String): Full external HTTPS destination.
+  - `description` (String): Factual summary sentence.
+  - `topics` (Array of Strings): Topic tags.
+  - `start_here` (Boolean): Editorial starting-point flag.
+- **Hugo Asset Processing**: Fetch and parse data files at build time using `resources.Get` and `transform.Unmarshal`.
+- **Collection Delimiting**: Format arrays into readable inline text using `delimit . ", "`.
+- **Separation of Concerns**:
+  - `content/resources/index.md`: Editorial introduction and internal notebook links.
+  - `assets/data/resource_links.json`: Repeated data records.
+  - `layouts/_partials/resource-directory.html`: Rendering and HTML presentation.
+  - `layouts/resources/page.html`: Page-specific layout for Resources.
+- **Data-Driven Ordering**: Reorder, add, or edit resources directly in JSON without modifying templates.
+- **Maintain Accurate Agent Guidance**: Update `AGENTS.md` with the new file paths and data-schema working agreements.
+- **Format Recognition**: Compare Markdown, JSON, YAML, TOML, CSV, and XML to understand when each format is appropriate.
+
+---
+
+## 📁 What Changed in Chapter 12 (Additive from Chapter 11)
 
 ```text
 my-knowledge-site/
+├── assets/
+│   └── data/
+│       └── resource_links.json                # [NEW] JSON data file with 3 curated resource records
 ├── layouts/
-│   ├── baseof.html                            # [NEW] Document frame (head, nav, main block, footer partial)
-│   ├── all.html                               # [UPDATED] General fallback layout: define "main" + page-meta partial
-│   ├── projects/
-│   │   └── section.html                       # [NEW] Projects landing page layout with intro sentence & project list
+│   ├── resources/
+│   │   └── page.html                          # [NEW] Dedicated layout for content/resources/index.md
 │   └── _partials/
-│       ├── footer.html                        # [NEW] Extracted footer component
-│       ├── page-meta.html                     # [NEW] Extracted description, status, and tools metadata
-│       └── project-list.html                  # [NEW] Extracted dynamic project list
-├── AGENTS.md                                  # [UPDATED] File map updated to reflect 4-layer layout structure
-├── content/                                   # [Unchanged] Content and Markdown files
-├── static/                                    # [Unchanged] Hand-crafted CSS
-├── hugo.toml                                  # [Unchanged] Site configuration
+│       └── resource-directory.html            # [NEW] Partial to fetch, unmarshal, and render resource data
+├── content/
+│   └── resources/
+│       └── index.md                           # [UPDATED] Removed manual "Website publishing" markdown list
+├── AGENTS.md                                  # [UPDATED] Added JSON file paths and data typing agreement
+├── layouts/
+│   ├── baseof.html                            # [From Chapter 11] Shared document frame
+│   ├── all.html                               # [From Chapter 11] General content layout
+│   └── projects/section.html                  # [From Chapter 11] Projects section layout
+├── static/                                    # [From Chapter 5] CSS styling
 └── tests/
-    ├── test_chapter_01.py ... test_chapter_10.py
-    └── test_chapter_11.py                     # [NEW] Automated tests for baseof, partials, and section layout
+    ├── test_chapter_01.py ... test_chapter_11.py
+    └── test_chapter_12.py                     # [NEW] Automated tests for JSON data and rendered directory
 ```
 
 ---
 
-## 🏛️ Template Responsibilities & Hierarchy
+## 📋 The 5-Field Resource Data Model
 
-| Template Path | Responsibility | Context (`.`) Passed |
-|---|---|---|
-| `layouts/baseof.html` | Full HTML document, `<head>`, navigation, `<main>` wrapper, footer call | Current Page |
-| `layouts/all.html` | General content fallback (`{{ define "main" }}`) | Current Page |
-| `layouts/projects/section.html` | Projects section landing page with introductory sentence | Section Page |
-| `layouts/_partials/footer.html` | Site footer markup | Current Page |
-| `layouts/_partials/page-meta.html` | Optional description, status, and tools list | Current Page |
-| `layouts/_partials/project-list.html` | Sorted list of `.RegularPages` with descriptions and statuses | Section Page |
+Located at `assets/data/resource_links.json`:
+
+```json
+[
+  {
+    "title": "Hugo documentation",
+    "url": "https://gohugo.io/documentation/",
+    "description": "The official reference for Hugo configuration, content, and templates.",
+    "topics": ["Hugo", "Reference"],
+    "start_here": true
+  },
+  {
+    "title": "Hugo template introduction",
+    "url": "https://gohugo.io/templates/introduction/",
+    "description": "An introduction to template expressions, functions, and context in Hugo.",
+    "topics": ["Hugo", "Templates"],
+    "start_here": false
+  },
+  {
+    "title": "Hugo page bundles",
+    "url": "https://gohugo.io/content-management/page-bundles/",
+    "description": "An explanation of grouping a page with related resources.",
+    "topics": ["Hugo", "Content organisation"],
+    "start_here": false
+  }
+]
+```
 
 ---
 
-## 🧩 Key Code Implementations
+## 🧩 Template Implementation (`layouts/_partials/resource-directory.html`)
 
-### 1. `layouts/baseof.html`
 ```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ .Title }} | {{ .Site.Title }}</title>
-  <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header>
-    <p class="site-name">{{ .Site.Title }}</p>
-    <nav aria-label="Main navigation">
-      <a href="{{ "" | relURL }}">Home</a>
-      <a href="{{ "about/" | relURL }}">About</a>
-      <a href="{{ "articles/" | relURL }}">Articles</a>
-      <a href="{{ "projects/" | relURL }}">Projects</a>
-      <a href="{{ "resources/" | relURL }}">Resources</a>
-    </nav>
-  </header>
-  <main id="main" tabindex="-1">
-    {{ block "main" . }}{{ end }}
-  </main>
-  {{ partial "footer.html" . }}
-</body>
-</html>
-```
-
-### 2. `layouts/projects/section.html`
-```html
-{{ define "main" }}
-  <article>
-    <h1>{{ .Title }}</h1>
-    {{ partial "page-meta.html" . }}
-    {{ .Content }}
-    <p>Choose a project to see its purpose, progress, and next step.</p>
-    {{ partial "project-list.html" . }}
-  </article>
+<h2 id="website-publishing">Website publishing</h2>
+{{ with resources.Get "data/resource_links.json" }}
+  <ul>
+    {{ range . | transform.Unmarshal }}
+      <li>
+        <a href="{{ .url }}">{{ .title }}</a>
+        {{ if .start_here }}
+          <strong>Start here</strong>
+        {{ end }}
+        <p>{{ .description }}</p>
+        {{ with .topics }}
+          <p><strong>Topics:</strong> {{ delimit . ", " }}</p>
+        {{ end }}
+      </li>
+    {{ else }}
+      <li>No resources to display yet.</li>
+    {{ end }}
+  </ul>
+{{ else }}
+  {{ errorf "Missing resource directory data: assets/data/resource_links.json" }}
 {{ end }}
 ```
 
@@ -111,20 +121,19 @@ my-knowledge-site/
 Run the automated test suite across all chapters:
 
 ```bash
-# Run Chapter 11 specific tests:
-python -m unittest tests/test_chapter_11.py
+# Run Chapter 12 specific tests:
+python -m unittest tests/test_chapter_12.py
 
-# Run all tests across Chapters 1 through 11:
+# Run all tests across Chapters 1 through 12:
 python -m unittest discover tests
 ```
 
-### Test Coverage in `test_chapter_11.py`:
+### Test Coverage in `test_chapter_12.py`:
 1. `test_hugo_build_clean`: Verifies clean Hugo build with zero warnings or errors.
-2. `test_template_architecture_files_exist`: Confirms all 6 layout files exist in `layouts/`, `layouts/projects/`, and `layouts/_partials/`.
-3. `test_baseof_and_define_contract`: Verifies `block "main"` and `define "main"` contract between base and content templates.
-4. `test_projects_landing_page_intro_sentence`: Confirms the introductory sentence appears **only** on the Projects landing page.
-5. `test_rendered_pages_structural_integrity`: Ensures proper HTML5 doctype, single footer, and `#main` skip link across all generated pages.
-6. `test_agents_md_updated_file_map`: Validates that `AGENTS.md` accurately documents `baseof.html`, `all.html`, `section.html`, and `_partials/`.
+2. `test_resource_links_json_model`: Validates valid JSON syntax, 3 records, expected key types, Boolean `start_here`, and agreed ordering.
+3. `test_templates_exist`: Confirms `layouts/resources/page.html` and `layouts/_partials/resource-directory.html` exist.
+4. `test_rendered_resources_page_content`: Verifies generated HTML includes all 3 records, `#website-publishing` heading, "Start here" badge on record 1, comma-delimited topics, and preserved markdown prose.
+5. `test_agents_md_updated_with_json_spec`: Ensures `AGENTS.md` documents data file locations and type agreements.
 
 ---
 
@@ -132,6 +141,6 @@ python -m unittest discover tests
 
 Commit the completed chapter changes:
 ```bash
-git add layouts/all.html layouts/baseof.html layouts/projects/section.html layouts/_partials/ AGENTS.md tests/ README.md
-git commit -m "Organise Hugo layouts into a base, section template, and partials"
+git add assets/data/resource_links.json layouts/resources/page.html layouts/_partials/resource-directory.html content/resources/index.md AGENTS.md tests/ README.md
+git commit -m "Build the Resources directory from local JSON records"
 ```

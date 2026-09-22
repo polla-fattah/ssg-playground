@@ -71,9 +71,9 @@ class Chapter08ValidationTests(unittest.TestCase):
 
         self.assertIn("## How to use these resources", resources_source)
 
-        # Extract the section text between '## How to use these resources' and '## Website publishing'
+        # Extract the section text between '## How to use these resources' and next heading
         section_match = re.search(
-            r"## How to use these resources\s*\n(.*?)\n## Website publishing",
+            r"## How to use these resources\s*\n(.*?)\n##\s+",
             resources_source,
             re.DOTALL,
         )
@@ -98,9 +98,13 @@ class Chapter08ValidationTests(unittest.TestCase):
         self.assertIn("../projects/learning-notebook/", section_text)
 
     def test_05_preserved_existing_sections_in_resources(self):
-        """Verify original sections in content/resources/index.md were preserved."""
+        """Verify original sections in content/resources/index.md or rendered HTML were preserved."""
         resources_source = (PROJECT_ROOT / "content" / "resources" / "index.md").read_text(encoding="utf-8")
-        self.assertIn("## Website publishing", resources_source)
+        html = (self.public_dir / "resources" / "index.html").read_text(encoding="utf-8")
+        
+        # In chapter 08 it was markdown; in chapter 12+ it is rendered via JSON partial
+        has_web_pub = ("## Website publishing" in resources_source) or ("website-publishing" in html)
+        self.assertTrue(has_web_pub, "Website publishing section missing")
         self.assertIn("## Examples from this notebook", resources_source)
 
     def test_06_rendered_html_contains_new_resources_section(self):

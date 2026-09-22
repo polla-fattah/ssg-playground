@@ -1,0 +1,21 @@
+<h2 id="website-publishing">Website publishing</h2>
+{{ with resources.Get "data/resource_links.json" }}
+  <ul>
+    {{ range . | transform.Unmarshal }}
+      <li>
+        <a href="{{ .url }}">{{ .title }}</a>
+        {{ if .start_here }}
+          <strong>Start here</strong>
+        {{ end }}
+        <p>{{ .description }}</p>
+        {{ with .topics }}
+          <p><strong>Topics:</strong> {{ delimit . ", " }}</p>
+        {{ end }}
+      </li>
+    {{ else }}
+      <li>No resources to display yet.</li>
+    {{ end }}
+  </ul>
+{{ else }}
+  {{ errorf "Missing resource directory data: assets/data/resource_links.json" }}
+{{ end }}
