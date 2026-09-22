@@ -47,10 +47,15 @@ class Chapter04ValidationTests(unittest.TestCase):
         )
 
     def test_02_layout_source_footer(self):
-        """Verify layouts/all.html contains updated persistent footer structure."""
+        """Verify layout files contain updated persistent footer structure."""
         layout_path = PROJECT_ROOT / "layouts" / "all.html"
+        footer_partial = PROJECT_ROOT / "layouts" / "_partials" / "footer.html"
         self.assertTrue(layout_path.is_file(), "layouts/all.html not found.")
-        content = layout_path.read_text(encoding="utf-8")
+
+        if footer_partial.is_file():
+            content = footer_partial.read_text(encoding="utf-8")
+        else:
+            content = layout_path.read_text(encoding="utf-8")
 
         self.assertIn("<footer>", content)
         self.assertIn("<p>Learn, review &amp; share.</p>", content)

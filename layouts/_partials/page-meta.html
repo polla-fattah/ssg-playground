@@ -1,0 +1,16 @@
+{{ with .Description }}
+  <p>{{ . }}</p>
+{{ end }}
+
+{{ with .Params.status }}
+  <p><strong>Status:</strong> {{ . }}</p>
+{{ end }}
+
+{{ with .Params.tools }}
+  <p><strong>Tools:</strong></p>
+  <ul>
+    {{ range . }}
+      <li>{{ . }}</li>
+    {{ end }}
+  </ul>
+{{ end }}

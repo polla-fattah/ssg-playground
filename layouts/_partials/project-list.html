@@ -1,0 +1,16 @@
+<h2>Current work</h2>
+<ul>
+  {{ range .RegularPages.ByTitle }}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ with .Description }}
+        <p>{{ . }}</p>
+      {{ end }}
+      {{ with .Params.status }}
+        <p><strong>Status:</strong> {{ . }}</p>
+      {{ end }}
+    </li>
+  {{ else }}
+    <li>No projects to display yet.</li>
+  {{ end }}
+</ul>

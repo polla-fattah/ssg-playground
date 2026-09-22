@@ -3,5 +3,7 @@
     <h1>{{ .Title }}</h1>
     {{ partial "page-meta.html" . }}
     {{ .Content }}
+    <p>Choose a project to see its purpose, progress, and next step.</p>
+    {{ partial "project-list.html" . }}
   </article>
 {{ end }}

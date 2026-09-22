@@ -5,7 +5,10 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 ## Files
 
 - Content lives in content/.
-- The shared layout is layouts/all.html.
+- Shared HTML structure is in layouts/baseof.html.
+- General page content is in layouts/all.html.
+- The Projects landing-page template is layouts/projects/section.html.
+- Reusable components are in layouts/_partials/.
 - The stylesheet is static/css/site.css.
 - Site configuration is hugo.toml.
 - The publishing workflow is .github/workflows/hugo.yaml.
