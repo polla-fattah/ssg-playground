@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <p class="site-name">{{ .Site.Title }}</p>
+    <nav aria-label="Main navigation">
+      <a href="{{ "" | relURL }}">Home</a>
+      <a href="{{ "" | relURL }}#my-interests">My interests</a>
+      <a href="{{ "" | relURL }}#next-steps">Next steps</a>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <article>
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+    </article>
+  </main>
+  <footer>A place to learn, explain, and share.</footer>
+</body>
+</html>
