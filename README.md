@@ -105,5 +105,24 @@ This starter deliberately keeps responsibilities cleanly separated across 4 file
 
 ---
 
+## 🧪 Automated Tests
+
+You can verify that your Hugo installation, template layout, generated HTML, navigation anchors, and CSS assets all meet the Chapter 1 requirements by running the automated test suite:
+
+```bash
+python -m unittest tests/test_chapter_01.py
+```
+
+Expected output:
+```text
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.23s
+
+OK
+```
+
+---
+
 ## ⏭️ What's Next?
 In **Chapter 2**, we will add standalone articles, understand Markdown in depth, and link internal pages.

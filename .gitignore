@@ -4,3 +4,8 @@ resources/
 
 # Hugo lock file
 .hugo_build.lock
+
+# Python cache
+__pycache__/
+*.py[cod]
+
