@@ -17,6 +17,7 @@ I will use this notebook to publish my first article and organise useful resourc
 ## Latest writing
 
 - [My first learning note](articles/first-learning-note/)
+- [What I learned publishing with GitHub Pages](articles/publishing-with-github-pages/)
 
 ## Explore the notebook
 

@@ -1,146 +1,159 @@
-# SSG Playground — Chapter 12: Build a Resource Directory with JSON
+# SSG Playground — Chapter 13: Create and Maintain Content with AI Agents
 
-Welcome to the hands-on playground repository for **Chapter 12** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 13** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-12`) is **additive from `chapter-11`**. It demonstrates how to manage structured, repeatable content using **local JSON data** and Hugo's resource-processing pipeline (`resources.Get` and `transform.Unmarshal`), separating data authoring from template presentation.
-
----
-
-## 🎯 Chapter 12 Goals
-
-- **Structured Data in JSON**: Move repeated resource records into an external JSON asset (`assets/data/resource_links.json`).
-- **The 5-Field Resource Model**: Adhere to an explicit editorial schema:
-  - `title` (String): Resource name.
-  - `url` (String): Full external HTTPS destination.
-  - `description` (String): Factual summary sentence.
-  - `topics` (Array of Strings): Topic tags.
-  - `start_here` (Boolean): Editorial starting-point flag.
-- **Hugo Asset Processing**: Fetch and parse data files at build time using `resources.Get` and `transform.Unmarshal`.
-- **Collection Delimiting**: Format arrays into readable inline text using `delimit . ", "`.
-- **Separation of Concerns**:
-  - `content/resources/index.md`: Editorial introduction and internal notebook links.
-  - `assets/data/resource_links.json`: Repeated data records.
-  - `layouts/_partials/resource-directory.html`: Rendering and HTML presentation.
-  - `layouts/resources/page.html`: Page-specific layout for Resources.
-- **Data-Driven Ordering**: Reorder, add, or edit resources directly in JSON without modifying templates.
-- **Maintain Accurate Agent Guidance**: Update `AGENTS.md` with the new file paths and data-schema working agreements.
-- **Format Recognition**: Compare Markdown, JSON, YAML, TOML, CSV, and XML to understand when each format is appropriate.
+This branch (`chapter-13`) is **additive from `chapter-12`**. It demonstrates a disciplined, human-in-the-loop workflow for producing and maintaining content using AI agents. Rather than asking an agent for ungrounded generation, you supply source notes, agree on an article model, request a plan before a draft, check every claim against the source material, and coordinate updates across multiple site files.
 
 ---
 
-## 📁 What Changed in Chapter 12 (Additive from Chapter 11)
+## 🎯 Chapter 13 Goals
+
+- **Separate Delegation from Human Decisions**:
+  - *Delegate*: Ordering rough notes into prose, applying an agreed article structure, writing descriptions, formatting links and JSON records.
+  - *Keep with the author*: Deciding whether an event happened, verifying whether a claim is supported, assessing readiness, and deciding publication.
+- **Supply Source Material Safely**:
+  - Keep source notes in `sources/publishing-notes.md` (outside `content/`), ensuring Hugo never compiles or publishes raw notes.
+  - Distinguish author-recorded events, external references, and explicit gaps ("Not" lines).
+- **Enforce an Explicit Article Model**:
+  - Front matter: `title`, `description` (one sentence), `draft` (`true` until reviewed).
+  - Body headings in exact order:
+    1. `## What this is about` (2-3 sentences explaining why the article exists)
+    2. `## What happened` (sequence of events drawn strictly from sources)
+    3. `## What I would do differently` (specific changes or honest unknowns)
+    4. `## Sources` (visible Markdown links with short explanatory annotations)
+- **Record Working Agreements in `AGENTS.md`**:
+  - Direct the agent to use only named source files (no ungrounded generation or web search).
+  - Explicitly mandate reporting gaps as unknown rather than inventing estimates.
+  - Require visible Markdown attribution in the body rather than hidden front matter.
+- **Decompose into Three Reviewable Requests**:
+  1. *Plan first (read-only)*: Map proposed claims to specific lines of notes and identify gaps.
+  2. *Draft from source only*: Write the article page bundle at `draft: true` under 400 words.
+  3. *Coordinated update*: Link the new article from `content/articles/_index.md`, `content/_index.md`, and add the cited reference to `assets/data/resource_links.json`.
+- **Review for Meaning vs Technical Build Success**:
+  - Test the "designed failure": adding an unsupported claim (`"Deployments usually finish in under a minute."`) passes `hugo --minify --panicOnWarning` without error.
+  - Understand why automated checks verify only templates and syntax, while human review must verify factual accuracy against sources.
+- **Deliberate Publication**:
+  - Explicitly toggle `draft: false` only after human verification.
+  - Stage and commit the four coordinated files cleanly.
+
+---
+
+## 📁 What Changed in Chapter 13 (Additive from Chapter 12)
 
 ```text
 my-knowledge-site/
+├── sources/
+│   └── publishing-notes.md                    # [NEW] Raw working notes from Chapters 6 & 7 (outside content/)
+├── content/
+│   ├── articles/
+│   │   ├── _index.md                          # [UPDATED] Added link to publishing-with-github-pages/
+│   │   └── publishing-with-github-pages/
+│   │       └── index.md                       # [NEW] Agent-drafted article bundle adhering to the 4-part model
+│   └── _index.md                              # [UPDATED] Added new article link to Latest writing list
 ├── assets/
 │   └── data/
-│       └── resource_links.json                # [NEW] JSON data file with 3 curated resource records
-├── layouts/
-│   ├── resources/
-│   │   └── page.html                          # [NEW] Dedicated layout for content/resources/index.md
-│   └── _partials/
-│       └── resource-directory.html            # [NEW] Partial to fetch, unmarshal, and render resource data
-├── content/
-│   └── resources/
-│       └── index.md                           # [UPDATED] Removed manual "Website publishing" markdown list
-├── AGENTS.md                                  # [UPDATED] Added JSON file paths and data typing agreement
-├── layouts/
-│   ├── baseof.html                            # [From Chapter 11] Shared document frame
-│   ├── all.html                               # [From Chapter 11] General content layout
-│   └── projects/section.html                  # [From Chapter 11] Projects section layout
-├── static/                                    # [From Chapter 5] CSS styling
+│       └── resource_links.json                # [UPDATED] Added 4th record for GitHub Pages publishing documentation
+├── AGENTS.md                                  # [UPDATED] Added sources/, article paths, and sourcing agreements
+├── layouts/                                   # [From Chapter 11 & 12] Baseof, layouts, and JSON data partials
+├── static/                                    # [From Chapter 5] Site styling
 └── tests/
-    ├── test_chapter_01.py ... test_chapter_11.py
-    └── test_chapter_12.py                     # [NEW] Automated tests for JSON data and rendered directory
+    ├── test_chapter_01.py ... test_chapter_12.py
+    └── test_chapter_13.py                     # [NEW] Validation tests for sourcing, article structure, and site links
 ```
 
 ---
 
-## 📋 The 5-Field Resource Data Model
+## 📝 The Agreed Article Model
 
-Located at `assets/data/resource_links.json`:
+Located at `content/articles/publishing-with-github-pages/index.md`:
 
-```json
-[
-  {
-    "title": "Hugo documentation",
-    "url": "https://gohugo.io/documentation/",
-    "description": "The official reference for Hugo configuration, content, and templates.",
-    "topics": ["Hugo", "Reference"],
-    "start_here": true
-  },
-  {
-    "title": "Hugo template introduction",
-    "url": "https://gohugo.io/templates/introduction/",
-    "description": "An introduction to template expressions, functions, and context in Hugo.",
-    "topics": ["Hugo", "Templates"],
-    "start_here": false
-  },
-  {
-    "title": "Hugo page bundles",
-    "url": "https://gohugo.io/content-management/page-bundles/",
-    "description": "An explanation of grouping a page with related resources.",
-    "topics": ["Hugo", "Content organisation"],
-    "start_here": false
-  }
-]
+```markdown
+---
+title: "What I learned publishing with GitHub Pages"
+description: "How this notebook reached a public address, and what went wrong the first time."
+draft: false
+---
+
+## What this is about
+
+This notebook is published from its own repository rather than uploaded by
+hand. Setting that up went wrong once, in a way that was easy to misread.
+
+## What happened
+
+A Pages site has to be told where its content comes from. I chose the GitHub
+Actions route rather than publishing from a branch, so a workflow builds the
+site with Hugo and deploys the built output. The generated `public/` folder is
+never committed.
+
+The first deployment failed, because I pushed before setting the publishing
+source. Setting it and running the workflow again fixed it. The failure was
+only legible in the Actions log; the browser showed a missing page, which told
+me nothing about the cause.
+
+One configuration detail mattered more than I expected: `baseURL` has to
+include the repository path. Before I corrected it, the live site loaded
+without its stylesheet and its internal links went to the wrong place.
+
+I also learned to distrust a passing local build as evidence about the live
+site. `hugo --minify --panicOnWarning` succeeded before the push that failed
+to deploy.
+
+## What I would do differently
+
+I would set the publishing source before the first push, and read the Actions
+log before looking at the site in a browser.
+
+I have not measured how long a deployment usually takes, and I have not tried
+a custom domain, so I cannot say anything useful about either.
+
+## Sources
+
+- [GitHub: configuring a publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site): Explains how a Pages site is told where to publish from, including the GitHub Actions route used here.
 ```
 
 ---
 
-## 🧩 Template Implementation (`layouts/_partials/resource-directory.html`)
+## 🔄 Coordinated Updates
 
-```html
-<h2 id="website-publishing">Website publishing</h2>
-{{ with resources.Get "data/resource_links.json" }}
-  <ul>
-    {{ range . | transform.Unmarshal }}
-      <li>
-        <a href="{{ .url }}">{{ .title }}</a>
-        {{ if .start_here }}
-          <strong>Start here</strong>
-        {{ end }}
-        <p>{{ .description }}</p>
-        {{ with .topics }}
-          <p><strong>Topics:</strong> {{ delimit . ", " }}</p>
-        {{ end }}
-      </li>
-    {{ else }}
-      <li>No resources to display yet.</li>
-    {{ end }}
-  </ul>
-{{ else }}
-  {{ errorf "Missing resource directory data: assets/data/resource_links.json" }}
-{{ end }}
-```
+Connecting the article to the rest of the site requires updating three files:
+
+1. **`content/articles/_index.md`** (Relative link within articles section):
+   ```markdown
+   - [What I learned publishing with GitHub Pages](publishing-with-github-pages/): Setting up a publishing source, and the first deployment that failed.
+   ```
+
+2. **`content/_index.md`** (Relative link from site root):
+   ```markdown
+   - [What I learned publishing with GitHub Pages](articles/publishing-with-github-pages/)
+   ```
+
+3. **`assets/data/resource_links.json`** (Appended 4th record):
+   ```json
+   {
+     "title": "GitHub: configuring a publishing source",
+     "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+     "description": "The official explanation of how a GitHub Pages site is told where its content is published from.",
+     "topics": ["GitHub Pages", "Publishing"],
+     "start_here": false
+   }
+   ```
 
 ---
 
-## 🧪 Automated Testing
+## 🧪 Testing & Verification
 
 Run the automated test suite across all chapters:
 
 ```bash
-# Run Chapter 12 specific tests:
-python -m unittest tests/test_chapter_12.py
-
-# Run all tests across Chapters 1 through 12:
+# Run unit tests across all chapters (Chapters 01 through 13)
 python -m unittest discover tests
+
+# Build site with strict checks
+hugo --minify --panicOnWarning
+
+# Local preview server
+hugo server
 ```
 
-### Test Coverage in `test_chapter_12.py`:
-1. `test_hugo_build_clean`: Verifies clean Hugo build with zero warnings or errors.
-2. `test_resource_links_json_model`: Validates valid JSON syntax, 3 records, expected key types, Boolean `start_here`, and agreed ordering.
-3. `test_templates_exist`: Confirms `layouts/resources/page.html` and `layouts/_partials/resource-directory.html` exist.
-4. `test_rendered_resources_page_content`: Verifies generated HTML includes all 3 records, `#website-publishing` heading, "Start here" badge on record 1, comma-delimited topics, and preserved markdown prose.
-5. `test_agents_md_updated_with_json_spec`: Ensures `AGENTS.md` documents data file locations and type agreements.
-
----
-
-## 🔗 Git Checkpoint
-
-Commit the completed chapter changes:
-```bash
-git add assets/data/resource_links.json layouts/resources/page.html layouts/_partials/resource-directory.html content/resources/index.md AGENTS.md tests/ README.md
-git commit -m "Build the Resources directory from local JSON records"
-```
+All 80 test assertions should pass cleanly.

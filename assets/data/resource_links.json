@@ -19,5 +19,12 @@
     "description": "An explanation of grouping a page with related resources.",
     "topics": ["Hugo", "Content organisation"],
     "start_here": false
+  },
+  {
+    "title": "GitHub: configuring a publishing source",
+    "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+    "description": "The official explanation of how a GitHub Pages site is told where its content is published from.",
+    "topics": ["GitHub Pages", "Publishing"],
+    "start_here": false
   }
 ]
