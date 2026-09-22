@@ -1,138 +1,142 @@
-# SSG Playground — Chapter 03: Organise a Useful Website
+# SSG Playground — Chapter 04: Understand the HTML Behind Your Pages
 
-Welcome to the hands-on playground repository for **Chapter 3** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 4** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-03`) is **additive from `chapter-02`**. It expands your two-page starter into a complete, navigable knowledge notebook with **Information Architecture**, **section landing pages**, and **shared site navigation**.
-
----
-
-## 🎯 Chapter 3 Goal
-
-Transform your website from isolated pages into a coherent, navigable system:
-- Add a standalone **About** page
-- Provide structured section landing pages for **Articles** and **Projects**
-- Add a project description page and a curated **Resources** page
-- Implement site-wide navigation in `layouts/all.html` that works across all pages
-- Link to major sections directly from the home page under `## Explore the notebook`
-- Understand how folder names dictate URLs, and practice recovering from a broken route
+This branch (`chapter-04`) is **additive from `chapter-03`**. It focuses on demystifying the actual HTML output that Hugo produces and the browser consumes, introducing structured HTML elements, semantic landmarks, accessibility skip links, and DOM inspection.
 
 ---
 
-## 🗺️ Complete Website Structure Map
+## 🎯 Chapter 4 Goal
 
-| Source File | Published Preview URL | Role & Page Type |
+Understand the underlying HTML structure of your website:
+- Inspect rendered pages using browser developer tools (`F12` or right-click **Inspect**).
+- Understand the 4 stages of content: **Content Source** (Markdown) ➔ **Layout Source** (Hugo Go template) ➔ **Generated Static HTML** (Build output/preview response) ➔ **Live DOM** (Browser parsed document).
+- Make a persistent, structured HTML change to the shared footer in `layouts/all.html`.
+- Learn HTML semantics: `<header>`, `<nav>`, `<main>`, `<article>`, `<footer>`.
+- Master element attributes: `href`, `src`, `alt`, `id`, `class`, `aria-label`, and `tabindex`.
+- Test accessibility features like skip links and diagnose missing fragment targets (`#main` vs `#missing-main`).
+- Critically evaluate markup proposed by AI agents.
+
+---
+
+## 📁 What Changed in Chapter 4 (Additive from Chapter 3)
+
+```text
+my-knowledge-site/
+├── hugo.toml
+├── layouts/
+│   └── all.html                   # [UPDATED] Replaced plain footer with structured <p> elements,
+│                                  #           added class="footer-note" and {{ "about/" | relURL }} link
+├── static/css/site.css
+└── content/                       # Retains all 7 pages from Chapter 3
+    ├── _index.md                  # Home page
+    ├── about/
+    │   └── index.md               # About page
+    ├── articles/
+    │   ├── _index.md              # Articles section landing page
+    │   └── first-learning-note/   # First article with screenshot
+    │       ├── index.md
+    │       └── notebook-preview.png
+    ├── projects/
+    │   ├── _index.md              # Projects section landing page
+    │   └── learning-notebook/
+    │       └── index.md           # Project description
+    └── resources/
+        └── index.md               # Curated resources page
+```
+
+### The Updated Footer in `layouts/all.html`:
+```html
+<footer>
+  <p>Learn, review &amp; share.</p>
+  <p class="footer-note">
+    Read <a href="{{ "about/" | relURL }}">about this notebook</a>.
+  </p>
+</footer>
+```
+
+- **Nesting**: The link `<a href="...">` is nested inside `<p class="footer-note">`, which is nested inside `<footer>`.
+- **Character Entity**: `&amp;` renders as a literal `&` in the browser.
+- **Styling Target**: The class `footer-note` provides a targeted hook for CSS styling in Chapter 5.
+- **Dynamic URL**: `{{ "about/" | relURL }}` guarantees the About link resolves correctly whether hosted at the domain root (`/about/`) or a subdirectory.
+
+---
+
+## 🛠️ Key HTML & Architecture Concepts
+
+### 1. The Four Forms of a Page
+| Stage | Where it Lives | Example |
 | :--- | :--- | :--- |
-| `content/_index.md` | `/` | **Home page** (Branch bundle) |
-| `content/about/index.md` | `/about/` | **About page** (Standalone leaf page) |
-| `content/articles/_index.md` | `/articles/` | **Articles landing page** (Section branch) |
-| `content/articles/first-learning-note/index.md` | `/articles/first-learning-note/` | **Article** (Leaf page bundle with image) |
-| `content/projects/_index.md` | `/projects/` | **Projects landing page** (Section branch) |
-| `content/projects/learning-notebook/index.md` | `/projects/learning-notebook/` | **Project page** (Leaf page bundle) |
-| `content/resources/index.md` | `/resources/` | **Resources page** (Standalone leaf page) |
+| **Content Source** | `content/articles/first-learning-note/index.md` | Front matter `title` + Markdown body |
+| **Layout Source** | `layouts/all.html` | `<h1>{{ .Title }}</h1>` + `{{ .Content }}` |
+| **Generated HTML** | HTTP response from `hugo server` or `public/.../index.html` | Static HTML text delivered to the browser |
+| **Live DOM** | Browser Elements / Inspector panel | Parsed Document Object Model in browser RAM |
 
-### `_index.md` vs `index.md` Rule:
-- **`_index.md` (with underscore)**: Represents a **branch / section bundle** that groups child pages (Home, Articles section, Projects section).
-- **`index.md` (without underscore)**: Represents a **leaf page bundle** (About, single article, single project, Resources).
+> **Key Rule**: Editing the DOM inside browser DevTools is temporary. Persistent changes must always be committed to the content Markdown or layout template source files!
+
+### 2. Semantic Elements vs Plain Divs
+- `<header>`: Site branding and global navigation.
+- `<nav aria-label="Main navigation">`: Navigation links with accessibility labeling.
+- `<main id="main" tabindex="-1">`: Primary page content targetable by skip links.
+- `<article>`: Self-contained composition (articles, notes).
+- `<footer>`: Metadata, copyright, secondary links.
+
+### 3. Attributes Demystified
+- **`id`**: Unique identifier on a single page (e.g., `id="main"`). Used as a target for fragment links (`href="#main"`).
+- **`class`**: Reusable label shared across multiple elements (e.g., `class="footer-note"`). Used as styling hooks in CSS.
+- **`src` & `alt`**: `src` points to the media file; `alt` provides equivalent text for screen readers or when images fail to load. (Purely decorative images use `alt=""`).
+- **`tabindex="-1"`**: Allows programmatic focus (e.g., when clicking the skip link) without adding the element to the sequential <kbd>Tab</kbd> cycle.
 
 ---
 
-## 🚀 How to Run the Website Locally
+## 🚀 Running the Preview Server
 
-Start the standard preview server:
+Start the local development server:
 
 ```bash
 hugo server
 ```
 
-Open:
+Open your browser at:
 ```text
 http://localhost:1313/
 ```
 
-Navigate through the top menu: **Home**, **About**, **Articles**, **Projects**, and **Resources**.
+### Guided Developer Tools Exercises:
+1. **Open DevTools**: Press <kbd>F12</kbd> (or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> / <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd>).
+2. **Temporary DOM Edit**:
+   - Double-click the `<h1>` in the Elements panel and change its text to `"A temporary browser edit"`.
+   - Hit <kbd>Enter</kbd> to see it change live.
+   - Refresh the page (<kbd>F5</kbd>): the original source title reappears!
+3. **Trace the Skip Link**:
+   - Focus the browser URL bar, press <kbd>Tab</kbd> to reveal the hidden **Skip to content** link, and press <kbd>Enter</kbd>.
+   - Notice the URL changes to `#main` and focus jumps directly to `<main id="main">`.
 
 ---
 
-## 📁 What Changed in Chapter 3 (Additive from Chapter 2)
+## 🧪 Automated Testing
 
-```text
-my-knowledge-site/
-├── hugo.toml                                         # Site settings
-├── layouts/
-│   └── all.html                                      # [UPDATED] Replaced <nav> with 5 site-wide links
-├── static/css/site.css                               # Styling
-└── content/
-    ├── _index.md                                     # [UPDATED] Added "Explore the notebook" section
-    ├── about/
-    │   └── index.md                                  # [NEW] About page
-    ├── articles/
-    │   ├── _index.md                                 # [NEW] Section landing page with manual list
-    │   └── first-learning-note/                      # From Chapter 2
-    │       ├── index.md
-    │       └── notebook-preview.png
-    ├── projects/
-    │   ├── _index.md                                 # [NEW] Projects landing page with manual list
-    │   └── learning-notebook/
-    │       └── index.md                              # [NEW] Project description page
-    └── resources/
-        └── index.md                                  # [NEW] Curated resources list
-```
-
----
-
-## ✍️ Guided Exercises for Chapter 3
-
-### 1. The Power of Shared Layouts
-- Notice `layouts/all.html`: By updating only the `<nav>` element, every single page on the site now displays the same navigation row.
-
-### 2. Relative Link Calculations
-- From `/about/`: `../articles/first-learning-note/` goes up to root, then down to the article.
-- From `/projects/learning-notebook/`: `../../articles/first-learning-note/` goes up 2 levels (`../` to projects, `../../` to root), then down to articles.
-- From `/projects/learning-notebook/`: `[Back to Projects](../)` steps up one level.
-
-### 3. Break and Repair a Route
-1. Rename folder `content/projects/learning-notebook` to `learning-notebook-test`.
-2. Notice that the page now lives at `/projects/learning-notebook-test/`, but the links on `/projects/` still point to `/projects/learning-notebook/` (yielding 404).
-3. Hard-refresh your browser (`Ctrl + Shift + R` or `Cmd + Shift + R`) to avoid browser cache.
-4. Rename the folder back to `learning-notebook` to restore the working route.
-
----
-
-## 🧪 Automated Tests
-
-Run the Chapter 3 automated tests:
+Automated tests for Chapters 1, 2, 3, and 4 are located in the `tests/` directory:
 
 ```bash
-python -m unittest tests/test_chapter_03.py
-```
-
-Run the full suite across all three chapters (19 assertions):
-
-```bash
+# Run all chapter tests
 python -m unittest discover tests
+
+# Or run Chapter 4 tests specifically
+python tests/test_chapter_04.py
 ```
 
-Expected output:
-```text
-...................
-----------------------------------------------------------------------
-Ran 19 tests in 0.55s
-
-OK
-```
+### What `test_chapter_04.py` Verifies:
+1. **Build Success**: Validates that Hugo compiles all templates with zero errors.
+2. **Persistent Footer in Layout**: Ensures `layouts/all.html` contains the structured footer, About link, and `footer-note` class.
+3. **Site-Wide Footer Presence**: Verifies every generated HTML file contains the new footer markup and character entity `&amp;`.
+4. **Skip Link & Target Integrity**: Confirms `<a class="skip-link" href="#main">` matches `<main id="main" tabindex="-1">` across all pages.
+5. **Single `<h1>` Outline**: Checks that every page has exactly one `<h1>` element, ensuring a clean semantic document outline.
+6. **Semantic Landmarks**: Validates presence of `<header>`, `<nav>`, `<main>`, `<article>`, and `<footer>` on every page.
+7. **Void Elements & Image Attributes**: Verifies `<img>` has valid `src` and non-empty `alt`, and ensures no invalid closing tags (e.g., `</img>` or `</meta>`).
 
 ---
 
-## 🛠️ Common Troubleshooting
+## ⏩ Next Step: Chapter 5
 
-| Issue | Cause & Fix |
-| :--- | :--- |
-| **Only navigation appears, rest of page is gone** | You accidentally replaced the entire `layouts/all.html` instead of just replacing the `<nav>...</nav>` block. |
-| **Articles page has title but no links** | Make sure you saved the Markdown list body in `content/articles/_index.md`. |
-| **Browser shows old page after rename** | Browser cached the response. Use `Ctrl + Shift + R` (hard refresh) or restart Hugo. |
-| **Section returns 404** | Verify the section file is named `_index.md` with an underscore, not `index.md`. |
-
----
-
-## ⏭️ What's Next?
-In **Chapter 4**, we will open Developer Tools and inspect the actual **HTML structure** behind these pages, connecting your Markdown source directly to browser elements.
+In **Chapter 5: Practical CSS for Your Hugo Site**, you will use CSS to style your semantic HTML, target the `footer-note` class, design responsive layouts, and create clean typographic hierarchies.
