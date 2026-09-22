@@ -1,11 +1,14 @@
-# Hugo output directories
-public/
-resources/
+# Hugo output and generated files
+/public/
+/resources/
+/.hugo_build.lock
+/hugo_stats.json
 
-# Hugo lock file
-.hugo_build.lock
+# Local operating-system metadata
+.DS_Store
+Thumbs.db
 
-# Python cache
+# Python test cache
 __pycache__/
 *.py[cod]
 

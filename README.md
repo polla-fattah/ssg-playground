@@ -1,173 +1,130 @@
-# SSG Playground — Chapter 05: Practical CSS for Your Hugo Site
+# SSG Playground — Chapter 06: Track and Recover Your Hugo Site with Git
 
-Welcome to the hands-on playground repository for **Chapter 5** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 6** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-05`) is **additive from `chapter-04`**. It focuses on practical, maintainable CSS styling for your Hugo website—connecting HTML semantic markup to visual presentation, adjusting typography and spacing, understanding the box model, and recognizing responsive design patterns.
-
----
-
-## 🎯 Chapter 5 Goal
-
-Gain practical CSS literacy to style your site and evaluate code suggested by AI agents:
-- Understand where CSS belongs in Hugo: `static/css/site.css` copied directly to `public/css/site.css` (served at `/css/site.css`).
-- Style the footer note created in Chapter 4 using the `.footer-note` class selector.
-- Improve typography readability by setting `font-size: 1.125rem` on the `body`.
-- Create clear vertical visual rhythm by increasing `margin-top: 2.5rem` on `h2` headings.
-- Understand the **Box Model** (Margin, Border, Padding, Content) and `box-sizing: border-box`.
-- Recognize built-in responsive rules (Flexbox navigation wrapping, max-width constraints, fluid images).
-- Diagnose selector mistakes using browser developer tools.
-- Preserve accessibility essentials: the `:focus-visible` outline and skip-link styles.
+This branch (`chapter-06`) is **additive from `chapter-05`**. It transitions your publishing project from manual sibling backup folders into professional version control using **Git**, tracking source files, staging changes deliberately, writing clear commit messages, and practicing safe recovery techniques.
 
 ---
 
-## 📁 What Changed in Chapter 5 (Additive from Chapter 4)
+## 🎯 Chapter 6 Goal
 
-In this chapter, **only one file is modified**: `static/css/site.css`.
+Master the fundamental local Git workflow:
+- Understand the 3 Git areas: **Working Tree** ➔ **Staging Area** ➔ **Commit History**.
+- Configure `.gitignore` so Hugo build artifacts (`public/`, `resources/`, `.hugo_build.lock`) and operating system files (`.DS_Store`, `Thumbs.db`) stay out of history.
+- Stage and record a useful content addition: **My publishing checklist** in `content/articles/first-learning-note/index.md`.
+- Make an independent content refinement to `content/about/index.md`.
+- Master the difference between:
+  - `git restore --staged -- <file>` (removes from next commit, preserves working edits).
+  - `git restore -- <file>` (discards working tree edits, restores clean state).
+- Read commit logs using `git log --oneline -5` and compare commits with `git diff HEAD~1 HEAD`.
+
+---
+
+## 📁 What Changed in Chapter 6 (Additive from Chapter 5)
 
 ```text
 my-knowledge-site/
+├── .gitignore                                         # [UPDATED] Exclude /public/, /resources/, .lock, OS files
 ├── hugo.toml
 ├── layouts/
-│   └── all.html                   # Unchanged (from Chapter 4)
-├── content/                       # Unchanged (all 7 pages from Chapter 3 & 4)
-└── static/
-    └── css/
-        └── site.css               # [UPDATED] 3 targeted styling additions:
-                                   #   1. body { font-size: 1.125rem; }
-                                   #   2. h2 { margin-top: 2.5rem; }
-                                   #   3. .footer-note { ... }
+│   └── all.html
+├── static/css/site.css
+└── content/
+    ├── _index.md
+    ├── about/
+    │   └── index.md                                  # [UPDATED] Refined introductory summary (Sec 6.7)
+    ├── articles/
+    │   ├── _index.md
+    │   └── first-learning-note/
+    │       ├── index.md                              # [UPDATED] Added "My publishing checklist" (Sec 6.4)
+    │       └── notebook-preview.png
+    ├── projects/
+    └── resources/
 ```
 
-### The Three CSS Updates:
+### 1. Publishing Checklist Added (`content/articles/first-learning-note/index.md`)
+```markdown
+## My publishing checklist
 
-#### 1. Body Font Sizing (`static/css/site.css`)
-```css
-body {
-  margin: 0;
-  background: #f5f3ed;
-  color: #263238;
-  font-family: system-ui, sans-serif;
-  font-size: 1.125rem; /* ~18px for comfortable reading */
-  line-height: 1.7;
-}
+- Read the page in the local preview.
+- Check its links and image description.
+- Review the changed files before recording a checkpoint.
 ```
 
-#### 2. Heading Separation (`static/css/site.css`)
-```css
-h2 {
-  margin-top: 2.5rem; /* Clearer visual separation between sections */
-  line-height: 1.3;
-}
+### 2. Refined Description (`content/about/index.md`)
+```markdown
+This notebook collects things I am learning and projects I am developing. It is a structured record of practical work with static site generators and web publishing.
 ```
 
-#### 3. Targeted Footer Note Styling (`static/css/site.css`)
-```css
-.footer-note {
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #c5ccce;
-  color: #46545b;
-}
+### 3. Comprehensive `.gitignore` Rules
+```gitignore
+# Hugo output and generated files
+/public/
+/resources/
+/.hugo_build.lock
+/hugo_stats.json
+
+# Local operating-system metadata
+.DS_Store
+Thumbs.db
 ```
 
 ---
 
-## 🎨 Core CSS Concepts for Hugo Authors
+## 🧭 The Three Places an Edit Can Be
 
-### 1. Where CSS Lives in Hugo
-| File Path | Role | Public URL |
+| Place | Meaning | Key Command |
 | :--- | :--- | :--- |
-| `static/css/site.css` | **Source stylesheet** you edit | `http://localhost:1313/css/site.css` |
-| `public/css/site.css` | **Generated copy** copied at build | *(Never edit this directly!)* |
+| **Working Tree** | The project files on your disk | Saved in editor |
+| **Staging Area** | Prepared contents for the upcoming commit | `git add <file>` |
+| **Commit History** | Recorded checkpoints in `.git` repository | `git commit -m "..."` |
 
-Hugo serves everything inside `static/` from the root of the site. In `layouts/all.html`, the stylesheet is referenced via:
-```html
-<link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
-```
-
-### 2. The Box Model in Action
-- **Margin**: Space *outside* the element's border (`margin-top: 0.75rem`).
-- **Border**: Line *around* the element (`border-top: 1px solid #c5ccce`).
-- **Padding**: Space *between* the content and border (`padding-top: 0.75rem`).
-- **`box-sizing: border-box`**: Ensures padding and borders are included within any declared widths.
-
-### 3. Responsive Features Already Built-In
-- **Container Constraint**:
-  ```css
-  header, main, footer {
-    width: min(100% - 2rem, 48rem);
-    margin-inline: auto;
-  }
-  ```
-  Prevents uncomfortably long lines on wide desktop monitors while leaving breathing room on mobile screens.
-- **Flexbox Navigation**:
-  ```css
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  ```
-  Items wrap smoothly onto a new line if the browser window narrows.
-- **Responsive Images**:
-  ```css
-  article img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-  ```
-  Ensures images never overflow the reading container.
+### Key Diffs Comparison:
+- `git diff -- <file>`: Compares your **Working Tree** with the **Staging Area** (what has been edited but not yet staged).
+- `git diff --cached -- <file>`: Compares the **Staging Area** with the **Last Commit** (what is about to be recorded).
 
 ---
 
-## 🚀 How to Run and Test
+## 🛠️ Safe Recovery Exercises
 
-Start the preview server:
+### 1. Unstage Without Losing Work
+If you staged a file prematurely and want to review or edit further:
 ```bash
-hugo server
+git restore --staged -- content/articles/first-learning-note/index.md
 ```
+*Result*: The file remains modified in your editor; it is merely removed from the staging index.
 
-Open:
-```text
-http://localhost:1313/
+### 2. Discard an Unstaged Mistake
+If you made a bad edit (e.g. testing `font-size: 6rem;` in `site.css`) and haven't staged it:
+```bash
+git restore -- static/css/site.css
 ```
-
-### Guided Exercises:
-1. **Inspect the Footer**:
-   - Right-click the footer note and select **Inspect**.
-   - Notice the **Box Model** diagram in DevTools showing the `margin-top` outside the border and `padding-top` inside.
-2. **Test Responsive Layout**:
-   - Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> (<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> on macOS) to toggle Device Emulation.
-   - Resize to mobile width (360px) and verify navigation wraps cleanly without horizontal overflow.
-3. **Keyboard Focus Check**:
-   - Press <kbd>Tab</kbd> repeatedly. Ensure the link outline defined in `a:focus-visible` is clearly visible.
+*Result*: The working file is completely restored to the last clean recorded state.
 
 ---
 
 ## 🧪 Automated Testing
 
-Automated tests for Chapters 1 through 5 are in the `tests/` directory:
+Automated tests for Chapters 1 through 6 are in the `tests/` directory:
 
 ```bash
 # Run all chapter tests
 python -m unittest discover tests
 
-# Or run Chapter 5 tests specifically
-python tests/test_chapter_05.py
+# Or run Chapter 6 tests specifically
+python tests/test_chapter_06.py
 ```
 
-### What `test_chapter_05.py` Verifies:
-1. **Build Success**: Hugo compiles the site cleanly.
-2. **Static Asset Pipeline**: Verifies `static/css/site.css` is faithfully published to `public/css/site.css`.
-3. **Typography Rule**: Validates `body` contains `font-size: 1.125rem` and `line-height: 1.7`.
-4. **Heading Spacing**: Checks `h2` has `margin-top: 2.5rem`.
-5. **Class Selector Rule**: Verifies `.footer-note` styling declarations exist.
-6. **Responsive & Accessibility Preservation**: Ensures `min(100% - 2rem, 48rem)`, `flex-wrap: wrap`, `:focus-visible`, and image constraints remain intact.
-7. **HTML Linking**: Ensures all 7 pages link to `css/site.css`.
+### What `test_chapter_06.py` Verifies:
+1. **Hugo Build**: Validates compilation with exit code 0.
+2. **Publishing Checklist in Source**: Confirms `## My publishing checklist` and all 3 checklist items exist in `first-learning-note/index.md`.
+3. **Publishing Checklist in Output**: Confirms the generated HTML renders the checklist heading and list items.
+4. **Git Ignore Integrity**: Confirms `.gitignore` properly ignores `/public/`, `/resources/`, lock files, and OS thumbnails.
+5. **About Page Refinement**: Checks that the About page contains the independent improvement.
+6. **Git Branch & Repository Status**: Verifies the repository status on branch `chapter-06`.
 
 ---
 
-## ⏩ Next Step: Chapter 6
+## ⏩ Next Step: Chapter 7
 
-In **Chapter 6: Track and Recover Your Hugo Site with Git**, you will move beyond manual folder backups and use Git version control to stage, commit, branch, and inspect history professionally.
+In **Chapter 7: Publish Your Hugo Site with GitHub Pages**, you will connect your local Git repository to GitHub and set up an automated CI/CD GitHub Actions workflow to publish your site live on the web!

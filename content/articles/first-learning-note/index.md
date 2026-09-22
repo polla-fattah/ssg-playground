@@ -41,6 +41,12 @@ I can consult the [Hugo documentation](https://gohugo.io/documentation/) when I 
 
 *My home page after editing the introduction. Screenshot by the author.*
 
+## My publishing checklist
+
+- Read the page in the local preview.
+- Check its links and image description.
+- Review the changed files before recording a checkpoint.
+
 ## My next step
 
 I will write another short note about something I can explain clearly.
