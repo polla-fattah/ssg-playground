@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 8 Goal
+##  Chapter 8 Goal
 
 Establish a disciplined, repeatable human-in-the-loop agent workflow:
 - Configure persistent project guidance and safety guardrails in `AGENTS.md`.
@@ -22,7 +22,7 @@ Establish a disciplined, repeatable human-in-the-loop agent workflow:
 
 ---
 
-## 📁 What Changed in Chapter 8 (Additive from Chapter 7)
+##  What Changed in Chapter 8 (Additive from Chapter 7)
 
 ```text
 my-knowledge-site/
@@ -42,7 +42,7 @@ my-knowledge-site/
 
 ---
 
-## 📜 The `AGENTS.md` Specification
+##  The `AGENTS.md` Specification
 
 `AGENTS.md` is an open standard file located at the repository root that AI agents read at the beginning of each session:
 
@@ -74,7 +74,7 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 
 ---
 
-## ✍️ Content Update: `content/resources/index.md`
+##  Content Update: `content/resources/index.md`
 
 The agent successfully authored the following bounded section (under 70 words, exactly 3 bullets, reusing existing destinations):
 
@@ -88,7 +88,7 @@ The agent successfully authored the following bounded section (under 70 words, e
 
 ---
 
-## 🔍 The 6-Step Agent Review Method
+##  The 6-Step Agent Review Method
 
 1. **Clean Baseline**: Ensure `git status` is clean before invoking an agent.
 2. **Context & Boundaries**: Point the agent to `AGENTS.md` and define the exact target file.
@@ -99,7 +99,7 @@ The agent successfully authored the following bounded section (under 70 words, e
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Automated tests for Chapters 1 through 8 are in the `tests/` directory:
 
@@ -125,6 +125,6 @@ python tests/test_chapter_08.py
 
 ---
 
-## ⏩ Next Step: Chapter 9
+##  Next Step: Chapter 9
 
 In **Chapter 9: Give Your Hugo Content a Consistent Structure**, you will learn how to standardize your content using Archetypes, structured Front Matter, and Hugo content taxonomies!
