@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 1** of *Static Site 
 
 This branch (`chapter-01`) contains the minimal, working starter project for **My Knowledge Notebook**.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 1 Goal
