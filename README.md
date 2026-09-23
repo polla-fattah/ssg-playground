@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 17** of *Static Site
 
 This branch (`chapter-17`) is **additive from `chapter-16`**. It addresses interactivity on a static site by building an accessible contact form, demonstrating why native form submission fails without a server backend, and implementing a client-side mailto handoff that protects visitor privacy by sending zero data to external servers.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 17 Goals
