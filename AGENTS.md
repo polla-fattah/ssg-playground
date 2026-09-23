@@ -26,6 +26,7 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 - The stylesheet is static/css/site.css.
 - Site configuration is hugo.toml.
 - The publishing workflow is .github/workflows/hugo.yaml.
+- The maintenance routine is in MAINTENANCE.md.
 
 ## Working agreements
 
@@ -45,4 +46,5 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 - When asked to check a change, run hugo --minify --panicOnWarning and report the result accurately.
 - If a check cannot run, explain what prevented it and what remains unchecked.
 - The contact form prepares a message in the visitor's own mail client and sends nothing to any server. Do not replace it with a form service, an analytics script, or any request to a third party without being asked.
+- Archiving a page means changing its status and saying so in the body. It does not mean setting draft: true, which withdraws a published address.
 - Leave staging, committing, pushing, and deployment to the reader unless explicitly delegated.

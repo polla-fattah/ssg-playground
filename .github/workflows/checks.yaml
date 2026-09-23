@@ -68,3 +68,15 @@ jobs:
             fi
           done
           exit "$status"
+
+      - name: Check that both workflows pin the same Hugo version
+        shell: bash
+        run: |
+          deploy=$(grep 'HUGO_VERSION:' .github/workflows/hugo.yaml | tr -d ' "' | cut -d: -f2)
+          checks=$(grep 'HUGO_VERSION:' .github/workflows/checks.yaml | tr -d ' "' | cut -d: -f2)
+          echo "deploy=$deploy checks=$checks"
+          if [ "$deploy" != "$checks" ]; then
+            echo "The two workflows pin different Hugo versions."
+            exit 1
+          fi
+

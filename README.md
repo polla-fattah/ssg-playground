@@ -1,61 +1,56 @@
-# SSG Playground — Chapter 17: Add Interactive Features Responsibly
+# SSG Playground — Chapter 18: Maintain, Migrate, and Recover
 
-Welcome to the hands-on playground repository for **Chapter 17** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 18** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-17`) is **additive from `chapter-16`**. It addresses interactivity on a static site by building an accessible contact form, demonstrating why native form submission fails without a server backend, and implementing a client-side mailto handoff that protects visitor privacy by sending zero data to external servers.
-
----
-
-## 🎯 Chapter 17 Goals
-
-- **Map Where Work Happens**:
-  - Understand the three execution environments for web features:
-    1. **Build time** (Hugo generating static files, cost-free, reliable, secure)
-    2. **Visitor's browser** (JavaScript running locally on the page)
-    3. **Someone else's server** (backend functions or third-party APIs with privacy and maintenance costs)
-- **Accessible Form Markup**:
-  - Build `layouts/contact/page.html` with explicit `<label for="...">` associations matching input `id` attributes.
-  - Use semantic input controls (`type="text"`, `<textarea rows="6">`, `required`, `autocomplete="name"`).
-  - Use `novalidate` to manage validation messaging cleanly in custom script while retaining standard keyboard navigation and accessibility semantics.
-  - Include live feedback container with `role="status"` (`#contact-status`).
-- **Demonstrate Static Site Limitations**:
-  - Experience the "designed failure": submitting a standard `<form>` without an action re-serves the same static file, loses entered text, and can leak sensitive input into URL query parameters in browser history.
-- **Client-Side Validation & `mailto:` Handoff**:
-  - Implement `static/js/contact.js` using `event.preventDefault()`.
-  - Validate that required fields are not empty or solely whitespace using `.trim()`.
-  - Safely encode subject and body with `encodeURIComponent` to protect special characters (`&`, `?`, `#`, newlines).
-  - Pass the recipient address directly through `data-address` from page front matter (`contact_address: "you@example.org"`).
-  - Trigger the visitor's configured mail client via `window.location.href = href`.
-- **Honest Communication & Fallbacks**:
-  - State clearly in `content/contact/index.md` that nothing is sent anywhere until the visitor sends the email themselves.
-  - Provide a readable, plain-text email address (`you@example.org`) on the page as an alternative for visitors without a registered desktop mail handler.
-  - Explain why static sites cannot keep secrets (API keys) and must use build-time fetching or self-hosted proxy functions instead.
-- **Navigation & Multilingual Integration**:
-  - Extend the footer note in `layouts/_partials/footer.html` with `or <a href="{{ "contact/" | relLangURL }}">send a message</a>.`
-  - Conditionally handle the Kurdish footer link so it does not point to a non-existent page until translated.
-  - Document the template, script, and privacy working agreement in `AGENTS.md`.
+This branch (`chapter-18`) is **additive from `chapter-17`**. It addresses long-term site health, ongoing maintenance routines, automated dependency synchronization across GitHub workflows, graceful content retirement without URL breakage, and disciplined incident recovery using Git history.
 
 ---
 
-## 📁 What Changed in Chapter 17 (Additive from Chapter 16)
+## 🎯 Chapter 18 Goals
+
+- **Run a Repeatable Maintenance Pass**:
+  - Periodically audit:
+    1. Statements about project progress and stale claims.
+    2. Translation currency using `source_checked` front matter dates.
+    3. Live URL resolution across all published pages.
+    4. Alignment of Hugo versions across CI/CD workflows and local machines.
+    5. Accuracy of `AGENTS.md` and repository guidelines.
+- **Workflow Dependency Synchronization**:
+  - Keep `HUGO_VERSION` identical across:
+    - `.github/workflows/hugo.yaml`
+    - `.github/workflows/checks.yaml`
+  - Add a 5th automated check to `.github/workflows/checks.yaml` verifying that both workflows pin the exact same Hugo version, preventing drift where PR checks test a different version than the publishing workflow deploys.
+- **Retire Content Without Breaking Addresses**:
+  - Understand why deleting published pages or setting `draft: true` creates silent 404 damage for readers.
+  - Archive superseded pages gracefully:
+    - Set `params.status: "archived"`.
+    - Keep `draft: false`.
+    - Add an explicit banner notice in the page body explaining where the work moved.
+  - Test and verify Hugo's `aliases` mechanism for permanent URL redirects.
+- **Incident Recovery with `git revert`**:
+  - Learn why `git reset --hard` and forced pushes are dangerous on published repositories.
+  - Use `git revert` (or `git revert -m 1` on merge commits) to create forward-moving commits that undo mistakes while preserving a truthful audit trail.
+- **Backups, Credentials, and Platform Ownership**:
+  - Differentiate between a collaborative remote (`origin`) and an independent backup (`git clone --mirror`).
+  - Never commit secrets or API tokens to Git. If committed, revoke immediately at the service.
+  - Document routines, decisions, and agreements in `MAINTENANCE.md`.
+
+---
+
+## 📁 What Changed in Chapter 18 (Additive from Chapter 17)
 
 ```text
 my-knowledge-site/
+├── .github/
+│   └── workflows/
+│       └── checks.yaml                        # [UPDATED] Added check 5: Hugo version parity across workflows
 ├── content/
-│   └── contact/
-│       └── index.md                           # [NEW] Contact page content with front matter address & plain text alternative
-├── layouts/
-│   ├── contact/
-│   │   └── page.html                          # [NEW] Accessible form layout template with data-address attribute
-│   └── _partials/
-│       └── footer.html                        # [UPDATED] Extended footer note with language-aware Contact link
-├── static/
-│   ├── js/
-│   │   └── contact.js                         # [NEW] Client-side validation & mailto handoff script
-│   └── css/
-│       └── site.css                           # [UPDATED] Added contact-form styles and font-family: inherit
-├── AGENTS.md                                  # [UPDATED] Documented Contact template, script, and zero-server agreement
-└── README.md                                  # [UPDATED] Comprehensive guide for Chapter 17
+│   └── projects/
+│       └── reading-list/
+│           └── index.md                       # [UPDATED] Archived status and notice pointing to Resources page
+├── AGENTS.md                                  # [UPDATED] Added MAINTENANCE.md reference & archiving working agreement
+├── MAINTENANCE.md                             # [NEW] Recurring maintenance routine & persistent project decisions
+└── README.md                                  # [UPDATED] Chapter 18 guide and testing instructions
 ```
 
 ---
@@ -67,8 +62,9 @@ my-knowledge-site/
 # Preview the site locally
 hugo server
 
-# Open the Contact page at:
-# http://localhost:1313/my-knowledge-site/contact/
+# Verify archived project display:
+# http://localhost:1313/my-knowledge-site/projects/
+# http://localhost:1313/my-knowledge-site/projects/reading-list/
 ```
 
 ### 2. Verify Output and Build Strictness
@@ -80,10 +76,10 @@ hugo --minify --panicOnWarning
 ### 3. Run Automated Validation Tests
 Run all chapter test suites to ensure both additive features and backward compatibility pass:
 ```bash
-# Run Chapter 17 validation suite
-python -m unittest tests/test_chapter_17.py -v
+# Run Chapter 18 validation suite
+python -m unittest tests/test_chapter_18.py -v
 
-# Run the complete test suite (Chapters 01 - 17)
+# Run the complete test suite (Chapters 01 - 18)
 python -m unittest discover tests -v
 ```
 
@@ -91,14 +87,15 @@ python -m unittest discover tests -v
 
 ## 🔍 Key Architectural Lessons
 
-### 1. The Three Places Work Can Happen
-| Where | When it runs | Capabilities & Trade-offs |
-| --- | --- | --- |
-| **Build time** | Once, during `hugo` generation | Fastest, completely static, zero runtime dependencies, impossible to crash in front of users. |
-| **Visitor's browser** | Every time the page loads | Dynamic, interactive, responsive to inputs; restricted to the data already present on the page; client-dependent. |
-| **External server** | When invoked via network request | Can store data, send emails, charge cards; introduces maintenance, operational costs, security risks, and privacy duties (GDPR, cookie notices). |
+### 1. Archiving vs. Unpublishing
+- `draft: true` tells Hugo: "Do not generate this page in production."
+  - Using it on an already-published page removes the file from `public/`, breaking external links, bookmarks, and search index results with 404 errors.
+  - Because Hugo's dynamic templates automatically exclude drafts, the broken page also vanishes from section lists without a trace—creating invisible damage.
+- `status: "archived"` with `draft: false` tells the reader and templates: "This page still exists at its permanent address for historical truth, but its content is superseded."
 
-### 2. Why Secrets Cannot Exist on a Static Site
-Any file delivered to the browser (HTML, CSS, JS, JSON) is fully readable by anyone opening Developer Tools. An API key placed in client-side code is a publicly published secret. When interacting with APIs requiring credentials:
-- Fetch data **at build time** using Hugo functions (`resources.GetRemote`) with keys stored as CI secrets.
-- Or route requests through a **backend proxy/serverless function** that you maintain.
+### 2. Three Undoing Strategies
+| Command | Action | When to use |
+| --- | --- | --- |
+| `git restore <file>` | Discards uncommitted working tree changes | Before committing. |
+| `git reset --hard` | Rewrites commit history backwards | Only on local, unpublished branches that have never been pushed. |
+| `git revert <commit>` | Commits the inverse diff forward | Always on published branches (`main`) to preserve a truthful history without breaking collaborators' clones. |

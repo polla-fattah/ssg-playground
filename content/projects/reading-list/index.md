@@ -3,10 +3,12 @@ title: "My website reading list"
 description: "A planned collection of resources for learning website publishing."
 draft: false
 params:
-  status: "planned"
+  status: "archived"
   tools:
     - "Markdown"
 ---
+
+**Archived.** The resource directory on the [Resources page](../../resources/) now does this job, with a shared set of fields for every entry. This page is kept for its history.
 
 ## Purpose
 

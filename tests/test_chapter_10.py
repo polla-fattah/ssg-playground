@@ -86,7 +86,10 @@ class TestChapter10(unittest.TestCase):
             rl_content = f.read()
 
         self.assertIn("A planned collection of resources", rl_content)
-        self.assertIn("<strong>Status:</strong> planned", rl_content)
+        self.assertTrue(
+            "<strong>Status:</strong> planned" in rl_content
+            or "<strong>Status:</strong> archived" in rl_content
+        )
         self.assertIn("<strong>Tools:</strong>", rl_content)
         self.assertIn("<li>Markdown</li>", rl_content)
 
@@ -104,7 +107,10 @@ class TestChapter10(unittest.TestCase):
 
         self.assertIn("/my-knowledge-site/projects/reading-list/", proj_content)
         self.assertIn("My website reading list", proj_content)
-        self.assertIn("<strong>Status:</strong> planned", proj_content)
+        self.assertTrue(
+            "<strong>Status:</strong> planned" in proj_content
+            or "<strong>Status:</strong> archived" in proj_content
+        )
 
     def test_non_project_pages_omit_project_metadata(self):
         """Pages without project metadata (e.g. About) should not render empty labels or project lists."""

@@ -80,7 +80,7 @@ class TestChapter09(unittest.TestCase):
         fm = yaml.safe_load(parts[1])
         self.assertEqual(fm.get("title"), "My website reading list")
         self.assertEqual(fm.get("draft"), False)
-        self.assertEqual(fm.get("params", {}).get("status"), "planned")
+        self.assertIn(fm.get("params", {}).get("status"), ["planned", "archived"])
         self.assertEqual(fm.get("params", {}).get("tools"), ["Markdown"])
 
         body = parts[2]
