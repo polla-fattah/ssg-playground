@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 04: Understand the HTML Behind Your Pages
+# SSG Playground - Chapter 04: Understand the HTML Behind Your Pages
 
 Welcome to the hands-on playground repository for **Chapter 4** of *Static Site Generators in the Age of AI*.
 
@@ -27,26 +27,26 @@ Understand the underlying HTML structure of your website:
 
 ```text
 my-knowledge-site/
-├── hugo.toml
-├── layouts/
-│   └── all.html                   # [UPDATED] Replaced plain footer with structured <p> elements,
-│                                  #           added class="footer-note" and {{ "about/" | relURL }} link
-├── static/css/site.css
-└── content/                       # Retains all 7 pages from Chapter 3
-    ├── _index.md                  # Home page
-    ├── about/
-    │   └── index.md               # About page
-    ├── articles/
-    │   ├── _index.md              # Articles section landing page
-    │   └── first-learning-note/   # First article with screenshot
-    │       ├── index.md
-    │       └── notebook-preview.png
-    ├── projects/
-    │   ├── _index.md              # Projects section landing page
-    │   └── learning-notebook/
-    │       └── index.md           # Project description
-    └── resources/
-        └── index.md               # Curated resources page
++-- hugo.toml
++-- layouts/
+|   +-- all.html                   # [UPDATED] Replaced plain footer with structured <p> elements,
+|                                  #           added class="footer-note" and {{ "about/" | relURL }} link
++-- static/css/site.css
++-- content/                       # Retains all 7 pages from Chapter 3
+    +-- _index.md                  # Home page
+    +-- about/
+    |   +-- index.md               # About page
+    +-- articles/
+    |   +-- _index.md              # Articles section landing page
+    |   +-- first-learning-note/   # First article with screenshot
+    |       +-- index.md
+    |       +-- notebook-preview.png
+    +-- projects/
+    |   +-- _index.md              # Projects section landing page
+    |   +-- learning-notebook/
+    |       +-- index.md           # Project description
+    +-- resources/
+        +-- index.md               # Curated resources page
 ```
 
 ### The Updated Footer in `layouts/all.html`:
