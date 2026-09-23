@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 03: Organise a Useful Website
+# SSG Playground - Chapter 03: Organise a Useful Website
 
 Welcome to the hands-on playground repository for **Chapter 3** of *Static Site Generators in the Age of AI*.
 
@@ -61,25 +61,25 @@ Navigate through the top menu: **Home**, **About**, **Articles**, **Projects**, 
 
 ```text
 my-knowledge-site/
-├── hugo.toml                                         # Site settings
-├── layouts/
-│   └── all.html                                      # [UPDATED] Replaced <nav> with 5 site-wide links
-├── static/css/site.css                               # Styling
-└── content/
-    ├── _index.md                                     # [UPDATED] Added "Explore the notebook" section
-    ├── about/
-    │   └── index.md                                  # [NEW] About page
-    ├── articles/
-    │   ├── _index.md                                 # [NEW] Section landing page with manual list
-    │   └── first-learning-note/                      # From Chapter 2
-    │       ├── index.md
-    │       └── notebook-preview.png
-    ├── projects/
-    │   ├── _index.md                                 # [NEW] Projects landing page with manual list
-    │   └── learning-notebook/
-    │       └── index.md                              # [NEW] Project description page
-    └── resources/
-        └── index.md                                  # [NEW] Curated resources list
++-- hugo.toml                                         # Site settings
++-- layouts/
+|   +-- all.html                                      # [UPDATED] Replaced <nav> with 5 site-wide links
++-- static/css/site.css                               # Styling
++-- content/
+    +-- _index.md                                     # [UPDATED] Added "Explore the notebook" section
+    +-- about/
+    |   +-- index.md                                  # [NEW] About page
+    +-- articles/
+    |   +-- _index.md                                 # [NEW] Section landing page with manual list
+    |   +-- first-learning-note/                      # From Chapter 2
+    |       +-- index.md
+    |       +-- notebook-preview.png
+    +-- projects/
+    |   +-- _index.md                                 # [NEW] Projects landing page with manual list
+    |   +-- learning-notebook/
+    |       +-- index.md                              # [NEW] Project description page
+    +-- resources/
+        +-- index.md                                  # [NEW] Curated resources list
 ```
 
 ---
