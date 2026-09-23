@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 2 Goal
+##  Chapter 2 Goal
 
 Give your website its first readable article with:
 - Structured sections, lists, emphasis, and code snippets
@@ -21,7 +21,7 @@ Give your website its first readable article with:
 
 ---
 
-## 🚀 How to Run the Website Locally
+##  How to Run the Website Locally
 
 ### 1. Preview Including Drafts
 When drafting a new article (`draft: true` in front matter), start Hugo with the `-D` flag:
@@ -46,7 +46,7 @@ hugo server
 
 ---
 
-## 📁 What Changed in Chapter 2 (Additive from Chapter 1)
+##  What Changed in Chapter 2 (Additive from Chapter 1)
 
 ```text
 my-knowledge-site/
@@ -66,7 +66,7 @@ Hugo calls a folder containing `index.md` and related media a **leaf page bundle
 
 ---
 
-## ✍️ Guided Exercises for Chapter 2
+##  Guided Exercises for Chapter 2
 
 ### 1. Front Matter & Draft Control
 - Open `content/articles/first-learning-note/index.md`.
@@ -108,7 +108,7 @@ Hugo calls a folder containing `index.md` and related media a **leaf page bundle
 
 ---
 
-## 🧪 Automated Tests
+##  Automated Tests
 
 Run the Chapter 2 test suite to verify page bundle generation, HTML elements, anchor links, bundled image assets, and CSS:
 
@@ -132,7 +132,7 @@ OK
 
 ---
 
-## 🛠️ Common Troubleshooting
+##  Common Troubleshooting
 
 | Problem | Cause & Fix |
 | :--- | :--- |
@@ -143,5 +143,5 @@ OK
 
 ---
 
-## ⏭️ What's Next?
+##  What's Next?
 In **Chapter 3**, we will organise this into a structured website with an **About** page, sections, categories, and site-wide navigation.
