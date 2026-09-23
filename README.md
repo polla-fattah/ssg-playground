@@ -10,14 +10,14 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 16 Goals
+##  Chapter 16 Goals
 
 - **Configure Multilingual Support in `hugo.toml`**:
   - Set `defaultContentLanguage = 'en'` and `defaultContentLanguageInSubdir = false`.
   - Define language blocks under `[languages.en]` and `[languages.ckb]`.
   - Configure modern Hugo language parameters:
     - `locale` (`'en'`, `'ckb'`)
-    - `label` (`'English'`, `'کوردی'`)
+    - `label` (`'English'`, `''`)
     - `direction` (`'rtl'` for Kurdish/CKB)
     - `title` per language.
 - **Dynamic Language & Direction in Base Layout**:
@@ -64,7 +64,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 16 (Additive from Chapter 15)
+##  What Changed in Chapter 16 (Additive from Chapter 15)
 
 ```text
 my-knowledge-site/
@@ -92,7 +92,7 @@ my-knowledge-site/
 
 ---
 
-## 🚀 Running and Testing Locally
+##  Running and Testing Locally
 
 ### 1. Build and Preview with Hugo
 ```bash
@@ -124,12 +124,12 @@ python -m unittest discover tests -v
 
 ---
 
-## 🔍 Key Concepts Explained
+##  Key Concepts Explained
 
 ### 1. Modern Hugo Language Keys
 Hugo v0.158+ introduced standardized configuration keys for multilingual sites:
 - `locale` replaces `languageCode` (e.g. `en`, `ckb`)
-- `label` replaces `languageName` (e.g. `English`, `کوردی`)
+- `label` replaces `languageName` (e.g. `English`, ``)
 - `direction` replaces `languageDirection` (e.g. `ltr`, `rtl`)
 
 In templates, access these using:
@@ -149,7 +149,7 @@ Browsers automatically flip logical properties based on the element's effective 
 Translations easily drift out of date when source content changes. Tracking the verification date directly in the translated page's front matter:
 ```markdown
 ---
-title: "دەربارەی ئەم پەڕتووکە"
+title: "  "
 source_checked: "2026-09-17"
 ---
 ```
