@@ -10,14 +10,14 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 1 Goal
+##  Chapter 1 Goal
 
 By the end of this exercise, you should be able to say:
 > **"I know which file contains these words, I can change them, and I can put them back."**
 
 ---
 
-## 📋 Prerequisites
+##  Prerequisites
 
 Before starting, ensure that **Hugo** is installed and accessible in your terminal:
 
@@ -29,7 +29,7 @@ hugo version
 
 ---
 
-## 🚀 How to Run the Website Locally
+##  How to Run the Website Locally
 
 1. Open your terminal in this project folder (`ssg-playground`).
 2. Start the Hugo development preview server:
@@ -48,7 +48,7 @@ hugo server
 
 ---
 
-## 📁 Project Structure & Roles
+##  Project Structure & Roles
 
 This starter deliberately keeps responsibilities cleanly separated across 4 files:
 
@@ -61,7 +61,7 @@ This starter deliberately keeps responsibilities cleanly separated across 4 file
 
 ---
 
-## ✍️ Guided Exercises for Chapter 1
+##  Guided Exercises for Chapter 1
 
 ### 1. Personalize Your Introduction
 - Open `content/_index.md`.
@@ -98,7 +98,7 @@ This starter deliberately keeps responsibilities cleanly separated across 4 file
 
 ---
 
-## 🛠️ Common Troubleshooting
+##  Common Troubleshooting
 
 | Issue | Cause & Fix |
 | :--- | :--- |
@@ -109,7 +109,7 @@ This starter deliberately keeps responsibilities cleanly separated across 4 file
 
 ---
 
-## 🧪 Automated Tests
+##  Automated Tests
 
 You can verify that your Hugo installation, template layout, generated HTML, navigation anchors, and CSS assets all meet the Chapter 1 requirements by running the automated test suite:
 
@@ -128,5 +128,5 @@ OK
 
 ---
 
-## ⏭️ What's Next?
+##  What's Next?
 In **Chapter 2**, we will add standalone articles, understand Markdown in depth, and link internal pages.
