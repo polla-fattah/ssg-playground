@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 02: Write and Publish Content Locally
+# SSG Playground - Chapter 02: Write and Publish Content Locally
 
 Welcome to the hands-on playground repository for **Chapter 2** of *Static Site Generators in the Age of AI*.
 
@@ -50,15 +50,15 @@ hugo server
 
 ```text
 my-knowledge-site/
-├── hugo.toml                                         # Inherited from Chapter 1
-├── layouts/all.html                                  # Inherited from Chapter 1
-├── static/css/site.css                               # [UPDATED] Added article img & pre rules
-└── content/
-    ├── _index.md                                     # [UPDATED] Added "Latest writing" section
-    └── articles/
-        └── first-learning-note/                      # [NEW] Leaf page bundle
-            ├── index.md                              # The new article content
-            └── notebook-preview.png                  # Embedded screenshot asset
++-- hugo.toml                                         # Inherited from Chapter 1
++-- layouts/all.html                                  # Inherited from Chapter 1
++-- static/css/site.css                               # [UPDATED] Added article img & pre rules
++-- content/
+    +-- _index.md                                     # [UPDATED] Added "Latest writing" section
+    +-- articles/
+        +-- first-learning-note/                      # [NEW] Leaf page bundle
+            +-- index.md                              # The new article content
+            +-- notebook-preview.png                  # Embedded screenshot asset
 ```
 
 ### Why `index.md` inside a folder?
