@@ -1,8 +1,8 @@
-# SSG Playground — Chapter 08: Work with an AI Agent on Your Hugo Site
+# SSG Playground - Chapter 08: Work with an AI Agent on Your Hugo Site
 
 Welcome to the hands-on playground repository for **Chapter 8** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-08`) is **additive from `chapter-07`**. It introduces the professional methodology for collaborating safely with an **AI coding agent** on your Hugo website—defining project boundaries via `AGENTS.md`, crafting bounded tasks, inspecting changes independently, and maintaining human control over commits and deployments.
+This branch (`chapter-08`) is **additive from `chapter-07`**. It introduces the professional methodology for collaborating safely with an **AI coding agent** on your Hugo website-defining project boundaries via `AGENTS.md`, crafting bounded tasks, inspecting changes independently, and maintaining human control over commits and deployments.
 
 ## Part of the Open-Source Book
 
@@ -26,18 +26,18 @@ Establish a disciplined, repeatable human-in-the-loop agent workflow:
 
 ```text
 my-knowledge-site/
-├── AGENTS.md                                  # [NEW] Persistent project guidance & safety agreements
-├── content/
-│   └── resources/
-│       └── index.md                           # [UPDATED] Added "How to use these resources" section
-├── layouts/
-├── static/
-├── .github/
-│   └── workflows/
-│       └── hugo.yaml
-├── hugo.toml
-└── tests/
-    └── test_chapter_08.py                     # [NEW] Automated validation tests for Chapter 8
++-- AGENTS.md                                  # [NEW] Persistent project guidance & safety agreements
++-- content/
+|   +-- resources/
+|       +-- index.md                           # [UPDATED] Added "How to use these resources" section
++-- layouts/
++-- static/
++-- .github/
+|   +-- workflows/
+|       +-- hugo.yaml
++-- hugo.toml
++-- tests/
+    +-- test_chapter_08.py                     # [NEW] Automated validation tests for Chapter 8
 ```
 
 ---
