@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 3** of *Static Site 
 
 This branch (`chapter-03`) is **additive from `chapter-02`**. It expands your two-page starter into a complete, navigable knowledge notebook with **Information Architecture**, **section landing pages**, and **shared site navigation**.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 3 Goal
