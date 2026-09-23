@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 14: Check Every Contribution with CI/CD
+# SSG Playground - Chapter 14: Check Every Contribution with CI/CD
 
 Welcome to the hands-on playground repository for **Chapter 14** of *Static Site Generators in the Age of AI*.
 
@@ -50,25 +50,25 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── .github/
-│   └── workflows/
-│       ├── hugo.yaml                          # [From Chapter 7] CD deployment workflow (triggers on push to main)
-│       └── checks.yaml                        # [NEW] CI checking workflow (triggers on pull_request to main)
-├── content/
-│   └── articles/
-│       └── first-learning-note/
-│           └── index.md                       # [UPDATED] Added front matter description to satisfy CI check
-├── assets/
-│   └── data/
-│       └── resource_links.json                # [UPDATED] Added 5th record for GitHub Actions documentation
-├── sources/
-│   └── publishing-notes.md                    # [From Chapter 13] Raw working notes
-├── AGENTS.md                                  # [From Chapter 13] Guidance and working agreements
-├── layouts/                                   # [From Chapter 11 & 12] Baseof, layouts, and data partials
-├── static/                                    # [From Chapter 5] Site styling
-└── tests/
-    ├── test_chapter_01.py ... test_chapter_13.py
-    └── test_chapter_14.py                     # [NEW] Automated tests for workflow schema, rules, and 5th record
++-- .github/
+|   +-- workflows/
+|       +-- hugo.yaml                          # [From Chapter 7] CD deployment workflow (triggers on push to main)
+|       +-- checks.yaml                        # [NEW] CI checking workflow (triggers on pull_request to main)
++-- content/
+|   +-- articles/
+|       +-- first-learning-note/
+|           +-- index.md                       # [UPDATED] Added front matter description to satisfy CI check
++-- assets/
+|   +-- data/
+|       +-- resource_links.json                # [UPDATED] Added 5th record for GitHub Actions documentation
++-- sources/
+|   +-- publishing-notes.md                    # [From Chapter 13] Raw working notes
++-- AGENTS.md                                  # [From Chapter 13] Guidance and working agreements
++-- layouts/                                   # [From Chapter 11 & 12] Baseof, layouts, and data partials
++-- static/                                    # [From Chapter 5] Site styling
++-- tests/
+    +-- test_chapter_01.py ... test_chapter_13.py
+    +-- test_chapter_14.py                     # [NEW] Automated tests for workflow schema, rules, and 5th record
 ```
 
 ---
