@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 16** of *Static Site
 
 This branch (`chapter-16`) is **additive from `chapter-15`**. It guides you through configuring Hugo's multilingual engine, internationalizing interface strings with `i18n`, supporting Right-to-Left (RTL) writing directions using CSS logical properties, creating translated content files, rendering language link alternatives, and maintaining translations over time with verification dates and CI checks.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 16 Goals
