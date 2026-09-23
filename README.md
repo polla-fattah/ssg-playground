@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 10 Goals
+##  Chapter 10 Goals
 
 - **Template Expressions**: Read and use Hugo page methods (`.Title`, `.Description`, `.Content`, `.RelPermalink`) and custom parameters (`.Params.status`, `.Params.tools`).
 - **Understanding Context (The Dot `.`)**: Track what `.` represents as execution moves into and out of template blocks.
@@ -21,7 +21,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 10 (Additive from Chapter 9)
+##  What Changed in Chapter 10 (Additive from Chapter 9)
 
 ```text
 my-knowledge-site/
@@ -42,7 +42,7 @@ my-knowledge-site/
 
 ---
 
-## 🔍 The Template Implementation (`layouts/all.html`)
+##  The Template Implementation (`layouts/all.html`)
 
 Inside the `<article>` element of `layouts/all.html`, the layout now displays page metadata conditionally and dynamically builds the section list:
 
@@ -92,7 +92,7 @@ Inside the `<article>` element of `layouts/all.html`, the layout now displays pa
 
 ---
 
-## 🧠 Following the Dot (`.`)
+##  Following the Dot (`.`)
 
 | Expression / Position | What `.` Represents |
 |---|---|
@@ -106,7 +106,7 @@ Inside the `<article>` element of `layouts/all.html`, the layout now displays pa
 
 ---
 
-## 🚀 Key Commands
+##  Key Commands
 
 ### 1. Verification Build
 ```bash
@@ -122,7 +122,7 @@ hugo server
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Run the automated test suite across all chapters:
 
@@ -144,7 +144,7 @@ python -m unittest discover tests
 
 ---
 
-## 🔗 Git Checkpoint
+##  Git Checkpoint
 
 Commit the completed chapter changes:
 ```bash
