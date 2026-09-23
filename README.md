@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 12 Goals
+##  Chapter 12 Goals
 
 - **Structured Data in JSON**: Move repeated resource records into an external JSON asset (`assets/data/resource_links.json`).
 - **The 5-Field Resource Model**: Adhere to an explicit editorial schema:
@@ -32,7 +32,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 12 (Additive from Chapter 11)
+##  What Changed in Chapter 12 (Additive from Chapter 11)
 
 ```text
 my-knowledge-site/
@@ -60,7 +60,7 @@ my-knowledge-site/
 
 ---
 
-## 📋 The 5-Field Resource Data Model
+##  The 5-Field Resource Data Model
 
 Located at `assets/data/resource_links.json`:
 
@@ -92,7 +92,7 @@ Located at `assets/data/resource_links.json`:
 
 ---
 
-## 🧩 Template Implementation (`layouts/_partials/resource-directory.html`)
+##  Template Implementation (`layouts/_partials/resource-directory.html`)
 
 ```html
 <h2 id="website-publishing">Website publishing</h2>
@@ -120,7 +120,7 @@ Located at `assets/data/resource_links.json`:
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Run the automated test suite across all chapters:
 
@@ -141,7 +141,7 @@ python -m unittest discover tests
 
 ---
 
-## 🔗 Git Checkpoint
+##  Git Checkpoint
 
 Commit the completed chapter changes:
 ```bash
