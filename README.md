@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 01: Your First Hugo Website
+# SSG Playground - Chapter 01: Your First Hugo Website
 
 Welcome to the hands-on playground repository for **Chapter 1** of *Static Site Generators in the Age of AI*.
 
