@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 12: Build a Resource Directory with JSON
+# SSG Playground - Chapter 12: Build a Resource Directory with JSON
 
 Welcome to the hands-on playground repository for **Chapter 12** of *Static Site Generators in the Age of AI*.
 
@@ -36,26 +36,26 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── assets/
-│   └── data/
-│       └── resource_links.json                # [NEW] JSON data file with 3 curated resource records
-├── layouts/
-│   ├── resources/
-│   │   └── page.html                          # [NEW] Dedicated layout for content/resources/index.md
-│   └── _partials/
-│       └── resource-directory.html            # [NEW] Partial to fetch, unmarshal, and render resource data
-├── content/
-│   └── resources/
-│       └── index.md                           # [UPDATED] Removed manual "Website publishing" markdown list
-├── AGENTS.md                                  # [UPDATED] Added JSON file paths and data typing agreement
-├── layouts/
-│   ├── baseof.html                            # [From Chapter 11] Shared document frame
-│   ├── all.html                               # [From Chapter 11] General content layout
-│   └── projects/section.html                  # [From Chapter 11] Projects section layout
-├── static/                                    # [From Chapter 5] CSS styling
-└── tests/
-    ├── test_chapter_01.py ... test_chapter_11.py
-    └── test_chapter_12.py                     # [NEW] Automated tests for JSON data and rendered directory
++-- assets/
+|   +-- data/
+|       +-- resource_links.json                # [NEW] JSON data file with 3 curated resource records
++-- layouts/
+|   +-- resources/
+|   |   +-- page.html                          # [NEW] Dedicated layout for content/resources/index.md
+|   +-- _partials/
+|       +-- resource-directory.html            # [NEW] Partial to fetch, unmarshal, and render resource data
++-- content/
+|   +-- resources/
+|       +-- index.md                           # [UPDATED] Removed manual "Website publishing" markdown list
++-- AGENTS.md                                  # [UPDATED] Added JSON file paths and data typing agreement
++-- layouts/
+|   +-- baseof.html                            # [From Chapter 11] Shared document frame
+|   +-- all.html                               # [From Chapter 11] General content layout
+|   +-- projects/section.html                  # [From Chapter 11] Projects section layout
++-- static/                                    # [From Chapter 5] CSS styling
++-- tests/
+    +-- test_chapter_01.py ... test_chapter_11.py
+    +-- test_chapter_12.py                     # [NEW] Automated tests for JSON data and rendered directory
 ```
 
 ---
