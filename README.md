@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 13 Goals
+##  Chapter 13 Goals
 
 - **Separate Delegation from Human Decisions**:
   - *Delegate*: Ordering rough notes into prose, applying an agreed article structure, writing descriptions, formatting links and JSON records.
@@ -42,7 +42,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 13 (Additive from Chapter 12)
+##  What Changed in Chapter 13 (Additive from Chapter 12)
 
 ```text
 my-knowledge-site/
@@ -67,7 +67,7 @@ my-knowledge-site/
 
 ---
 
-## 📝 The Agreed Article Model
+##  The Agreed Article Model
 
 Located at `content/articles/publishing-with-github-pages/index.md`:
 
@@ -118,7 +118,7 @@ a custom domain, so I cannot say anything useful about either.
 
 ---
 
-## 🔄 Coordinated Updates
+##  Coordinated Updates
 
 Connecting the article to the rest of the site requires updating three files:
 
@@ -145,7 +145,7 @@ Connecting the article to the rest of the site requires updating three files:
 
 ---
 
-## 🧪 Testing & Verification
+##  Testing & Verification
 
 Run the automated test suite across all chapters:
 
