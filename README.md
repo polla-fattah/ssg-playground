@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 9** of *Static Site 
 
 This branch (`chapter-09`) is **additive from `chapter-08`**. It establishes a clear, predictable **content model** across project pages, introduces Hugo **archetypes** as reusable starters, covers clean YAML front matter editing, and adds a second project page for a planned reading list.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 9 Goals
