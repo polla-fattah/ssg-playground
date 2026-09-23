@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 15 Goals
+##  Chapter 15 Goals
 
 - **Distinct Document Titles and Metadata Descriptions**:
   - Distinguish the home page title (`My Knowledge Notebook`) from subpages (`Title | My Knowledge Notebook`) using `{{ if .IsHome }}`.
@@ -44,7 +44,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 15 (Additive from Chapter 14)
+##  What Changed in Chapter 15 (Additive from Chapter 14)
 
 ```text
 my-knowledge-site/
@@ -74,7 +74,7 @@ my-knowledge-site/
 
 ---
 
-## 🔍 Search Layout & Progressive Script
+##  Search Layout & Progressive Script
 
 ### Template (`layouts/search/page.html`)
 
@@ -157,7 +157,7 @@ my-knowledge-site/
 
 ---
 
-## 🧪 Testing & Verification
+##  Testing & Verification
 
 Run the automated test suite across all chapters:
 
