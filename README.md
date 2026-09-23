@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 13** of *Static Site
 
 This branch (`chapter-13`) is **additive from `chapter-12`**. It demonstrates a disciplined, human-in-the-loop workflow for producing and maintaining content using AI agents. Rather than asking an agent for ungrounded generation, you supply source notes, agree on an article model, request a plan before a draft, check every claim against the source material, and coordinate updates across multiple site files.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 13 Goals
