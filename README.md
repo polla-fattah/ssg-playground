@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 2** of *Static Site 
 
 This branch (`chapter-02`) is **additive from `chapter-01`**. It introduces your website's **first article**, demonstrates **leaf page bundles**, teaches structured **Markdown**, and connects the new article to the home page.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 2 Goal
