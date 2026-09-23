@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 11 Goals
+##  Chapter 11 Goals
 
 - **Modular Template Architecture**: Break down a multi-purpose layout into single-responsibility components without altering the rendered output.
 - **Base Template & Blocks**: Establish `layouts/baseof.html` with `{{ block "main" . }}{{ end }}` to define the shared HTML document frame (head, skip-link, header, navigation, main wrapper, and footer).
@@ -26,7 +26,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 11 (Additive from Chapter 10)
+##  What Changed in Chapter 11 (Additive from Chapter 10)
 
 ```text
 my-knowledge-site/
@@ -50,7 +50,7 @@ my-knowledge-site/
 
 ---
 
-## 🏛️ Template Responsibilities & Hierarchy
+##  Template Responsibilities & Hierarchy
 
 | Template Path | Responsibility | Context (`.`) Passed |
 |---|---|---|
@@ -63,7 +63,7 @@ my-knowledge-site/
 
 ---
 
-## 🧩 Key Code Implementations
+##  Key Code Implementations
 
 ### 1. `layouts/baseof.html`
 ```html
@@ -110,7 +110,7 @@ my-knowledge-site/
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Run the automated test suite across all chapters:
 
@@ -132,7 +132,7 @@ python -m unittest discover tests
 
 ---
 
-## 🔗 Git Checkpoint
+##  Git Checkpoint
 
 Commit the completed chapter changes:
 ```bash
