@@ -20,3 +20,6 @@
 - The contact form sends nothing to any server.
 - Project status values are planned, in-progress, complete, or archived.
 - Addresses that have been published get an alias if they must move.
+
+## Next review
+- Scheduled date: 2026-12-01

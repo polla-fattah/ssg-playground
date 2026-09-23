@@ -27,6 +27,7 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 - Site configuration is hugo.toml.
 - The publishing workflow is .github/workflows/hugo.yaml.
 - The maintenance routine is in MAINTENANCE.md.
+- The project brief is in BRIEF.md.
 
 ## Working agreements
 
