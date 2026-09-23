@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 07: Publish Your Hugo Site with GitHub Pages
+# SSG Playground - Chapter 07: Publish Your Hugo Site with GitHub Pages
 
 Welcome to the hands-on playground repository for **Chapter 7** of *Static Site Generators in the Age of AI*.
 
@@ -27,18 +27,18 @@ Publish your Hugo website to a public, global address:
 
 ```text
 my-knowledge-site/
-├── .github/
-│   └── workflows/
-│       └── hugo.yaml                          # [NEW] Automated GitHub Actions build & deploy workflow
-├── hugo.toml                                  # [UPDATED] Configured baseURL for GitHub Pages
-├── content/
-│   └── articles/
-│       └── first-learning-note/
-│           └── index.md                       # [UPDATED] Added 4th publishing checklist item
-├── layouts/
-├── static/
-└── tests/
-    └── test_chapter_07.py                     # [NEW] Automated validation tests for Chapter 7
++-- .github/
+|   +-- workflows/
+|       +-- hugo.yaml                          # [NEW] Automated GitHub Actions build & deploy workflow
++-- hugo.toml                                  # [UPDATED] Configured baseURL for GitHub Pages
++-- content/
+|   +-- articles/
+|       +-- first-learning-note/
+|           +-- index.md                       # [UPDATED] Added 4th publishing checklist item
++-- layouts/
++-- static/
++-- tests/
+    +-- test_chapter_07.py                     # [NEW] Automated validation tests for Chapter 7
 ```
 
 ---
