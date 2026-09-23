@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 18: Maintain, Migrate, and Recover
+# SSG Playground - Chapter 18: Maintain, Migrate, and Recover
 
 Welcome to the hands-on playground repository for **Chapter 18** of *Static Site Generators in the Age of AI*.
 
@@ -45,16 +45,16 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── .github/
-│   └── workflows/
-│       └── checks.yaml                        # [UPDATED] Added check 5: Hugo version parity across workflows
-├── content/
-│   └── projects/
-│       └── reading-list/
-│           └── index.md                       # [UPDATED] Archived status and notice pointing to Resources page
-├── AGENTS.md                                  # [UPDATED] Added MAINTENANCE.md reference & archiving working agreement
-├── MAINTENANCE.md                             # [NEW] Recurring maintenance routine & persistent project decisions
-└── README.md                                  # [UPDATED] Chapter 18 guide and testing instructions
++-- .github/
+|   +-- workflows/
+|       +-- checks.yaml                        # [UPDATED] Added check 5: Hugo version parity across workflows
++-- content/
+|   +-- projects/
+|       +-- reading-list/
+|           +-- index.md                       # [UPDATED] Archived status and notice pointing to Resources page
++-- AGENTS.md                                  # [UPDATED] Added MAINTENANCE.md reference & archiving working agreement
++-- MAINTENANCE.md                             # [NEW] Recurring maintenance routine & persistent project decisions
++-- README.md                                  # [UPDATED] Chapter 18 guide and testing instructions
 ```
 
 ---
@@ -94,7 +94,7 @@ python -m unittest discover tests -v
 ### 1. Archiving vs. Unpublishing
 - `draft: true` tells Hugo: "Do not generate this page in production."
   - Using it on an already-published page removes the file from `public/`, breaking external links, bookmarks, and search index results with 404 errors.
-  - Because Hugo's dynamic templates automatically exclude drafts, the broken page also vanishes from section lists without a trace—creating invisible damage.
+  - Because Hugo's dynamic templates automatically exclude drafts, the broken page also vanishes from section lists without a trace-creating invisible damage.
 - `status: "archived"` with `draft: false` tells the reader and templates: "This page still exists at its permanent address for historical truth, but its content is superseded."
 
 ### 2. Three Undoing Strategies
