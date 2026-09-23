@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 10** of *Static Site
 
 This branch (`chapter-10`) is **additive from `chapter-09`**. It activates the metadata created in Chapter 9 by using Hugo's built-in Go templating engine to conditionally render descriptions, statuses, and tools on project pages, and to automatically generate the Projects section listing.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 10 Goals
