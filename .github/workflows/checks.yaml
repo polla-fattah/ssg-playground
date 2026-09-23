@@ -1,0 +1,58 @@
+name: Check proposed changes
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    env:
+      HUGO_VERSION: "0.150.0"
+    steps:
+      - name: Check out the proposed source
+        uses: actions/checkout@v7
+
+      - name: Install Hugo
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 \
+            --output "$RUNNER_TEMP/hugo.tar.gz" \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
+          mkdir -p "$RUNNER_TEMP/hugo-bin"
+          tar -xzf "$RUNNER_TEMP/hugo.tar.gz" -C "$RUNNER_TEMP/hugo-bin" hugo
+          echo "$RUNNER_TEMP/hugo-bin" >> "$GITHUB_PATH"
+
+      - name: Build the website
+        run: hugo --minify --panicOnWarning
+
+      - name: Check that directory flags are Booleans
+        shell: bash
+        run: |
+          if grep -n '"start_here": *"' assets/data/resource_links.json; then
+            echo "start_here must be an unquoted Boolean: true or false."
+            exit 1
+          fi
+
+      - name: Check that internal links stay relative
+        shell: bash
+        run: |
+          if grep -rn '](/' content/; then
+            echo "Internal links must be relative, not root-relative."
+            exit 1
+          fi
+
+      - name: Check that articles and projects have a description
+        shell: bash
+        run: |
+          status=0
+          for page in content/articles/*/index.md content/projects/*/index.md; do
+            if ! grep -q '^description:' "$page"; then
+              echo "Missing description: $page"
+              status=1
+            fi
+          done
+          exit "$status"

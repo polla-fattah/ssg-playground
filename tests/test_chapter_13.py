@@ -136,7 +136,7 @@ class TestChapter13(unittest.TestCase):
         with open(data_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        self.assertEqual(len(data), 4, "Expected exactly 4 resource records")
+        self.assertGreaterEqual(len(data), 4, "Expected at least 4 resource records")
         github_record = data[3]
         self.assertEqual(github_record.get("title"), "GitHub: configuring a publishing source")
         self.assertEqual(

@@ -26,5 +26,12 @@
     "description": "The official explanation of how a GitHub Pages site is told where its content is published from.",
     "topics": ["GitHub Pages", "Publishing"],
     "start_here": false
+  },
+  {
+    "title": "GitHub: Actions documentation",
+    "url": "https://docs.github.com/en/actions",
+    "description": "The official reference for automating builds, checks, and deployments on GitHub.",
+    "topics": ["GitHub Actions", "Automation"],
+    "start_here": false
   }
 ]

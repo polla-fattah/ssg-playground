@@ -1,5 +1,6 @@
 ---
 title: "My first learning note"
+description: "Editing a page in my notebook, checking the result, and recording what changed."
 draft: false
 ---
 

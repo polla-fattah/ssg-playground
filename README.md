@@ -1,143 +1,150 @@
-# SSG Playground — Chapter 13: Create and Maintain Content with AI Agents
+# SSG Playground — Chapter 14: Check Every Contribution with CI/CD
 
-Welcome to the hands-on playground repository for **Chapter 13** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 14** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-13`) is **additive from `chapter-12`**. It demonstrates a disciplined, human-in-the-loop workflow for producing and maintaining content using AI agents. Rather than asking an agent for ungrounded generation, you supply source notes, agree on an article model, request a plan before a draft, check every claim against the source material, and coordinate updates across multiple site files.
-
----
-
-## 🎯 Chapter 13 Goals
-
-- **Separate Delegation from Human Decisions**:
-  - *Delegate*: Ordering rough notes into prose, applying an agreed article structure, writing descriptions, formatting links and JSON records.
-  - *Keep with the author*: Deciding whether an event happened, verifying whether a claim is supported, assessing readiness, and deciding publication.
-- **Supply Source Material Safely**:
-  - Keep source notes in `sources/publishing-notes.md` (outside `content/`), ensuring Hugo never compiles or publishes raw notes.
-  - Distinguish author-recorded events, external references, and explicit gaps ("Not" lines).
-- **Enforce an Explicit Article Model**:
-  - Front matter: `title`, `description` (one sentence), `draft` (`true` until reviewed).
-  - Body headings in exact order:
-    1. `## What this is about` (2-3 sentences explaining why the article exists)
-    2. `## What happened` (sequence of events drawn strictly from sources)
-    3. `## What I would do differently` (specific changes or honest unknowns)
-    4. `## Sources` (visible Markdown links with short explanatory annotations)
-- **Record Working Agreements in `AGENTS.md`**:
-  - Direct the agent to use only named source files (no ungrounded generation or web search).
-  - Explicitly mandate reporting gaps as unknown rather than inventing estimates.
-  - Require visible Markdown attribution in the body rather than hidden front matter.
-- **Decompose into Three Reviewable Requests**:
-  1. *Plan first (read-only)*: Map proposed claims to specific lines of notes and identify gaps.
-  2. *Draft from source only*: Write the article page bundle at `draft: true` under 400 words.
-  3. *Coordinated update*: Link the new article from `content/articles/_index.md`, `content/_index.md`, and add the cited reference to `assets/data/resource_links.json`.
-- **Review for Meaning vs Technical Build Success**:
-  - Test the "designed failure": adding an unsupported claim (`"Deployments usually finish in under a minute."`) passes `hugo --minify --panicOnWarning` without error.
-  - Understand why automated checks verify only templates and syntax, while human review must verify factual accuracy against sources.
-- **Deliberate Publication**:
-  - Explicitly toggle `draft: false` only after human verification.
-  - Stage and commit the four coordinated files cleanly.
+This branch (`chapter-14`) is **additive from `chapter-13`**. It introduces Continuous Integration (CI) with GitHub Actions to test proposed changes on branches and pull requests before they can be merged into `main` and published to the live site.
 
 ---
 
-## 📁 What Changed in Chapter 13 (Additive from Chapter 12)
+## 🎯 Chapter 14 Goals
+
+- **Separate Checking from Deploying**:
+  - Keep the deployment workflow (`.github/workflows/hugo.yaml`) untouched, triggered only on `push` to `main`.
+  - Add a dedicated checks workflow (`.github/workflows/checks.yaml`) triggered on `pull_request` to `main`.
+- **Enforce Narrow Permissions**:
+  - The checks workflow runs with `contents: read` only (reporting results).
+  - It does NOT have `pages: write` or `id-token: write`, ensuring an unverified proposal cannot deploy.
+- **Enforce the Three Established Repository Rules**:
+  1. *Directory flags are Booleans*: `start_here` in `assets/data/resource_links.json` must be an unquoted Boolean (`true` or `false`), catching the Chapter 12 pitfall where quoted `"false"` was truthy in Hugo templates.
+  2. *Internal links stay relative*: Markdown links in `content/` must not use root-relative `](/' paths, catching the Chapter 8 baseURL prefix pitfall.
+  3. *Articles and projects have descriptions*: All page bundles under `content/articles/*/index.md` and `content/projects/*/index.md` must have a non-empty `description:` field in front matter.
+- **Run Checks Locally First**:
+  - Execute the checks directly in the local terminal before pushing:
+    ```bash
+    hugo --minify --panicOnWarning
+    grep -n '"start_here": *"' assets/data/resource_links.json
+    grep -rn '](/' content/
+    grep -c '^description:' content/articles/*/index.md content/projects/*/index.md
+    ```
+- **Raise Content Rather Than Weakening Rules**:
+  - When the new check identifies that `content/articles/first-learning-note/index.md` (written in Chapter 2) lacks a `description`, add the missing description rather than exempting older content.
+- **Branch and Pull Request Lifecycle**:
+  - Propose changes on branch `add-actions-resource` using `git switch -c`.
+  - Add the 5th resource record ("GitHub: Actions documentation") to `assets/data/resource_links.json`.
+  - Open a pull request using GitHub Web or GitHub CLI (`gh pr create`).
+- **Designed Failure Experiment**:
+  - Intentionally quote `"start_here": "false"` to observe the check turn red and stop the PR.
+  - Read the log from the top to isolate the failing rule.
+  - Repair the boolean (`start_here: false`), push, observe green check, and merge.
+- **What Checks Can and Cannot Establish**:
+  - *Machines check*: Syntax, template rendering without warnings, boolean types, link formats, and field existence.
+  - *Humans check*: Truthfulness, accuracy, source validity, and whether a resource or page is suitable for publication.
+
+---
+
+## 📁 What Changed in Chapter 14 (Additive from Chapter 13)
 
 ```text
 my-knowledge-site/
-├── sources/
-│   └── publishing-notes.md                    # [NEW] Raw working notes from Chapters 6 & 7 (outside content/)
+├── .github/
+│   └── workflows/
+│       ├── hugo.yaml                          # [From Chapter 7] CD deployment workflow (triggers on push to main)
+│       └── checks.yaml                        # [NEW] CI checking workflow (triggers on pull_request to main)
 ├── content/
-│   ├── articles/
-│   │   ├── _index.md                          # [UPDATED] Added link to publishing-with-github-pages/
-│   │   └── publishing-with-github-pages/
-│   │       └── index.md                       # [NEW] Agent-drafted article bundle adhering to the 4-part model
-│   └── _index.md                              # [UPDATED] Added new article link to Latest writing list
+│   └── articles/
+│       └── first-learning-note/
+│           └── index.md                       # [UPDATED] Added front matter description to satisfy CI check
 ├── assets/
 │   └── data/
-│       └── resource_links.json                # [UPDATED] Added 4th record for GitHub Pages publishing documentation
-├── AGENTS.md                                  # [UPDATED] Added sources/, article paths, and sourcing agreements
-├── layouts/                                   # [From Chapter 11 & 12] Baseof, layouts, and JSON data partials
+│       └── resource_links.json                # [UPDATED] Added 5th record for GitHub Actions documentation
+├── sources/
+│   └── publishing-notes.md                    # [From Chapter 13] Raw working notes
+├── AGENTS.md                                  # [From Chapter 13] Guidance and working agreements
+├── layouts/                                   # [From Chapter 11 & 12] Baseof, layouts, and data partials
 ├── static/                                    # [From Chapter 5] Site styling
 └── tests/
-    ├── test_chapter_01.py ... test_chapter_12.py
-    └── test_chapter_13.py                     # [NEW] Validation tests for sourcing, article structure, and site links
+    ├── test_chapter_01.py ... test_chapter_13.py
+    └── test_chapter_14.py                     # [NEW] Automated tests for workflow schema, rules, and 5th record
 ```
 
 ---
 
-## 📝 The Agreed Article Model
+## ⚙️ The Checks Workflow (`.github/workflows/checks.yaml`)
 
-Located at `content/articles/publishing-with-github-pages/index.md`:
+```yaml
+name: Check proposed changes
 
-```markdown
----
-title: "What I learned publishing with GitHub Pages"
-description: "How this notebook reached a public address, and what went wrong the first time."
-draft: false
----
+on:
+  pull_request:
+    branches: [main]
 
-## What this is about
+permissions:
+  contents: read
 
-This notebook is published from its own repository rather than uploaded by
-hand. Setting that up went wrong once, in a way that was easy to misread.
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    env:
+      HUGO_VERSION: "0.150.0"
+    steps:
+      - name: Check out the proposed source
+        uses: actions/checkout@v7
 
-## What happened
+      - name: Install Hugo
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 \
+            --output "$RUNNER_TEMP/hugo.tar.gz" \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
+          mkdir -p "$RUNNER_TEMP/hugo-bin"
+          tar -xzf "$RUNNER_TEMP/hugo.tar.gz" -C "$RUNNER_TEMP/hugo-bin" hugo
+          echo "$RUNNER_TEMP/hugo-bin" >> "$GITHUB_PATH"
 
-A Pages site has to be told where its content comes from. I chose the GitHub
-Actions route rather than publishing from a branch, so a workflow builds the
-site with Hugo and deploys the built output. The generated `public/` folder is
-never committed.
+      - name: Build the website
+        run: hugo --minify --panicOnWarning
 
-The first deployment failed, because I pushed before setting the publishing
-source. Setting it and running the workflow again fixed it. The failure was
-only legible in the Actions log; the browser showed a missing page, which told
-me nothing about the cause.
+      - name: Check that directory flags are Booleans
+        shell: bash
+        run: |
+          if grep -n '"start_here": *"' assets/data/resource_links.json; then
+            echo "start_here must be an unquoted Boolean: true or false."
+            exit 1
+          fi
 
-One configuration detail mattered more than I expected: `baseURL` has to
-include the repository path. Before I corrected it, the live site loaded
-without its stylesheet and its internal links went to the wrong place.
+      - name: Check that internal links stay relative
+        shell: bash
+        run: |
+          if grep -rn '](/' content/; then
+            echo "Internal links must be relative, not root-relative."
+            exit 1
+          fi
 
-I also learned to distrust a passing local build as evidence about the live
-site. `hugo --minify --panicOnWarning` succeeded before the push that failed
-to deploy.
-
-## What I would do differently
-
-I would set the publishing source before the first push, and read the Actions
-log before looking at the site in a browser.
-
-I have not measured how long a deployment usually takes, and I have not tried
-a custom domain, so I cannot say anything useful about either.
-
-## Sources
-
-- [GitHub: configuring a publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site): Explains how a Pages site is told where to publish from, including the GitHub Actions route used here.
+      - name: Check that articles and projects have a description
+        shell: bash
+        run: |
+          status=0
+          for page in content/articles/*/index.md content/projects/*/index.md; do
+            if ! grep -q '^description:' "$page"; then
+              echo "Missing description: $page"
+              status=1
+            fi
+          done
+          exit "$status"
 ```
 
 ---
 
-## 🔄 Coordinated Updates
+## 📋 The 5th Resource Record (`assets/data/resource_links.json`)
 
-Connecting the article to the rest of the site requires updating three files:
-
-1. **`content/articles/_index.md`** (Relative link within articles section):
-   ```markdown
-   - [What I learned publishing with GitHub Pages](publishing-with-github-pages/): Setting up a publishing source, and the first deployment that failed.
-   ```
-
-2. **`content/_index.md`** (Relative link from site root):
-   ```markdown
-   - [What I learned publishing with GitHub Pages](articles/publishing-with-github-pages/)
-   ```
-
-3. **`assets/data/resource_links.json`** (Appended 4th record):
-   ```json
-   {
-     "title": "GitHub: configuring a publishing source",
-     "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
-     "description": "The official explanation of how a GitHub Pages site is told where its content is published from.",
-     "topics": ["GitHub Pages", "Publishing"],
-     "start_here": false
-   }
-   ```
+```json
+  {
+    "title": "GitHub: Actions documentation",
+    "url": "https://docs.github.com/en/actions",
+    "description": "The official reference for automating builds, checks, and deployments on GitHub.",
+    "topics": ["GitHub Actions", "Automation"],
+    "start_here": false
+  }
+```
 
 ---
 
@@ -146,7 +153,7 @@ Connecting the article to the rest of the site requires updating three files:
 Run the automated test suite across all chapters:
 
 ```bash
-# Run unit tests across all chapters (Chapters 01 through 13)
+# Run unit tests across all chapters (Chapters 01 through 14)
 python -m unittest discover tests
 
 # Build site with strict checks
@@ -156,4 +163,4 @@ hugo --minify --panicOnWarning
 hugo server
 ```
 
-All 80 test assertions should pass cleanly.
+All 86 test assertions should pass cleanly.
