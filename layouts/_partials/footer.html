@@ -1,6 +1,7 @@
 <footer>
   <p>Learn, review &amp; share.</p>
   <p class="footer-note">
-    Read <a href="{{ "about/" | relLangURL }}">about this notebook</a>.
+    Read <a href="{{ "about/" | relLangURL }}">about this notebook</a>
+    {{ if or (eq .Site.Language.Locale "en") (eq .Site.Language.Lang "en") }}or <a href="{{ "contact/" | relLangURL }}">send a message</a>{{ else if .Site.GetPage "contact" }}or <a href="{{ "contact/" | relLangURL }}">send a message</a>{{ end }}.
   </p>
 </footer>

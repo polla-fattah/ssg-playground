@@ -60,8 +60,8 @@ class Chapter04ValidationTests(unittest.TestCase):
         self.assertIn("<footer>", content)
         self.assertIn("<p>Learn, review &amp; share.</p>", content)
         self.assertTrue(
-            'Read <a href="{{ "about/" | relLangURL }}">about this notebook</a>.' in content
-            or 'Read <a href="{{ "about/" | relURL }}">about this notebook</a>.' in content
+            'href="{{ "about/" | relLangURL }}"' in content
+            or 'href="{{ "about/" | relURL }}"' in content
         )
 
     def test_03_all_pages_have_updated_footer(self):

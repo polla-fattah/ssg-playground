@@ -1,0 +1,28 @@
+{{ define "main" }}
+  <article>
+    <h1>{{ .Title }}</h1>
+    {{ partial "page-meta.html" . }}
+    {{ .Content }}
+
+    <form class="contact-form" id="contact-form" novalidate data-address="{{ .Params.contact_address }}">
+      <p>
+        <label for="contact-name">Your name</label>
+        <input type="text" id="contact-name" name="name" required autocomplete="name">
+      </p>
+      <p>
+        <label for="contact-subject">Subject</label>
+        <input type="text" id="contact-subject" name="subject" required>
+      </p>
+      <p>
+        <label for="contact-message">Message</label>
+        <textarea id="contact-message" name="message" rows="6" required></textarea>
+      </p>
+      <p>
+        <button type="submit">Prepare this message</button>
+      </p>
+      <p id="contact-status" role="status"></p>
+    </form>
+
+    <script src="{{ "js/contact.js" | relURL }}" defer></script>
+  </article>
+{{ end }}

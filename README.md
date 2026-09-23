@@ -1,89 +1,61 @@
-# SSG Playground — Chapter 16: Publish in Multiple Languages
+# SSG Playground — Chapter 17: Add Interactive Features Responsibly
 
-Welcome to the hands-on playground repository for **Chapter 16** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 17** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-16`) is **additive from `chapter-15`**. It guides you through configuring Hugo's multilingual engine, internationalizing interface strings with `i18n`, supporting Right-to-Left (RTL) writing directions using CSS logical properties, creating translated content files, rendering language link alternatives, and maintaining translations over time with verification dates and CI checks.
-
----
-
-## 🎯 Chapter 16 Goals
-
-- **Configure Multilingual Support in `hugo.toml`**:
-  - Set `defaultContentLanguage = 'en'` and `defaultContentLanguageInSubdir = false`.
-  - Define language blocks under `[languages.en]` and `[languages.ckb]`.
-  - Configure modern Hugo language parameters:
-    - `locale` (`'en'`, `'ckb'`)
-    - `label` (`'English'`, `'کوردی'`)
-    - `direction` (`'rtl'` for Kurdish/CKB)
-    - `title` per language.
-- **Dynamic Language & Direction in Base Layout**:
-  - Update `layouts/baseof.html` with:
-    ```html
-    <html lang="{{ .Site.Language.Locale }}" dir="{{ .Site.Language.Direction | default "ltr" }}">
-    ```
-  - Ensure the browser automatically knows document language and reading direction for correct text flow and screen reader pronunciation.
-- **Externalize Interface Strings (`i18n`)**:
-  - Replace hardcoded UI strings with `{{ i18n "key" }}` in templates.
-  - Create string lookup tables in `i18n/en.toml` and `i18n/ckb.toml` with complete key parity across:
-    - Skip link (`skip_to_content`)
-    - Navigation items (`nav_home`, `nav_about`, `nav_articles`, `nav_projects`, `nav_resources`, `nav_search`)
-    - Footer tagline (`footer_tagline`)
-  - Use `relLangURL` instead of `relURL` so navigation links preserve the current language prefix (`/ckb/...`).
-- **Language Switcher Partial**:
-  - Create `layouts/_partials/language-links.html`.
-  - Render links to translated versions of the current page using `.Translations`:
-    ```html
-    {{ if .IsTranslated }}
-      <p class="language-links">
-        {{ range .Translations }}
-          <a href="{{ .RelPermalink }}" hreflang="{{ .Language.Locale }}" lang="{{ .Language.Locale }}" rel="alternate">{{ .Language.Label }}</a>
-        {{ end }}
-      </p>
-    {{ end }}
-    ```
-  - Include the partial in the `<header>` element of `layouts/baseof.html`.
-- **Bidirectional CSS & Logical Properties**:
-  - Replace physical positioning in `static/css/site.css`:
-    - Changed `.skip-link { left: 1rem; }` to `inset-inline-start: 1rem;`.
-  - Add typography adjustment for Central Kurdish:
-    ```css
-    :lang(ckb) {
-      line-height: 1.9;
-    }
-    ```
-  - Add styles for `.language-links`.
-- **Parallel Content Translation & Maintenance**:
-  - Create `content/_index.ckb.md` and `content/about/index.ckb.md`.
-  - Include front matter field `source_checked: "YYYY-MM-DD"` indicating when the translation was verified against the English original.
-  - Update CI checks in `.github/workflows/checks.yaml` to ensure every `*.ckb.md` file contains a non-empty `source_checked:` field.
-  - Update `AGENTS.md` with guidelines on language codes, translation file locations, and verification tracking.
+This branch (`chapter-17`) is **additive from `chapter-16`**. It addresses interactivity on a static site by building an accessible contact form, demonstrating why native form submission fails without a server backend, and implementing a client-side mailto handoff that protects visitor privacy by sending zero data to external servers.
 
 ---
 
-## 📁 What Changed in Chapter 16 (Additive from Chapter 15)
+## 🎯 Chapter 17 Goals
+
+- **Map Where Work Happens**:
+  - Understand the three execution environments for web features:
+    1. **Build time** (Hugo generating static files, cost-free, reliable, secure)
+    2. **Visitor's browser** (JavaScript running locally on the page)
+    3. **Someone else's server** (backend functions or third-party APIs with privacy and maintenance costs)
+- **Accessible Form Markup**:
+  - Build `layouts/contact/page.html` with explicit `<label for="...">` associations matching input `id` attributes.
+  - Use semantic input controls (`type="text"`, `<textarea rows="6">`, `required`, `autocomplete="name"`).
+  - Use `novalidate` to manage validation messaging cleanly in custom script while retaining standard keyboard navigation and accessibility semantics.
+  - Include live feedback container with `role="status"` (`#contact-status`).
+- **Demonstrate Static Site Limitations**:
+  - Experience the "designed failure": submitting a standard `<form>` without an action re-serves the same static file, loses entered text, and can leak sensitive input into URL query parameters in browser history.
+- **Client-Side Validation & `mailto:` Handoff**:
+  - Implement `static/js/contact.js` using `event.preventDefault()`.
+  - Validate that required fields are not empty or solely whitespace using `.trim()`.
+  - Safely encode subject and body with `encodeURIComponent` to protect special characters (`&`, `?`, `#`, newlines).
+  - Pass the recipient address directly through `data-address` from page front matter (`contact_address: "you@example.org"`).
+  - Trigger the visitor's configured mail client via `window.location.href = href`.
+- **Honest Communication & Fallbacks**:
+  - State clearly in `content/contact/index.md` that nothing is sent anywhere until the visitor sends the email themselves.
+  - Provide a readable, plain-text email address (`you@example.org`) on the page as an alternative for visitors without a registered desktop mail handler.
+  - Explain why static sites cannot keep secrets (API keys) and must use build-time fetching or self-hosted proxy functions instead.
+- **Navigation & Multilingual Integration**:
+  - Extend the footer note in `layouts/_partials/footer.html` with `or <a href="{{ "contact/" | relLangURL }}">send a message</a>.`
+  - Conditionally handle the Kurdish footer link so it does not point to a non-existent page until translated.
+  - Document the template, script, and privacy working agreement in `AGENTS.md`.
+
+---
+
+## 📁 What Changed in Chapter 17 (Additive from Chapter 16)
 
 ```text
 my-knowledge-site/
-├── hugo.toml                                  # [UPDATED] Configured [languages.en] and [languages.ckb] with locale, label, direction
-├── layouts/
-│   ├── baseof.html                            # [UPDATED] Added dynamic lang/dir, i18n calls, relLangURL, and language-links partial
-│   └── _partials/
-│       ├── footer.html                        # [UPDATED] Language-aware about link (relLangURL) and i18n tagline
-│       └── language-links.html                # [NEW] Alternate language links switcher using .Translations
-├── i18n/
-│   ├── en.toml                                # [NEW] English interface strings
-│   └── ckb.toml                               # [NEW] Kurdish (Sorani) interface strings
 ├── content/
-│   ├── _index.ckb.md                          # [NEW] Kurdish home page with source_checked metadata
-│   └── about/
-│       └── index.ckb.md                       # [NEW] Kurdish About page with source_checked metadata
+│   └── contact/
+│       └── index.md                           # [NEW] Contact page content with front matter address & plain text alternative
+├── layouts/
+│   ├── contact/
+│   │   └── page.html                          # [NEW] Accessible form layout template with data-address attribute
+│   └── _partials/
+│       └── footer.html                        # [UPDATED] Extended footer note with language-aware Contact link
 ├── static/
+│   ├── js/
+│   │   └── contact.js                         # [NEW] Client-side validation & mailto handoff script
 │   └── css/
-│       └── site.css                           # [UPDATED] CSS logical property (inset-inline-start), :lang(ckb) line-height, .language-links
-├── .github/
-│   └── workflows/
-│       └── checks.yaml                        # [UPDATED] Added CI check 4 for source_checked in Kurdish content files
-└── AGENTS.md                                  # [UPDATED] Added multilingual structure, translation guidelines, and maintenance policy
+│       └── site.css                           # [UPDATED] Added contact-form styles and font-family: inherit
+├── AGENTS.md                                  # [UPDATED] Documented Contact template, script, and zero-server agreement
+└── README.md                                  # [UPDATED] Comprehensive guide for Chapter 17
 ```
 
 ---
@@ -92,61 +64,41 @@ my-knowledge-site/
 
 ### 1. Build and Preview with Hugo
 ```bash
-# Preview the site locally (both English and Kurdish pages)
+# Preview the site locally
 hugo server
 
-# Preview English at:
-# http://localhost:1313/my-knowledge-site/
-
-# Preview Kurdish at:
-# http://localhost:1313/my-knowledge-site/ckb/
+# Open the Contact page at:
+# http://localhost:1313/my-knowledge-site/contact/
 ```
 
 ### 2. Verify Output and Build Strictness
 ```bash
-# Build the site and fail immediately on any warning or deprecation
+# Build the site and panic immediately on any warning or deprecation
 hugo --minify --panicOnWarning
 ```
 
 ### 3. Run Automated Validation Tests
 Run all chapter test suites to ensure both additive features and backward compatibility pass:
 ```bash
-# Run Chapter 16 validation suite
-python -m unittest tests/test_chapter_16.py -v
+# Run Chapter 17 validation suite
+python -m unittest tests/test_chapter_17.py -v
 
-# Run the complete test suite (Chapters 01 - 16)
+# Run the complete test suite (Chapters 01 - 17)
 python -m unittest discover tests -v
 ```
 
 ---
 
-## 🔍 Key Concepts Explained
+## 🔍 Key Architectural Lessons
 
-### 1. Modern Hugo Language Keys
-Hugo v0.158+ introduced standardized configuration keys for multilingual sites:
-- `locale` replaces `languageCode` (e.g. `en`, `ckb`)
-- `label` replaces `languageName` (e.g. `English`, `کوردی`)
-- `direction` replaces `languageDirection` (e.g. `ltr`, `rtl`)
+### 1. The Three Places Work Can Happen
+| Where | When it runs | Capabilities & Trade-offs |
+| --- | --- | --- |
+| **Build time** | Once, during `hugo` generation | Fastest, completely static, zero runtime dependencies, impossible to crash in front of users. |
+| **Visitor's browser** | Every time the page loads | Dynamic, interactive, responsive to inputs; restricted to the data already present on the page; client-dependent. |
+| **External server** | When invoked via network request | Can store data, send emails, charge cards; introduces maintenance, operational costs, security risks, and privacy duties (GDPR, cookie notices). |
 
-In templates, access these using:
-- `.Site.Language.Locale`
-- `.Site.Language.Direction`
-- `.Language.Label` / `.Language.Locale` (inside `.Translations` iteration)
-
-### 2. Physical vs. Logical CSS Properties
-In multilingual websites with mixed text directions (LTR and RTL), hardcoding directional properties creates layout bugs in RTL mode:
-- `left: 1rem` $\rightarrow$ `inset-inline-start: 1rem`
-- `margin-right: 0.5rem` $\rightarrow$ `margin-inline-end: 0.5rem`
-- `text-align: left` $\rightarrow$ `text-align: start`
-
-Browsers automatically flip logical properties based on the element's effective `dir` attribute (`dir="rtl"` vs. `dir="ltr"`).
-
-### 3. Maintenance Tracking (`source_checked`)
-Translations easily drift out of date when source content changes. Tracking the verification date directly in the translated page's front matter:
-```markdown
----
-title: "دەربارەی ئەم پەڕتووکە"
-source_checked: "2026-09-17"
----
-```
-enables automated verification in CI pipelines, ensuring no untracked translations linger without a known audit date.
+### 2. Why Secrets Cannot Exist on a Static Site
+Any file delivered to the browser (HTML, CSS, JS, JSON) is fully readable by anyone opening Developer Tools. An API key placed in client-side code is a publicly published secret. When interacting with APIs requiring credentials:
+- Fetch data **at build time** using Hugo functions (`resources.GetRemote`) with keys stored as CI secrets.
+- Or route requests through a **backend proxy/serverless function** that you maintain.

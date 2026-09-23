@@ -85,3 +85,27 @@ article pre {
   line-height: 1.9;
 }
 
+.contact-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.contact-error {
+  color: #8c2f16;
+  font-weight: 600;
+}
+

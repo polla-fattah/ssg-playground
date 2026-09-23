@@ -18,6 +18,8 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 - Resource-directory rendering is in layouts/_partials/resource-directory.html.
 - The Search page template is layouts/search/page.html.
 - The search script is static/js/search.js.
+- The Contact page template is layouts/contact/page.html.
+- The contact script is static/js/contact.js.
 - Interface strings are in i18n/en.toml and i18n/ckb.toml.
 - Kurdish pages are the .ckb.md files beside their English versions.
 - The language switcher is layouts/_partials/language-links.html.
@@ -42,4 +44,5 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 - Do not edit generated public/ or resources/ files by hand.
 - When asked to check a change, run hugo --minify --panicOnWarning and report the result accurately.
 - If a check cannot run, explain what prevented it and what remains unchecked.
+- The contact form prepares a message in the visitor's own mail client and sends nothing to any server. Do not replace it with a form service, an analytics script, or any request to a third party without being asked.
 - Leave staging, committing, pushing, and deployment to the reader unless explicitly delegated.
