@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 19: Build Your Own Publishing Project
+# SSG Playground: Chapter 19 - Build Your Own Publishing Project
 
 Welcome to the culminating branch for **Chapter 19** of *Static Site Generators in the Age of AI*.
 
@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 19 Goals
+## Chapter 19 Goals
 
 - **Synthesize All 18 Chapters**:
   - Understand how all built capabilities work together in harmony:
@@ -31,50 +31,50 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 Repository State at Chapter 19
+## Repository State at Chapter 19
 
 ```text
 my-knowledge-site/
-├── .github/
-│   └── workflows/
-│       ├── hugo.yaml                          # Automated deployment to GitHub Pages (pinned HUGO_VERSION)
-│       └── checks.yaml                        # Automated PR checks: linting, link hygiene, version parity
-├── assets/
-│   └── data/
-│       └── resource_links.json                # Structured JSON resource directory
-├── content/
-│   ├── _index.md                              # English home page
-│   ├── _index.ckb.md                          # Kurdish home page (RTL)
-│   ├── about/                                 # About section (EN + CKB)
-│   ├── articles/                              # Learning notes and articles
-│   ├── projects/                              # Projects directory (in-progress and archived)
-│   ├── resources/                             # Resource directory page
-│   ├── search/                                # Progressive-enhancement search page
-│   └── contact/                               # Accessible contact page with mailto handoff
-├── i18n/
-│   ├── en.toml                                # English interface strings
-│   └── ckb.toml                               # Kurdish interface strings
-├── layouts/
-│   ├── baseof.html                            # Master semantic layout with dynamic lang & dir
-│   ├── all.html                               # General content layout
-│   ├── _partials/                             # Reusable components (meta, resources, footer, language links)
-│   ├── projects/                              # Project section layout
-│   ├── resources/                             # Resource directory layout
-│   ├── search/                                # Search page layout
-│   └── contact/                               # Contact form layout
-├── static/
-│   ├── css/site.css                           # Plain CSS stylesheet with logical properties and RTL support
-│   └── js/                                    # Vanilla JS scripts (search.js, contact.js)
-├── AGENTS.md                                  # Complete agent working agreements & file map
-├── BRIEF.md                                   # Formal project brief & capability evaluation
-├── MAINTENANCE.md                             # Scheduled maintenance pass & persistent rules
-├── hugo.toml                                  # Modern multilingual Hugo configuration
-└── README.md                                  # Complete project documentation
+|-- .github/
+|   `-- workflows/
+|       |-- hugo.yaml                          # Automated deployment to GitHub Pages (pinned HUGO_VERSION)
+|       `-- checks.yaml                        # Automated PR checks: linting, link hygiene, version parity
+|-- assets/
+|   `-- data/
+|       `-- resource_links.json                # Structured JSON resource directory
+|-- content/
+|   |-- _index.md                              # English home page
+|   |-- _index.ckb.md                          # Kurdish home page (RTL)
+|   |-- about/                                 # About section (EN + CKB)
+|   |-- articles/                              # Learning notes and articles
+|   |-- projects/                              # Projects directory (in-progress and archived)
+|   |-- resources/                             # Resource directory page
+|   |-- search/                                # Progressive-enhancement search page
+|   `-- contact/                               # Accessible contact page with mailto handoff
+|-- i18n/
+|   |-- en.toml                                # English interface strings
+|   `-- ckb.toml                               # Kurdish interface strings
+|-- layouts/
+|   |-- baseof.html                            # Master semantic layout with dynamic lang & dir
+|   |-- all.html                               # General content layout
+|   |-- _partials/                             # Reusable components (meta, resources, footer, language links)
+|   |-- projects/                              # Project section layout
+|   |-- resources/                             # Resource directory layout
+|   |-- search/                                # Search page layout
+|   `-- contact/                               # Contact form layout
+|-- static/
+|   |-- css/site.css                           # Plain CSS stylesheet with logical properties and RTL support
+|   `-- js/                                    # Vanilla JS scripts (search.js, contact.js)
+|-- AGENTS.md                                  # Complete agent working agreements and file map
+|-- BRIEF.md                                   # Formal project brief and capability evaluation
+|-- MAINTENANCE.md                             # Scheduled maintenance pass and persistent rules
+|-- hugo.toml                                  # Modern multilingual Hugo configuration
+`-- README.md                                  # Complete project documentation
 ```
 
 ---
 
-## 🚀 Running and Testing the Complete Site
+## Running and Testing the Complete Site
 
 ### 1. Build and Preview with Hugo
 ```bash
@@ -103,7 +103,7 @@ python -m unittest discover tests -v
 
 ---
 
-## 💡 What This Method Delivers
+## Project Principles
 - **True Content Ownership**: Plain Markdown text, standard templates, and plain CSS in folders you own.
 - **Inspectable & Auditable**: Every change is visible in Git diffs and reproducible with a single command.
 - **Zero Lock-In**: Immune to platform policy shifts, proprietary CMS lock-ins, or uninspected automated regressions.
