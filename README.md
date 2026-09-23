@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 14** of *Static Site
 
 This branch (`chapter-14`) is **additive from `chapter-13`**. It introduces Continuous Integration (CI) with GitHub Actions to test proposed changes on branches and pull requests before they can be merged into `main` and published to the live site.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 14 Goals
