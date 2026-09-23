@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 5 Goal
+##  Chapter 5 Goal
 
 Gain practical CSS literacy to style your site and evaluate code suggested by AI agents:
 - Understand where CSS belongs in Hugo: `static/css/site.css` copied directly to `public/css/site.css` (served at `/css/site.css`).
@@ -24,7 +24,7 @@ Gain practical CSS literacy to style your site and evaluate code suggested by AI
 
 ---
 
-## 📁 What Changed in Chapter 5 (Additive from Chapter 4)
+##  What Changed in Chapter 5 (Additive from Chapter 4)
 
 In this chapter, **only one file is modified**: `static/css/site.css`.
 
@@ -76,7 +76,7 @@ h2 {
 
 ---
 
-## 🎨 Core CSS Concepts for Hugo Authors
+##  Core CSS Concepts for Hugo Authors
 
 ### 1. Where CSS Lives in Hugo
 | File Path | Role | Public URL |
@@ -125,7 +125,7 @@ Hugo serves everything inside `static/` from the root of the site. In `layouts/a
 
 ---
 
-## 🚀 How to Run and Test
+##  How to Run and Test
 
 Start the preview server:
 ```bash
@@ -149,7 +149,7 @@ http://localhost:1313/
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Automated tests for Chapters 1 through 5 are in the `tests/` directory:
 
@@ -172,6 +172,6 @@ python tests/test_chapter_05.py
 
 ---
 
-## ⏩ Next Step: Chapter 6
+##  Next Step: Chapter 6
 
 In **Chapter 6: Track and Recover Your Hugo Site with Git**, you will move beyond manual folder backups and use Git version control to stage, commit, branch, and inspect history professionally.
