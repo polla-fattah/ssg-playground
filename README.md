@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 16: Publish in Multiple Languages
+# SSG Playground - Chapter 16: Publish in Multiple Languages
 
 Welcome to the hands-on playground repository for **Chapter 16** of *Static Site Generators in the Age of AI*.
 
@@ -68,26 +68,26 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── hugo.toml                                  # [UPDATED] Configured [languages.en] and [languages.ckb] with locale, label, direction
-├── layouts/
-│   ├── baseof.html                            # [UPDATED] Added dynamic lang/dir, i18n calls, relLangURL, and language-links partial
-│   └── _partials/
-│       ├── footer.html                        # [UPDATED] Language-aware about link (relLangURL) and i18n tagline
-│       └── language-links.html                # [NEW] Alternate language links switcher using .Translations
-├── i18n/
-│   ├── en.toml                                # [NEW] English interface strings
-│   └── ckb.toml                               # [NEW] Kurdish (Sorani) interface strings
-├── content/
-│   ├── _index.ckb.md                          # [NEW] Kurdish home page with source_checked metadata
-│   └── about/
-│       └── index.ckb.md                       # [NEW] Kurdish About page with source_checked metadata
-├── static/
-│   └── css/
-│       └── site.css                           # [UPDATED] CSS logical property (inset-inline-start), :lang(ckb) line-height, .language-links
-├── .github/
-│   └── workflows/
-│       └── checks.yaml                        # [UPDATED] Added CI check 4 for source_checked in Kurdish content files
-└── AGENTS.md                                  # [UPDATED] Added multilingual structure, translation guidelines, and maintenance policy
++-- hugo.toml                                  # [UPDATED] Configured [languages.en] and [languages.ckb] with locale, label, direction
++-- layouts/
+|   +-- baseof.html                            # [UPDATED] Added dynamic lang/dir, i18n calls, relLangURL, and language-links partial
+|   +-- _partials/
+|       +-- footer.html                        # [UPDATED] Language-aware about link (relLangURL) and i18n tagline
+|       +-- language-links.html                # [NEW] Alternate language links switcher using .Translations
++-- i18n/
+|   +-- en.toml                                # [NEW] English interface strings
+|   +-- ckb.toml                               # [NEW] Kurdish (Sorani) interface strings
++-- content/
+|   +-- _index.ckb.md                          # [NEW] Kurdish home page with source_checked metadata
+|   +-- about/
+|       +-- index.ckb.md                       # [NEW] Kurdish About page with source_checked metadata
++-- static/
+|   +-- css/
+|       +-- site.css                           # [UPDATED] CSS logical property (inset-inline-start), :lang(ckb) line-height, .language-links
++-- .github/
+|   +-- workflows/
+|       +-- checks.yaml                        # [UPDATED] Added CI check 4 for source_checked in Kurdish content files
++-- AGENTS.md                                  # [UPDATED] Added multilingual structure, translation guidelines, and maintenance policy
 ```
 
 ---
