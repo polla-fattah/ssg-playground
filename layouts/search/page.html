@@ -1,0 +1,29 @@
+{{ define "main" }}
+  <article>
+    <h1>{{ .Title }}</h1>
+    {{ partial "page-meta.html" . }}
+    {{ .Content }}
+
+    <form class="search-form" role="search">
+      <label for="search-query">Search titles and descriptions</label>
+      <input type="search" id="search-query" name="q" autocomplete="off">
+    </form>
+
+    <p id="search-status" role="status"></p>
+
+    <ul id="search-index">
+      {{ range .Site.RegularPages }}
+        {{ if ne .RelPermalink $.RelPermalink }}
+          <li class="search-item">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            {{ with .Description }}
+              <p>{{ . }}</p>
+            {{ end }}
+          </li>
+        {{ end }}
+      {{ end }}
+    </ul>
+
+    <script src="{{ "js/search.js" | relURL }}" defer></script>
+  </article>
+{{ end }}

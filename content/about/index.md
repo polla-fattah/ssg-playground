@@ -1,5 +1,6 @@
 ---
 title: "About this notebook"
+description: "Why I keep this notebook, and what you can expect to find in it."
 draft: false
 ---
 

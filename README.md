@@ -1,149 +1,154 @@
-# SSG Playground — Chapter 14: Check Every Contribution with CI/CD
+# SSG Playground — Chapter 15: Help Readers Find and Use Your Content
 
-Welcome to the hands-on playground repository for **Chapter 14** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 15** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-14`) is **additive from `chapter-13`**. It introduces Continuous Integration (CI) with GitHub Actions to test proposed changes on branches and pull requests before they can be merged into `main` and published to the live site.
-
----
-
-## 🎯 Chapter 14 Goals
-
-- **Separate Checking from Deploying**:
-  - Keep the deployment workflow (`.github/workflows/hugo.yaml`) untouched, triggered only on `push` to `main`.
-  - Add a dedicated checks workflow (`.github/workflows/checks.yaml`) triggered on `pull_request` to `main`.
-- **Enforce Narrow Permissions**:
-  - The checks workflow runs with `contents: read` only (reporting results).
-  - It does NOT have `pages: write` or `id-token: write`, ensuring an unverified proposal cannot deploy.
-- **Enforce the Three Established Repository Rules**:
-  1. *Directory flags are Booleans*: `start_here` in `assets/data/resource_links.json` must be an unquoted Boolean (`true` or `false`), catching the Chapter 12 pitfall where quoted `"false"` was truthy in Hugo templates.
-  2. *Internal links stay relative*: Markdown links in `content/` must not use root-relative `](/' paths, catching the Chapter 8 baseURL prefix pitfall.
-  3. *Articles and projects have descriptions*: All page bundles under `content/articles/*/index.md` and `content/projects/*/index.md` must have a non-empty `description:` field in front matter.
-- **Run Checks Locally First**:
-  - Execute the checks directly in the local terminal before pushing:
-    ```bash
-    hugo --minify --panicOnWarning
-    grep -n '"start_here": *"' assets/data/resource_links.json
-    grep -rn '](/' content/
-    grep -c '^description:' content/articles/*/index.md content/projects/*/index.md
-    ```
-- **Raise Content Rather Than Weakening Rules**:
-  - When the new check identifies that `content/articles/first-learning-note/index.md` (written in Chapter 2) lacks a `description`, add the missing description rather than exempting older content.
-- **Branch and Pull Request Lifecycle**:
-  - Propose changes on branch `add-actions-resource` using `git switch -c`.
-  - Add the 5th resource record ("GitHub: Actions documentation") to `assets/data/resource_links.json`.
-  - Open a pull request using GitHub Web or GitHub CLI (`gh pr create`).
-- **Designed Failure Experiment**:
-  - Intentionally quote `"start_here": "false"` to observe the check turn red and stop the PR.
-  - Read the log from the top to isolate the failing rule.
-  - Repair the boolean (`start_here: false`), push, observe green check, and merge.
-- **What Checks Can and Cannot Establish**:
-  - *Machines check*: Syntax, template rendering without warnings, boolean types, link formats, and field existence.
-  - *Humans check*: Truthfulness, accuracy, source validity, and whether a resource or page is suitable for publication.
+This branch (`chapter-15`) is **additive from `chapter-14`**. It focuses on discoverability and reader experience: establishing distinct document titles and metadata descriptions, enabling RSS feed autodiscovery, inspecting generated XML sitemaps, and building a lightweight, progressively-enhanced client-side search page generated directly from your content.
 
 ---
 
-## 📁 What Changed in Chapter 14 (Additive from Chapter 13)
+## 🎯 Chapter 15 Goals
+
+- **Distinct Document Titles and Metadata Descriptions**:
+  - Distinguish the home page title (`My Knowledge Notebook`) from subpages (`Title | My Knowledge Notebook`) using `{{ if .IsHome }}`.
+  - Define a site-wide fallback description in `hugo.toml` under `[params]`.
+  - Output a `<meta name="description">` tag using `{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}`.
+  - Provide a `<link rel="canonical" href="{{ .Permalink }}">` tag.
+- **XML Sitemaps and RSS Feed Discovery**:
+  - Understand `/sitemap.xml` for search engine indexing and `/index.xml` for subscriber feed readers.
+  - Add feed autodiscovery in `<head>` using `{{ with .OutputFormats.Get "rss" }}`.
+  - Use `$` (`$.Site.Title`) to escape inner template contexts and access top-level page data.
+- **Progressively-Enhanced Content Search**:
+  - Generate the searchable page list in HTML at build time using `.Site.RegularPages`.
+  - Filter out the Search page itself using `{{ if ne .RelPermalink $.RelPermalink }}`.
+  - If JavaScript is disabled, the page remains completely functional as a complete, accessible directory of all site content.
+  - Implement client-side filtering via `static/js/search.js` with case-insensitive substring matching.
+  - Update a live announcement paragraph (`role="status"`) as queries are typed.
+  - Use `.search-item[hidden] { display: none; }` to ensure filtered elements do not receive keyboard focus.
+- **Navigation Integration**:
+  - Add Search to the main `<nav>` menu in `layouts/baseof.html`.
+  - Check responsiveness at mobile widths to confirm smooth flex wrapping.
+- **Diagnose Silent Failures**:
+  - Test the "designed failure": changing the list ID from `search-index` to `search-list` produces no console error because guard clauses return quietly.
+  - Diagnose the issue through observable symptoms: an empty status paragraph indicates the script exited early.
+- **Reader-Centric vs. Automated Audits**:
+  - Test keyboard navigation (Tab through skip link, nav, search input, and only visible results).
+  - Test with JavaScript disabled to verify fallback usability.
+  - Understand that automated audits (e.g., Lighthouse, axe) verify mechanical rules (alt text, contrast, meta tags) but cannot evaluate content truth, source validity, or result relevance.
+- **Enrich Content Descriptions**:
+  - Add accurate front matter descriptions to `content/about/index.md` and `content/resources/index.md`.
+  - Update `AGENTS.md` to document the new search template and JavaScript paths.
+
+---
+
+## 📁 What Changed in Chapter 15 (Additive from Chapter 14)
 
 ```text
 my-knowledge-site/
-├── .github/
-│   └── workflows/
-│       ├── hugo.yaml                          # [From Chapter 7] CD deployment workflow (triggers on push to main)
-│       └── checks.yaml                        # [NEW] CI checking workflow (triggers on pull_request to main)
+├── hugo.toml                                  # [UPDATED] Added [params] description fallback
+├── layouts/
+│   ├── baseof.html                            # [UPDATED] Head metadata (title, description, canonical, RSS) & search nav
+│   └── search/
+│       └── page.html                          # [NEW] Search page template generating build-time index
 ├── content/
-│   └── articles/
-│       └── first-learning-note/
-│           └── index.md                       # [UPDATED] Added front matter description to satisfy CI check
-├── assets/
-│   └── data/
-│       └── resource_links.json                # [UPDATED] Added 5th record for GitHub Actions documentation
-├── sources/
-│   └── publishing-notes.md                    # [From Chapter 13] Raw working notes
-├── AGENTS.md                                  # [From Chapter 13] Guidance and working agreements
-├── layouts/                                   # [From Chapter 11 & 12] Baseof, layouts, and data partials
-├── static/                                    # [From Chapter 5] Site styling
+│   ├── search/
+│   │   └── index.md                           # [NEW] Search content page
+│   ├── about/
+│   │   └── index.md                           # [UPDATED] Added front matter description
+│   └── resources/
+│       └── index.md                           # [UPDATED] Added front matter description
+├── static/
+│   ├── js/
+│   │   └── search.js                          # [NEW] Progressive client-side search script
+│   └── css/
+│       └── site.css                           # [UPDATED] Search form styles and hidden element display rule
+├── AGENTS.md                                  # [UPDATED] Added search template and script under Files
+├── .github/workflows/                         # [From Chapter 7 & 14] Deployment and CI checks
 └── tests/
-    ├── test_chapter_01.py ... test_chapter_13.py
-    └── test_chapter_14.py                     # [NEW] Automated tests for workflow schema, rules, and 5th record
+    ├── test_chapter_01.py ... test_chapter_14.py
+    └── test_chapter_15.py                     # [NEW] Automated tests for titles, metadata, search markup & script
 ```
 
 ---
 
-## ⚙️ The Checks Workflow (`.github/workflows/checks.yaml`)
+## 🔍 Search Layout & Progressive Script
 
-```yaml
-name: Check proposed changes
+### Template (`layouts/search/page.html`)
 
-on:
-  pull_request:
-    branches: [main]
+```html
+{{ define "main" }}
+  <article>
+    <h1>{{ .Title }}</h1>
+    {{ partial "page-meta.html" . }}
+    {{ .Content }}
 
-permissions:
-  contents: read
+    <form class="search-form" role="search">
+      <label for="search-query">Search titles and descriptions</label>
+      <input type="search" id="search-query" name="q" autocomplete="off">
+    </form>
 
-jobs:
-  checks:
-    runs-on: ubuntu-24.04
-    env:
-      HUGO_VERSION: "0.150.0"
-    steps:
-      - name: Check out the proposed source
-        uses: actions/checkout@v7
+    <p id="search-status" role="status"></p>
 
-      - name: Install Hugo
-        shell: bash
-        run: |
-          curl --fail --location --retry 3 \
-            --output "$RUNNER_TEMP/hugo.tar.gz" \
-            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
-          mkdir -p "$RUNNER_TEMP/hugo-bin"
-          tar -xzf "$RUNNER_TEMP/hugo.tar.gz" -C "$RUNNER_TEMP/hugo-bin" hugo
-          echo "$RUNNER_TEMP/hugo-bin" >> "$GITHUB_PATH"
+    <ul id="search-index">
+      {{ range .Site.RegularPages }}
+        {{ if ne .RelPermalink $.RelPermalink }}
+          <li class="search-item">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            {{ with .Description }}
+              <p>{{ . }}</p>
+            {{ end }}
+          </li>
+        {{ end }}
+      {{ end }}
+    </ul>
 
-      - name: Build the website
-        run: hugo --minify --panicOnWarning
-
-      - name: Check that directory flags are Booleans
-        shell: bash
-        run: |
-          if grep -n '"start_here": *"' assets/data/resource_links.json; then
-            echo "start_here must be an unquoted Boolean: true or false."
-            exit 1
-          fi
-
-      - name: Check that internal links stay relative
-        shell: bash
-        run: |
-          if grep -rn '](/' content/; then
-            echo "Internal links must be relative, not root-relative."
-            exit 1
-          fi
-
-      - name: Check that articles and projects have a description
-        shell: bash
-        run: |
-          status=0
-          for page in content/articles/*/index.md content/projects/*/index.md; do
-            if ! grep -q '^description:' "$page"; then
-              echo "Missing description: $page"
-              status=1
-            fi
-          done
-          exit "$status"
+    <script src="{{ "js/search.js" | relURL }}" defer></script>
+  </article>
+{{ end }}
 ```
 
----
+### Script (`static/js/search.js`)
 
-## 📋 The 5th Resource Record (`assets/data/resource_links.json`)
+```javascript
+(function () {
+  var form = document.querySelector(".search-form");
+  var input = document.getElementById("search-query");
+  var list = document.getElementById("search-index");
+  var status = document.getElementById("search-status");
 
-```json
-  {
-    "title": "GitHub: Actions documentation",
-    "url": "https://docs.github.com/en/actions",
-    "description": "The official reference for automating builds, checks, and deployments on GitHub.",
-    "topics": ["GitHub Actions", "Automation"],
-    "start_here": false
+  if (!form || !input || !list || !status) {
+    return;
   }
+
+  var items = list.querySelectorAll(".search-item");
+
+  function filter() {
+    var query = input.value.trim().toLowerCase();
+    var shown = 0;
+
+    items.forEach(function (item) {
+      var match = query === "" || item.textContent.toLowerCase().includes(query);
+      item.hidden = !match;
+      if (match) {
+        shown += 1;
+      }
+    });
+
+    if (query === "") {
+      status.textContent = "Showing all " + items.length + " pages.";
+    } else if (shown === 0) {
+      status.textContent = "No pages match that word.";
+    } else {
+      status.textContent = shown + " of " + items.length + " pages match.";
+    }
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+  });
+
+  input.addEventListener("input", filter);
+  filter();
+})();
 ```
 
 ---
@@ -153,7 +158,7 @@ jobs:
 Run the automated test suite across all chapters:
 
 ```bash
-# Run unit tests across all chapters (Chapters 01 through 14)
+# Run unit tests across all chapters (Chapters 01 through 15)
 python -m unittest discover tests
 
 # Build site with strict checks
@@ -163,4 +168,4 @@ hugo --minify --panicOnWarning
 hugo server
 ```
 
-All 86 test assertions should pass cleanly.
+All 95 test assertions should pass cleanly.

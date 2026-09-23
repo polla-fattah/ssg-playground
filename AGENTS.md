@@ -16,6 +16,8 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 - Resource-directory records are in assets/data/resource_links.json.
 - The Resources page template is layouts/resources/page.html.
 - Resource-directory rendering is in layouts/_partials/resource-directory.html.
+- The Search page template is layouts/search/page.html.
+- The search script is static/js/search.js.
 - The stylesheet is static/css/site.css.
 - Site configuration is hugo.toml.
 - The publishing workflow is .github/workflows/hugo.yaml.

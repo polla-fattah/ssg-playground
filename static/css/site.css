@@ -56,3 +56,23 @@ article pre {
   color: #46545b;
 }
 
+.search-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+#search-status {
+  color: #37474f;
+}
+
+.search-item[hidden] {
+  display: none;
+}
+

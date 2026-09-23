@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ with .OutputFormats.Get "rss" }}
+    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}">
+  {{ end }}
   <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
 </head>
 <body>
@@ -16,6 +21,7 @@
       <a href="{{ "articles/" | relURL }}">Articles</a>
       <a href="{{ "projects/" | relURL }}">Projects</a>
       <a href="{{ "resources/" | relURL }}">Resources</a>
+      <a href="{{ "search/" | relURL }}">Search</a>
     </nav>
   </header>
   <main id="main" tabindex="-1">

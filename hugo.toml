@@ -1,3 +1,6 @@
 baseURL = 'https://YOUR-USERNAME.github.io/my-knowledge-site/'
 locale = 'en'
 title = 'My Knowledge Notebook'
+
+[params]
+description = 'Learning notes, small projects, and useful references, published as a static website.'

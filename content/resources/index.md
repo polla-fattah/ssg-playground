@@ -1,5 +1,6 @@
 ---
 title: "Resources"
+description: "References that support the work recorded in this notebook."
 draft: false
 ---
 
