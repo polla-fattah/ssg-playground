@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 18** of *Static Site
 
 This branch (`chapter-18`) is **additive from `chapter-17`**. It addresses long-term site health, ongoing maintenance routines, automated dependency synchronization across GitHub workflows, graceful content retirement without URL breakage, and disciplined incident recovery using Git history.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 18 Goals
