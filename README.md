@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 11** of *Static Site
 
 This branch (`chapter-11`) is **additive from `chapter-10`**. It refactors our single, all-in-one layout (`layouts/all.html`) into a clean, modular architecture: a shared document base template (`layouts/baseof.html`), reusable partials (`layouts/_partials/`), and a dedicated section layout (`layouts/projects/section.html`), while preserving all existing content, styling, links, and behavior.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 11 Goals
