@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 15: Help Readers Find and Use Your Content
+# SSG Playground - Chapter 15: Help Readers Find and Use Your Content
 
 Welcome to the hands-on playground repository for **Chapter 15** of *Static Site Generators in the Age of AI*.
 
@@ -48,28 +48,28 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── hugo.toml                                  # [UPDATED] Added [params] description fallback
-├── layouts/
-│   ├── baseof.html                            # [UPDATED] Head metadata (title, description, canonical, RSS) & search nav
-│   └── search/
-│       └── page.html                          # [NEW] Search page template generating build-time index
-├── content/
-│   ├── search/
-│   │   └── index.md                           # [NEW] Search content page
-│   ├── about/
-│   │   └── index.md                           # [UPDATED] Added front matter description
-│   └── resources/
-│       └── index.md                           # [UPDATED] Added front matter description
-├── static/
-│   ├── js/
-│   │   └── search.js                          # [NEW] Progressive client-side search script
-│   └── css/
-│       └── site.css                           # [UPDATED] Search form styles and hidden element display rule
-├── AGENTS.md                                  # [UPDATED] Added search template and script under Files
-├── .github/workflows/                         # [From Chapter 7 & 14] Deployment and CI checks
-└── tests/
-    ├── test_chapter_01.py ... test_chapter_14.py
-    └── test_chapter_15.py                     # [NEW] Automated tests for titles, metadata, search markup & script
++-- hugo.toml                                  # [UPDATED] Added [params] description fallback
++-- layouts/
+|   +-- baseof.html                            # [UPDATED] Head metadata (title, description, canonical, RSS) & search nav
+|   +-- search/
+|       +-- page.html                          # [NEW] Search page template generating build-time index
++-- content/
+|   +-- search/
+|   |   +-- index.md                           # [NEW] Search content page
+|   +-- about/
+|   |   +-- index.md                           # [UPDATED] Added front matter description
+|   +-- resources/
+|       +-- index.md                           # [UPDATED] Added front matter description
++-- static/
+|   +-- js/
+|   |   +-- search.js                          # [NEW] Progressive client-side search script
+|   +-- css/
+|       +-- site.css                           # [UPDATED] Search form styles and hidden element display rule
++-- AGENTS.md                                  # [UPDATED] Added search template and script under Files
++-- .github/workflows/                         # [From Chapter 7 & 14] Deployment and CI checks
++-- tests/
+    +-- test_chapter_01.py ... test_chapter_14.py
+    +-- test_chapter_15.py                     # [NEW] Automated tests for titles, metadata, search markup & script
 ```
 
 ---
