@@ -1,8 +1,8 @@
-# SSG Playground — Chapter 05: Practical CSS for Your Hugo Site
+# SSG Playground - Chapter 05: Practical CSS for Your Hugo Site
 
 Welcome to the hands-on playground repository for **Chapter 5** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-05`) is **additive from `chapter-04`**. It focuses on practical, maintainable CSS styling for your Hugo website—connecting HTML semantic markup to visual presentation, adjusting typography and spacing, understanding the box model, and recognizing responsive design patterns.
+This branch (`chapter-05`) is **additive from `chapter-04`**. It focuses on practical, maintainable CSS styling for your Hugo website-connecting HTML semantic markup to visual presentation, adjusting typography and spacing, understanding the box model, and recognizing responsive design patterns.
 
 ## Part of the Open-Source Book
 
@@ -30,13 +30,13 @@ In this chapter, **only one file is modified**: `static/css/site.css`.
 
 ```text
 my-knowledge-site/
-├── hugo.toml
-├── layouts/
-│   └── all.html                   # Unchanged (from Chapter 4)
-├── content/                       # Unchanged (all 7 pages from Chapter 3 & 4)
-└── static/
-    └── css/
-        └── site.css               # [UPDATED] 3 targeted styling additions:
++-- hugo.toml
++-- layouts/
+|   +-- all.html                   # Unchanged (from Chapter 4)
++-- content/                       # Unchanged (all 7 pages from Chapter 3 & 4)
++-- static/
+    +-- css/
+        +-- site.css               # [UPDATED] 3 targeted styling additions:
                                    #   1. body { font-size: 1.125rem; }
                                    #   2. h2 { margin-top: 2.5rem; }
                                    #   3. .footer-note { ... }
