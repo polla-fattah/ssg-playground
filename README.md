@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 6** of *Static Site 
 
 This branch (`chapter-06`) is **additive from `chapter-05`**. It transitions your publishing project from manual sibling backup folders into professional version control using **Git**, tracking source files, staging changes deliberately, writing clear commit messages, and practicing safe recovery techniques.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 6 Goal
