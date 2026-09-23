@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 17 Goals
+##  Chapter 17 Goals
 
 - **Map Where Work Happens**:
   - Understand the three execution environments for web features:
@@ -41,7 +41,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 17 (Additive from Chapter 16)
+##  What Changed in Chapter 17 (Additive from Chapter 16)
 
 ```text
 my-knowledge-site/
@@ -64,7 +64,7 @@ my-knowledge-site/
 
 ---
 
-## 🚀 Running and Testing Locally
+##  Running and Testing Locally
 
 ### 1. Build and Preview with Hugo
 ```bash
@@ -93,7 +93,7 @@ python -m unittest discover tests -v
 
 ---
 
-## 🔍 Key Architectural Lessons
+##  Key Architectural Lessons
 
 ### 1. The Three Places Work Can Happen
 | Where | When it runs | Capabilities & Trade-offs |
