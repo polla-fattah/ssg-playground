@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 11: Build Reusable Hugo Layouts
+# SSG Playground - Chapter 11: Build Reusable Hugo Layouts
 
 Welcome to the hands-on playground repository for **Chapter 11** of *Static Site Generators in the Age of AI*.
 
@@ -30,22 +30,22 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── layouts/
-│   ├── baseof.html                            # [NEW] Document frame (head, nav, main block, footer partial)
-│   ├── all.html                               # [UPDATED] General fallback layout: define "main" + page-meta partial
-│   ├── projects/
-│   │   └── section.html                       # [NEW] Projects landing page layout with intro sentence & project list
-│   └── _partials/
-│       ├── footer.html                        # [NEW] Extracted footer component
-│       ├── page-meta.html                     # [NEW] Extracted description, status, and tools metadata
-│       └── project-list.html                  # [NEW] Extracted dynamic project list
-├── AGENTS.md                                  # [UPDATED] File map updated to reflect 4-layer layout structure
-├── content/                                   # [Unchanged] Content and Markdown files
-├── static/                                    # [Unchanged] Hand-crafted CSS
-├── hugo.toml                                  # [Unchanged] Site configuration
-└── tests/
-    ├── test_chapter_01.py ... test_chapter_10.py
-    └── test_chapter_11.py                     # [NEW] Automated tests for baseof, partials, and section layout
++-- layouts/
+|   +-- baseof.html                            # [NEW] Document frame (head, nav, main block, footer partial)
+|   +-- all.html                               # [UPDATED] General fallback layout: define "main" + page-meta partial
+|   +-- projects/
+|   |   +-- section.html                       # [NEW] Projects landing page layout with intro sentence & project list
+|   +-- _partials/
+|       +-- footer.html                        # [NEW] Extracted footer component
+|       +-- page-meta.html                     # [NEW] Extracted description, status, and tools metadata
+|       +-- project-list.html                  # [NEW] Extracted dynamic project list
++-- AGENTS.md                                  # [UPDATED] File map updated to reflect 4-layer layout structure
++-- content/                                   # [Unchanged] Content and Markdown files
++-- static/                                    # [Unchanged] Hand-crafted CSS
++-- hugo.toml                                  # [Unchanged] Site configuration
++-- tests/
+    +-- test_chapter_01.py ... test_chapter_10.py
+    +-- test_chapter_11.py                     # [NEW] Automated tests for baseof, partials, and section layout
 ```
 
 ---
