@@ -4,6 +4,10 @@ Welcome to the culminating branch for **Chapter 19** of *Static Site Generators 
 
 This branch (`chapter-19`) is **additive from `chapter-18`**. It represents the completed, fully-featured reference implementation of the entire book, packaged with a formal project brief (`BRIEF.md`), long-term maintenance commitments (`MAINTENANCE.md`), and updated developer/agent guidance (`AGENTS.md`).
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 19 Goals
