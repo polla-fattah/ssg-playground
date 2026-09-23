@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 5** of *Static Site 
 
 This branch (`chapter-05`) is **additive from `chapter-04`**. It focuses on practical, maintainable CSS styling for your Hugo website—connecting HTML semantic markup to visual presentation, adjusting typography and spacing, understanding the box model, and recognizing responsive design patterns.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 5 Goal
