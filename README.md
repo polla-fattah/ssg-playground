@@ -10,10 +10,10 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 6 Goal
+##  Chapter 6 Goal
 
 Master the fundamental local Git workflow:
-- Understand the 3 Git areas: **Working Tree** ➔ **Staging Area** ➔ **Commit History**.
+- Understand the 3 Git areas: **Working Tree**  **Staging Area**  **Commit History**.
 - Configure `.gitignore` so Hugo build artifacts (`public/`, `resources/`, `.hugo_build.lock`) and operating system files (`.DS_Store`, `Thumbs.db`) stay out of history.
 - Stage and record a useful content addition: **My publishing checklist** in `content/articles/first-learning-note/index.md`.
 - Make an independent content refinement to `content/about/index.md`.
@@ -24,7 +24,7 @@ Master the fundamental local Git workflow:
 
 ---
 
-## 📁 What Changed in Chapter 6 (Additive from Chapter 5)
+##  What Changed in Chapter 6 (Additive from Chapter 5)
 
 ```text
 my-knowledge-site/
@@ -75,7 +75,7 @@ Thumbs.db
 
 ---
 
-## 🧭 The Three Places an Edit Can Be
+##  The Three Places an Edit Can Be
 
 | Place | Meaning | Key Command |
 | :--- | :--- | :--- |
@@ -89,7 +89,7 @@ Thumbs.db
 
 ---
 
-## 🛠️ Safe Recovery Exercises
+##  Safe Recovery Exercises
 
 ### 1. Unstage Without Losing Work
 If you staged a file prematurely and want to review or edit further:
@@ -107,7 +107,7 @@ git restore -- static/css/site.css
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Automated tests for Chapters 1 through 6 are in the `tests/` directory:
 
@@ -129,6 +129,6 @@ python tests/test_chapter_06.py
 
 ---
 
-## ⏩ Next Step: Chapter 7
+##  Next Step: Chapter 7
 
 In **Chapter 7: Publish Your Hugo Site with GitHub Pages**, you will connect your local Git repository to GitHub and set up an automated CI/CD GitHub Actions workflow to publish your site live on the web!
