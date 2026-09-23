@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 4** of *Static Site 
 
 This branch (`chapter-04`) is **additive from `chapter-03`**. It focuses on demystifying the actual HTML output that Hugo produces and the browser consumes, introducing structured HTML elements, semantic landmarks, accessibility skip links, and DOM inspection.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 4 Goal
