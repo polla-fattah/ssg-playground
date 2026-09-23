@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 8** of *Static Site 
 
 This branch (`chapter-08`) is **additive from `chapter-07`**. It introduces the professional methodology for collaborating safely with an **AI coding agent** on your Hugo website—defining project boundaries via `AGENTS.md`, crafting bounded tasks, inspecting changes independently, and maintaining human control over commits and deployments.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 8 Goal
