@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 15** of *Static Site
 
 This branch (`chapter-15`) is **additive from `chapter-14`**. It focuses on discoverability and reader experience: establishing distinct document titles and metadata descriptions, enabling RSS feed autodiscovery, inspecting generated XML sitemaps, and building a lightweight, progressively-enhanced client-side search page generated directly from your content.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 15 Goals
