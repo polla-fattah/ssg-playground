@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 10: Use Hugo Templates to Display Your Content
+# SSG Playground - Chapter 10: Use Hugo Templates to Display Your Content
 
 Welcome to the hands-on playground repository for **Chapter 10** of *Static Site Generators in the Age of AI*.
 
@@ -25,19 +25,19 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── layouts/
-│   └── all.html                               # [UPDATED] Added conditionals for metadata & automatic Projects list
-├── content/
-│   └── projects/
-│       └── _index.md                          # [UPDATED] Removed manual "## Current work" list
-├── archetypes/
-│   └── projects.md                            # [From Chapter 9] Starter template
-├── static/
-│   └── css/site.css                           # [From Chapter 5] Site styling
-├── hugo.toml                                  # [From Chapter 1] Site configuration
-└── tests/
-    ├── test_chapter_01.py ... test_chapter_09.py
-    └── test_chapter_10.py                     # [NEW] Automated tests for template rendering & dynamic listing
++-- layouts/
+|   +-- all.html                               # [UPDATED] Added conditionals for metadata & automatic Projects list
++-- content/
+|   +-- projects/
+|       +-- _index.md                          # [UPDATED] Removed manual "## Current work" list
++-- archetypes/
+|   +-- projects.md                            # [From Chapter 9] Starter template
++-- static/
+|   +-- css/site.css                           # [From Chapter 5] Site styling
++-- hugo.toml                                  # [From Chapter 1] Site configuration
++-- tests/
+    +-- test_chapter_01.py ... test_chapter_09.py
+    +-- test_chapter_10.py                     # [NEW] Automated tests for template rendering & dynamic listing
 ```
 
 ---
