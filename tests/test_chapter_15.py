@@ -62,7 +62,7 @@ class TestChapter15(unittest.TestCase):
         self.assertIn("$.Site.Title", content)
 
         # Navigation Search link
-        self.assertIn('search/" | relURL', content)
+        self.assertTrue('search/" | relLangURL' in content or 'search/" | relURL' in content)
 
     def test_04_search_content_and_layout(self):
         """content/search/index.md and layouts/search/page.html must exist with required markup."""

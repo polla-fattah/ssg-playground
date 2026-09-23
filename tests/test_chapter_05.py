@@ -102,7 +102,7 @@ class Chapter05ValidationTests(unittest.TestCase):
 
     def test_07_all_pages_reference_stylesheet(self):
         """Verify all generated HTML pages include link rel=stylesheet to css/site.css."""
-        pages = list(self.public_dir.glob("**/*.html"))
+        pages = [p for p in self.public_dir.glob("**/*.html") if 'http-equiv="refresh"' not in p.read_text(encoding="utf-8")]
         for page in pages:
             html = page.read_text(encoding="utf-8")
             self.assertRegex(

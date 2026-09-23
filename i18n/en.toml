@@ -1,0 +1,8 @@
+nav_home = 'Home'
+nav_about = 'About'
+nav_articles = 'Articles'
+nav_projects = 'Projects'
+nav_resources = 'Resources'
+nav_search = 'Search'
+nav_label = 'Main navigation'
+languages_label = 'Languages'

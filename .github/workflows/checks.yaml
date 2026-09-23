@@ -56,3 +56,15 @@ jobs:
             fi
           done
           exit "$status"
+
+      - name: Check that translations record a source check
+        shell: bash
+        run: |
+          status=0
+          for page in $(find content -name '*.ckb.md'); do
+            if ! grep -q 'source_checked:' "$page"; then
+              echo "Missing source_checked: $page"
+              status=1
+            fi
+          done
+          exit "$status"

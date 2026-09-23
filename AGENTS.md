@@ -18,6 +18,9 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 - Resource-directory rendering is in layouts/_partials/resource-directory.html.
 - The Search page template is layouts/search/page.html.
 - The search script is static/js/search.js.
+- Interface strings are in i18n/en.toml and i18n/ckb.toml.
+- Kurdish pages are the .ckb.md files beside their English versions.
+- The language switcher is layouts/_partials/language-links.html.
 - The stylesheet is static/css/site.css.
 - Site configuration is hugo.toml.
 - The publishing workflow is .github/workflows/hugo.yaml.
@@ -33,6 +36,7 @@ This is a small Hugo knowledge website using Markdown and plain CSS.
 - New articles use title, description, and draft in front matter, and the headings What this is about, What happened, What I would do differently, and Sources.
 - Leave new pages at draft: true. Publication is the reader's decision.
 - Resource records use title, url, description, topics (an array of strings), and start_here (a Boolean). Preserve these types and do not invent descriptions or destinations.
+- Never change a translated page's meaning to match a template. Translations keep English front-matter field names and translate only their values.
 - Do not invent experiences, qualifications, sources, or claims about the author.
 - Use the installed Hugo; do not add dependencies or change the publishing workflow unless requested.
 - Do not edit generated public/ or resources/ files by hand.

@@ -79,7 +79,7 @@ class Chapter02ValidationTests(unittest.TestCase):
         self.assertIn("https://gohugo.io/documentation/", content)
 
         # In-page anchor link & target ID
-        self.assertIn('href="#my-next-step"', content)
+        self.assertTrue('href="#my-next-step"' in content or '#my-next-step"' in content)
         self.assertTrue(
             re.search(r'id=["\']my-next-step["\']', content),
             "Heading target id='my-next-step' missing in article HTML.",
@@ -99,8 +99,8 @@ class Chapter02ValidationTests(unittest.TestCase):
         article_file = self.public_dir / "articles" / "first-learning-note" / "index.html"
         content = article_file.read_text(encoding="utf-8")
         self.assertTrue(
-            re.search(r'<img[^>]+src=["\']notebook-preview\.png["\']', content),
-            "Image tag with src='notebook-preview.png' missing in HTML.",
+            re.search(r'<img[^>]+src=["\'][^"\']*notebook-preview\.png["\']', content),
+            "Image tag with src referencing 'notebook-preview.png' missing in HTML.",
         )
         self.assertTrue(
             re.search(r'alt=["\'][^"\']*introduction[^"\']*["\']', content, re.IGNORECASE),

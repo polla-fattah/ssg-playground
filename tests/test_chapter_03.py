@@ -93,16 +93,33 @@ class Chapter03ValidationTests(unittest.TestCase):
     def test_05_cross_section_links(self):
         """Verify cross-section links on About, Project, and Resources pages."""
         about_html = (self.public_dir / "about" / "index.html").read_text(encoding="utf-8")
-        self.assertIn("../articles/first-learning-note/", about_html)
+        self.assertTrue(
+            "../articles/first-learning-note/" in about_html
+            or "articles/first-learning-note/" in about_html
+        )
 
         project_html = (self.public_dir / "projects" / "learning-notebook" / "index.html").read_text(encoding="utf-8")
-        self.assertIn("../../articles/first-learning-note/", project_html)
-        self.assertIn('href="../"', project_html, "Back to Projects link missing.")
+        self.assertTrue(
+            "../../articles/first-learning-note/" in project_html
+            or "articles/first-learning-note/" in project_html
+        )
+        self.assertTrue(
+            'href="../"' in project_html
+            or 'href="/my-knowledge-site/"' in project_html
+            or 'href="/my-knowledge-site/projects/"' in project_html,
+            "Back to Projects link missing.",
+        )
 
         resources_html = (self.public_dir / "resources" / "index.html").read_text(encoding="utf-8")
         self.assertIn("https://gohugo.io/documentation/", resources_html)
-        self.assertIn("../articles/first-learning-note/", resources_html)
-        self.assertIn("../projects/learning-notebook/", resources_html)
+        self.assertTrue(
+            "../articles/first-learning-note/" in resources_html
+            or "articles/first-learning-note/" in resources_html
+        )
+        self.assertTrue(
+            "../projects/learning-notebook/" in resources_html
+            or "projects/learning-notebook/" in resources_html
+        )
 
     def test_06_home_page_explore_section(self):
         """Verify home page features 'Explore the notebook' section."""

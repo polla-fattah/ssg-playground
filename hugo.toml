@@ -1,6 +1,20 @@
 baseURL = 'https://YOUR-USERNAME.github.io/my-knowledge-site/'
-locale = 'en'
 title = 'My Knowledge Notebook'
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
 
 [params]
 description = 'Learning notes, small projects, and useful references, published as a static website.'
+
+[languages]
+  [languages.en]
+    locale = 'en'
+    label = 'English'
+    title = 'My Knowledge Notebook'
+    weight = 1
+  [languages.ckb]
+    locale = 'ckb'
+    label = 'کوردی'
+    direction = 'rtl'
+    title = 'تێبینییەکانی من'
+    weight = 2

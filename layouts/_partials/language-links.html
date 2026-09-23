@@ -1,0 +1,7 @@
+{{ with .Translations }}
+  <nav aria-label="{{ i18n "languages_label" }}" class="language-links">
+    {{ range . }}
+      <a href="{{ .RelPermalink }}" lang="{{ .Language.Locale }}" hreflang="{{ .Language.Locale }}">{{ .Language.Label }}</a>
+    {{ end }}
+  </nav>
+{{ end }}

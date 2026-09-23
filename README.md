@@ -1,171 +1,152 @@
-# SSG Playground — Chapter 15: Help Readers Find and Use Your Content
+# SSG Playground — Chapter 16: Publish in Multiple Languages
 
-Welcome to the hands-on playground repository for **Chapter 15** of *Static Site Generators in the Age of AI*.
+Welcome to the hands-on playground repository for **Chapter 16** of *Static Site Generators in the Age of AI*.
 
-This branch (`chapter-15`) is **additive from `chapter-14`**. It focuses on discoverability and reader experience: establishing distinct document titles and metadata descriptions, enabling RSS feed autodiscovery, inspecting generated XML sitemaps, and building a lightweight, progressively-enhanced client-side search page generated directly from your content.
-
----
-
-## 🎯 Chapter 15 Goals
-
-- **Distinct Document Titles and Metadata Descriptions**:
-  - Distinguish the home page title (`My Knowledge Notebook`) from subpages (`Title | My Knowledge Notebook`) using `{{ if .IsHome }}`.
-  - Define a site-wide fallback description in `hugo.toml` under `[params]`.
-  - Output a `<meta name="description">` tag using `{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}`.
-  - Provide a `<link rel="canonical" href="{{ .Permalink }}">` tag.
-- **XML Sitemaps and RSS Feed Discovery**:
-  - Understand `/sitemap.xml` for search engine indexing and `/index.xml` for subscriber feed readers.
-  - Add feed autodiscovery in `<head>` using `{{ with .OutputFormats.Get "rss" }}`.
-  - Use `$` (`$.Site.Title`) to escape inner template contexts and access top-level page data.
-- **Progressively-Enhanced Content Search**:
-  - Generate the searchable page list in HTML at build time using `.Site.RegularPages`.
-  - Filter out the Search page itself using `{{ if ne .RelPermalink $.RelPermalink }}`.
-  - If JavaScript is disabled, the page remains completely functional as a complete, accessible directory of all site content.
-  - Implement client-side filtering via `static/js/search.js` with case-insensitive substring matching.
-  - Update a live announcement paragraph (`role="status"`) as queries are typed.
-  - Use `.search-item[hidden] { display: none; }` to ensure filtered elements do not receive keyboard focus.
-- **Navigation Integration**:
-  - Add Search to the main `<nav>` menu in `layouts/baseof.html`.
-  - Check responsiveness at mobile widths to confirm smooth flex wrapping.
-- **Diagnose Silent Failures**:
-  - Test the "designed failure": changing the list ID from `search-index` to `search-list` produces no console error because guard clauses return quietly.
-  - Diagnose the issue through observable symptoms: an empty status paragraph indicates the script exited early.
-- **Reader-Centric vs. Automated Audits**:
-  - Test keyboard navigation (Tab through skip link, nav, search input, and only visible results).
-  - Test with JavaScript disabled to verify fallback usability.
-  - Understand that automated audits (e.g., Lighthouse, axe) verify mechanical rules (alt text, contrast, meta tags) but cannot evaluate content truth, source validity, or result relevance.
-- **Enrich Content Descriptions**:
-  - Add accurate front matter descriptions to `content/about/index.md` and `content/resources/index.md`.
-  - Update `AGENTS.md` to document the new search template and JavaScript paths.
+This branch (`chapter-16`) is **additive from `chapter-15`**. It guides you through configuring Hugo's multilingual engine, internationalizing interface strings with `i18n`, supporting Right-to-Left (RTL) writing directions using CSS logical properties, creating translated content files, rendering language link alternatives, and maintaining translations over time with verification dates and CI checks.
 
 ---
 
-## 📁 What Changed in Chapter 15 (Additive from Chapter 14)
+## 🎯 Chapter 16 Goals
+
+- **Configure Multilingual Support in `hugo.toml`**:
+  - Set `defaultContentLanguage = 'en'` and `defaultContentLanguageInSubdir = false`.
+  - Define language blocks under `[languages.en]` and `[languages.ckb]`.
+  - Configure modern Hugo language parameters:
+    - `locale` (`'en'`, `'ckb'`)
+    - `label` (`'English'`, `'کوردی'`)
+    - `direction` (`'rtl'` for Kurdish/CKB)
+    - `title` per language.
+- **Dynamic Language & Direction in Base Layout**:
+  - Update `layouts/baseof.html` with:
+    ```html
+    <html lang="{{ .Site.Language.Locale }}" dir="{{ .Site.Language.Direction | default "ltr" }}">
+    ```
+  - Ensure the browser automatically knows document language and reading direction for correct text flow and screen reader pronunciation.
+- **Externalize Interface Strings (`i18n`)**:
+  - Replace hardcoded UI strings with `{{ i18n "key" }}` in templates.
+  - Create string lookup tables in `i18n/en.toml` and `i18n/ckb.toml` with complete key parity across:
+    - Skip link (`skip_to_content`)
+    - Navigation items (`nav_home`, `nav_about`, `nav_articles`, `nav_projects`, `nav_resources`, `nav_search`)
+    - Footer tagline (`footer_tagline`)
+  - Use `relLangURL` instead of `relURL` so navigation links preserve the current language prefix (`/ckb/...`).
+- **Language Switcher Partial**:
+  - Create `layouts/_partials/language-links.html`.
+  - Render links to translated versions of the current page using `.Translations`:
+    ```html
+    {{ if .IsTranslated }}
+      <p class="language-links">
+        {{ range .Translations }}
+          <a href="{{ .RelPermalink }}" hreflang="{{ .Language.Locale }}" lang="{{ .Language.Locale }}" rel="alternate">{{ .Language.Label }}</a>
+        {{ end }}
+      </p>
+    {{ end }}
+    ```
+  - Include the partial in the `<header>` element of `layouts/baseof.html`.
+- **Bidirectional CSS & Logical Properties**:
+  - Replace physical positioning in `static/css/site.css`:
+    - Changed `.skip-link { left: 1rem; }` to `inset-inline-start: 1rem;`.
+  - Add typography adjustment for Central Kurdish:
+    ```css
+    :lang(ckb) {
+      line-height: 1.9;
+    }
+    ```
+  - Add styles for `.language-links`.
+- **Parallel Content Translation & Maintenance**:
+  - Create `content/_index.ckb.md` and `content/about/index.ckb.md`.
+  - Include front matter field `source_checked: "YYYY-MM-DD"` indicating when the translation was verified against the English original.
+  - Update CI checks in `.github/workflows/checks.yaml` to ensure every `*.ckb.md` file contains a non-empty `source_checked:` field.
+  - Update `AGENTS.md` with guidelines on language codes, translation file locations, and verification tracking.
+
+---
+
+## 📁 What Changed in Chapter 16 (Additive from Chapter 15)
 
 ```text
 my-knowledge-site/
-├── hugo.toml                                  # [UPDATED] Added [params] description fallback
+├── hugo.toml                                  # [UPDATED] Configured [languages.en] and [languages.ckb] with locale, label, direction
 ├── layouts/
-│   ├── baseof.html                            # [UPDATED] Head metadata (title, description, canonical, RSS) & search nav
-│   └── search/
-│       └── page.html                          # [NEW] Search page template generating build-time index
+│   ├── baseof.html                            # [UPDATED] Added dynamic lang/dir, i18n calls, relLangURL, and language-links partial
+│   └── _partials/
+│       ├── footer.html                        # [UPDATED] Language-aware about link (relLangURL) and i18n tagline
+│       └── language-links.html                # [NEW] Alternate language links switcher using .Translations
+├── i18n/
+│   ├── en.toml                                # [NEW] English interface strings
+│   └── ckb.toml                               # [NEW] Kurdish (Sorani) interface strings
 ├── content/
-│   ├── search/
-│   │   └── index.md                           # [NEW] Search content page
-│   ├── about/
-│   │   └── index.md                           # [UPDATED] Added front matter description
-│   └── resources/
-│       └── index.md                           # [UPDATED] Added front matter description
+│   ├── _index.ckb.md                          # [NEW] Kurdish home page with source_checked metadata
+│   └── about/
+│       └── index.ckb.md                       # [NEW] Kurdish About page with source_checked metadata
 ├── static/
-│   ├── js/
-│   │   └── search.js                          # [NEW] Progressive client-side search script
 │   └── css/
-│       └── site.css                           # [UPDATED] Search form styles and hidden element display rule
-├── AGENTS.md                                  # [UPDATED] Added search template and script under Files
-├── .github/workflows/                         # [From Chapter 7 & 14] Deployment and CI checks
-└── tests/
-    ├── test_chapter_01.py ... test_chapter_14.py
-    └── test_chapter_15.py                     # [NEW] Automated tests for titles, metadata, search markup & script
+│       └── site.css                           # [UPDATED] CSS logical property (inset-inline-start), :lang(ckb) line-height, .language-links
+├── .github/
+│   └── workflows/
+│       └── checks.yaml                        # [UPDATED] Added CI check 4 for source_checked in Kurdish content files
+└── AGENTS.md                                  # [UPDATED] Added multilingual structure, translation guidelines, and maintenance policy
 ```
 
 ---
 
-## 🔍 Search Layout & Progressive Script
+## 🚀 Running and Testing Locally
 
-### Template (`layouts/search/page.html`)
-
-```html
-{{ define "main" }}
-  <article>
-    <h1>{{ .Title }}</h1>
-    {{ partial "page-meta.html" . }}
-    {{ .Content }}
-
-    <form class="search-form" role="search">
-      <label for="search-query">Search titles and descriptions</label>
-      <input type="search" id="search-query" name="q" autocomplete="off">
-    </form>
-
-    <p id="search-status" role="status"></p>
-
-    <ul id="search-index">
-      {{ range .Site.RegularPages }}
-        {{ if ne .RelPermalink $.RelPermalink }}
-          <li class="search-item">
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            {{ with .Description }}
-              <p>{{ . }}</p>
-            {{ end }}
-          </li>
-        {{ end }}
-      {{ end }}
-    </ul>
-
-    <script src="{{ "js/search.js" | relURL }}" defer></script>
-  </article>
-{{ end }}
-```
-
-### Script (`static/js/search.js`)
-
-```javascript
-(function () {
-  var form = document.querySelector(".search-form");
-  var input = document.getElementById("search-query");
-  var list = document.getElementById("search-index");
-  var status = document.getElementById("search-status");
-
-  if (!form || !input || !list || !status) {
-    return;
-  }
-
-  var items = list.querySelectorAll(".search-item");
-
-  function filter() {
-    var query = input.value.trim().toLowerCase();
-    var shown = 0;
-
-    items.forEach(function (item) {
-      var match = query === "" || item.textContent.toLowerCase().includes(query);
-      item.hidden = !match;
-      if (match) {
-        shown += 1;
-      }
-    });
-
-    if (query === "") {
-      status.textContent = "Showing all " + items.length + " pages.";
-    } else if (shown === 0) {
-      status.textContent = "No pages match that word.";
-    } else {
-      status.textContent = shown + " of " + items.length + " pages match.";
-    }
-  }
-
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-  });
-
-  input.addEventListener("input", filter);
-  filter();
-})();
-```
-
----
-
-## 🧪 Testing & Verification
-
-Run the automated test suite across all chapters:
-
+### 1. Build and Preview with Hugo
 ```bash
-# Run unit tests across all chapters (Chapters 01 through 15)
-python -m unittest discover tests
-
-# Build site with strict checks
-hugo --minify --panicOnWarning
-
-# Local preview server
+# Preview the site locally (both English and Kurdish pages)
 hugo server
+
+# Preview English at:
+# http://localhost:1313/my-knowledge-site/
+
+# Preview Kurdish at:
+# http://localhost:1313/my-knowledge-site/ckb/
 ```
 
-All 95 test assertions should pass cleanly.
+### 2. Verify Output and Build Strictness
+```bash
+# Build the site and fail immediately on any warning or deprecation
+hugo --minify --panicOnWarning
+```
+
+### 3. Run Automated Validation Tests
+Run all chapter test suites to ensure both additive features and backward compatibility pass:
+```bash
+# Run Chapter 16 validation suite
+python -m unittest tests/test_chapter_16.py -v
+
+# Run the complete test suite (Chapters 01 - 16)
+python -m unittest discover tests -v
+```
+
+---
+
+## 🔍 Key Concepts Explained
+
+### 1. Modern Hugo Language Keys
+Hugo v0.158+ introduced standardized configuration keys for multilingual sites:
+- `locale` replaces `languageCode` (e.g. `en`, `ckb`)
+- `label` replaces `languageName` (e.g. `English`, `کوردی`)
+- `direction` replaces `languageDirection` (e.g. `ltr`, `rtl`)
+
+In templates, access these using:
+- `.Site.Language.Locale`
+- `.Site.Language.Direction`
+- `.Language.Label` / `.Language.Locale` (inside `.Translations` iteration)
+
+### 2. Physical vs. Logical CSS Properties
+In multilingual websites with mixed text directions (LTR and RTL), hardcoding directional properties creates layout bugs in RTL mode:
+- `left: 1rem` $\rightarrow$ `inset-inline-start: 1rem`
+- `margin-right: 0.5rem` $\rightarrow$ `margin-inline-end: 0.5rem`
+- `text-align: left` $\rightarrow$ `text-align: start`
+
+Browsers automatically flip logical properties based on the element's effective `dir` attribute (`dir="rtl"` vs. `dir="ltr"`).
+
+### 3. Maintenance Tracking (`source_checked`)
+Translations easily drift out of date when source content changes. Tracking the verification date directly in the translated page's front matter:
+```markdown
+---
+title: "دەربارەی ئەم پەڕتووکە"
+source_checked: "2026-09-17"
+---
+```
+enables automated verification in CI pipelines, ensuring no untracked translations linger without a known audit date.
