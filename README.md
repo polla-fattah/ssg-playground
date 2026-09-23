@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 09: Give Your Hugo Content a Consistent Structure
+# SSG Playground - Chapter 09: Give Your Hugo Content a Consistent Structure
 
 Welcome to the hands-on playground repository for **Chapter 9** of *Static Site Generators in the Age of AI*.
 
@@ -25,24 +25,24 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── archetypes/
-│   └── projects.md                            # [NEW] Reusable starter template for project pages
-├── content/
-│   └── projects/
-│       ├── _index.md                          # [UPDATED] Added link to the new reading-list project
-│       ├── learning-notebook/
-│       │   └── index.md                       # [UPDATED] Added description, params.status, params.tools, Next step
-│       └── reading-list/
-│           └── index.md                       # [NEW] Created via archetype; truthful planned reading list
-├── AGENTS.md                                  # [From Chapter 8] Project rules and boundaries
-├── layouts/
-│   └── all.html                               # [From Chapter 4] Minimal base layout (shows title + body)
-├── static/
-│   └── css/site.css                           # [From Chapter 5] Hand-crafted CSS
-├── hugo.toml                                  # [From Chapter 1] Base site configuration
-└── tests/
-    ├── test_chapter_01.py ... test_chapter_08.py
-    └── test_chapter_09.py                     # [NEW] Automated tests for content model, archetype, and links
++-- archetypes/
+|   +-- projects.md                            # [NEW] Reusable starter template for project pages
++-- content/
+|   +-- projects/
+|       +-- _index.md                          # [UPDATED] Added link to the new reading-list project
+|       +-- learning-notebook/
+|       |   +-- index.md                       # [UPDATED] Added description, params.status, params.tools, Next step
+|       +-- reading-list/
+|           +-- index.md                       # [NEW] Created via archetype; truthful planned reading list
++-- AGENTS.md                                  # [From Chapter 8] Project rules and boundaries
++-- layouts/
+|   +-- all.html                               # [From Chapter 4] Minimal base layout (shows title + body)
++-- static/
+|   +-- css/site.css                           # [From Chapter 5] Hand-crafted CSS
++-- hugo.toml                                  # [From Chapter 1] Base site configuration
++-- tests/
+    +-- test_chapter_01.py ... test_chapter_08.py
+    +-- test_chapter_09.py                     # [NEW] Automated tests for content model, archetype, and links
 ```
 
 ---
