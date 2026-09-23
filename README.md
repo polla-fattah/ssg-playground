@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 18 Goals
+##  Chapter 18 Goals
 
 - **Run a Repeatable Maintenance Pass**:
   - Periodically audit:
@@ -41,7 +41,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 18 (Additive from Chapter 17)
+##  What Changed in Chapter 18 (Additive from Chapter 17)
 
 ```text
 my-knowledge-site/
@@ -59,7 +59,7 @@ my-knowledge-site/
 
 ---
 
-## 🚀 Running and Testing Locally
+##  Running and Testing Locally
 
 ### 1. Build and Preview with Hugo
 ```bash
@@ -89,7 +89,7 @@ python -m unittest discover tests -v
 
 ---
 
-## 🔍 Key Architectural Lessons
+##  Key Architectural Lessons
 
 ### 1. Archiving vs. Unpublishing
 - `draft: true` tells Hugo: "Do not generate this page in production."
