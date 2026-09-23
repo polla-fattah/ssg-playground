@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 9 Goals
+##  Chapter 9 Goals
 
 - **Define a Content Model**: Agree on a minimal, purposeful schema for project pages without overcomplicating fields.
 - **Master Practical YAML**: Safely write and edit strings, booleans, nested mappings, and lists in Hugo front matter.
@@ -21,7 +21,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 9 (Additive from Chapter 8)
+##  What Changed in Chapter 9 (Additive from Chapter 8)
 
 ```text
 my-knowledge-site/
@@ -47,7 +47,7 @@ my-knowledge-site/
 
 ---
 
-## 📋 The Project Content Model
+##  The Project Content Model
 
 A content model is an editorial agreement about the information a specific kind of page should contain:
 
@@ -68,7 +68,7 @@ A content model is an editorial agreement about the information a specific kind 
 
 ---
 
-## 🚀 Key Workflows & Commands
+##  Key Workflows & Commands
 
 ### 1. Creating Content from an Archetype
 ```bash
@@ -93,7 +93,7 @@ hugo --minify --panicOnWarning
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Run the automated test suite across all chapters:
 
@@ -115,7 +115,7 @@ python -m unittest discover tests
 
 ---
 
-## 🔗 Git Checkpoint
+##  Git Checkpoint
 
 Commit the four chapter files cleanly:
 ```bash
