@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 12** of *Static Site
 
 This branch (`chapter-12`) is **additive from `chapter-11`**. It demonstrates how to manage structured, repeatable content using **local JSON data** and Hugo's resource-processing pipeline (`resources.Get` and `transform.Unmarshal`), separating data authoring from template presentation.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 12 Goals
