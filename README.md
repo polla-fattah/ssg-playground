@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 13: Create and Maintain Content with AI Agents
+# SSG Playground - Chapter 13: Create and Maintain Content with AI Agents
 
 Welcome to the hands-on playground repository for **Chapter 13** of *Static Site Generators in the Age of AI*.
 
@@ -46,23 +46,23 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── sources/
-│   └── publishing-notes.md                    # [NEW] Raw working notes from Chapters 6 & 7 (outside content/)
-├── content/
-│   ├── articles/
-│   │   ├── _index.md                          # [UPDATED] Added link to publishing-with-github-pages/
-│   │   └── publishing-with-github-pages/
-│   │       └── index.md                       # [NEW] Agent-drafted article bundle adhering to the 4-part model
-│   └── _index.md                              # [UPDATED] Added new article link to Latest writing list
-├── assets/
-│   └── data/
-│       └── resource_links.json                # [UPDATED] Added 4th record for GitHub Pages publishing documentation
-├── AGENTS.md                                  # [UPDATED] Added sources/, article paths, and sourcing agreements
-├── layouts/                                   # [From Chapter 11 & 12] Baseof, layouts, and JSON data partials
-├── static/                                    # [From Chapter 5] Site styling
-└── tests/
-    ├── test_chapter_01.py ... test_chapter_12.py
-    └── test_chapter_13.py                     # [NEW] Validation tests for sourcing, article structure, and site links
++-- sources/
+|   +-- publishing-notes.md                    # [NEW] Raw working notes from Chapters 6 & 7 (outside content/)
++-- content/
+|   +-- articles/
+|   |   +-- _index.md                          # [UPDATED] Added link to publishing-with-github-pages/
+|   |   +-- publishing-with-github-pages/
+|   |       +-- index.md                       # [NEW] Agent-drafted article bundle adhering to the 4-part model
+|   +-- _index.md                              # [UPDATED] Added new article link to Latest writing list
++-- assets/
+|   +-- data/
+|       +-- resource_links.json                # [UPDATED] Added 4th record for GitHub Pages publishing documentation
++-- AGENTS.md                                  # [UPDATED] Added sources/, article paths, and sourcing agreements
++-- layouts/                                   # [From Chapter 11 & 12] Baseof, layouts, and JSON data partials
++-- static/                                    # [From Chapter 5] Site styling
++-- tests/
+    +-- test_chapter_01.py ... test_chapter_12.py
+    +-- test_chapter_13.py                     # [NEW] Validation tests for sourcing, article structure, and site links
 ```
 
 ---
