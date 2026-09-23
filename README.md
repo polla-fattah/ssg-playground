@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 17: Add Interactive Features Responsibly
+# SSG Playground - Chapter 17: Add Interactive Features Responsibly
 
 Welcome to the hands-on playground repository for **Chapter 17** of *Static Site Generators in the Age of AI*.
 
@@ -45,21 +45,21 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ```text
 my-knowledge-site/
-├── content/
-│   └── contact/
-│       └── index.md                           # [NEW] Contact page content with front matter address & plain text alternative
-├── layouts/
-│   ├── contact/
-│   │   └── page.html                          # [NEW] Accessible form layout template with data-address attribute
-│   └── _partials/
-│       └── footer.html                        # [UPDATED] Extended footer note with language-aware Contact link
-├── static/
-│   ├── js/
-│   │   └── contact.js                         # [NEW] Client-side validation & mailto handoff script
-│   └── css/
-│       └── site.css                           # [UPDATED] Added contact-form styles and font-family: inherit
-├── AGENTS.md                                  # [UPDATED] Documented Contact template, script, and zero-server agreement
-└── README.md                                  # [UPDATED] Comprehensive guide for Chapter 17
++-- content/
+|   +-- contact/
+|       +-- index.md                           # [NEW] Contact page content with front matter address & plain text alternative
++-- layouts/
+|   +-- contact/
+|   |   +-- page.html                          # [NEW] Accessible form layout template with data-address attribute
+|   +-- _partials/
+|       +-- footer.html                        # [UPDATED] Extended footer note with language-aware Contact link
++-- static/
+|   +-- js/
+|   |   +-- contact.js                         # [NEW] Client-side validation & mailto handoff script
+|   +-- css/
+|       +-- site.css                           # [UPDATED] Added contact-form styles and font-family: inherit
++-- AGENTS.md                                  # [UPDATED] Documented Contact template, script, and zero-server agreement
++-- README.md                                  # [UPDATED] Comprehensive guide for Chapter 17
 ```
 
 ---
