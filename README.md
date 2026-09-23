@@ -10,11 +10,11 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 4 Goal
+##  Chapter 4 Goal
 
 Understand the underlying HTML structure of your website:
 - Inspect rendered pages using browser developer tools (`F12` or right-click **Inspect**).
-- Understand the 4 stages of content: **Content Source** (Markdown) ➔ **Layout Source** (Hugo Go template) ➔ **Generated Static HTML** (Build output/preview response) ➔ **Live DOM** (Browser parsed document).
+- Understand the 4 stages of content: **Content Source** (Markdown)  **Layout Source** (Hugo Go template)  **Generated Static HTML** (Build output/preview response)  **Live DOM** (Browser parsed document).
 - Make a persistent, structured HTML change to the shared footer in `layouts/all.html`.
 - Learn HTML semantics: `<header>`, `<nav>`, `<main>`, `<article>`, `<footer>`.
 - Master element attributes: `href`, `src`, `alt`, `id`, `class`, `aria-label`, and `tabindex`.
@@ -23,7 +23,7 @@ Understand the underlying HTML structure of your website:
 
 ---
 
-## 📁 What Changed in Chapter 4 (Additive from Chapter 3)
+##  What Changed in Chapter 4 (Additive from Chapter 3)
 
 ```text
 my-knowledge-site/
@@ -66,7 +66,7 @@ my-knowledge-site/
 
 ---
 
-## 🛠️ Key HTML & Architecture Concepts
+##  Key HTML & Architecture Concepts
 
 ### 1. The Four Forms of a Page
 | Stage | Where it Lives | Example |
@@ -93,7 +93,7 @@ my-knowledge-site/
 
 ---
 
-## 🚀 Running the Preview Server
+##  Running the Preview Server
 
 Start the local development server:
 
@@ -118,7 +118,7 @@ http://localhost:1313/
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Automated tests for Chapters 1, 2, 3, and 4 are located in the `tests/` directory:
 
@@ -141,6 +141,6 @@ python tests/test_chapter_04.py
 
 ---
 
-## ⏩ Next Step: Chapter 5
+##  Next Step: Chapter 5
 
 In **Chapter 5: Practical CSS for Your Hugo Site**, you will use CSS to style your semantic HTML, target the `footer-note` class, design responsive layouts, and create clean typographic hierarchies.
