@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 14 Goals
+##  Chapter 14 Goals
 
 - **Separate Checking from Deploying**:
   - Keep the deployment workflow (`.github/workflows/hugo.yaml`) untouched, triggered only on `push` to `main`.
@@ -46,7 +46,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 📁 What Changed in Chapter 14 (Additive from Chapter 13)
+##  What Changed in Chapter 14 (Additive from Chapter 13)
 
 ```text
 my-knowledge-site/
@@ -73,7 +73,7 @@ my-knowledge-site/
 
 ---
 
-## ⚙️ The Checks Workflow (`.github/workflows/checks.yaml`)
+##  The Checks Workflow (`.github/workflows/checks.yaml`)
 
 ```yaml
 name: Check proposed changes
@@ -138,7 +138,7 @@ jobs:
 
 ---
 
-## 📋 The 5th Resource Record (`assets/data/resource_links.json`)
+##  The 5th Resource Record (`assets/data/resource_links.json`)
 
 ```json
   {
@@ -152,7 +152,7 @@ jobs:
 
 ---
 
-## 🧪 Testing & Verification
+##  Testing & Verification
 
 Run the automated test suite across all chapters:
 
