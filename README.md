@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 7 Goal
+##  Chapter 7 Goal
 
 Publish your Hugo website to a public, global address:
 - Connect your local Git repository to a remote repository on **GitHub**.
@@ -23,7 +23,7 @@ Publish your Hugo website to a public, global address:
 
 ---
 
-## 📁 What Changed in Chapter 7 (Additive from Chapter 6)
+##  What Changed in Chapter 7 (Additive from Chapter 6)
 
 ```text
 my-knowledge-site/
@@ -43,7 +43,7 @@ my-knowledge-site/
 
 ---
 
-## ⚙️ The GitHub Actions Workflow (`.github/workflows/hugo.yaml`)
+##  The GitHub Actions Workflow (`.github/workflows/hugo.yaml`)
 
 ```yaml
 name: Publish Hugo site
@@ -115,7 +115,7 @@ jobs:
 
 ---
 
-## 🌐 The Three Core Addresses
+##  The Three Core Addresses
 
 | Address Type | Example | Purpose |
 | :--- | :--- | :--- |
@@ -125,7 +125,7 @@ jobs:
 
 ---
 
-## 🚀 The Complete Publishing Loop
+##  The Complete Publishing Loop
 
 For every future change:
 1. **Edit**: Modify Markdown, layout, or CSS locally.
@@ -138,7 +138,7 @@ For every future change:
 
 ---
 
-## 🧪 Automated Testing
+##  Automated Testing
 
 Automated tests for Chapters 1 through 7 are in the `tests/` directory:
 
@@ -159,6 +159,6 @@ python tests/test_chapter_07.py
 
 ---
 
-## ⏩ Next Step: Chapter 8
+##  Next Step: Chapter 8
 
 In **Chapter 8: Work with an AI Agent on Your Hugo Site**, you will invite an AI coding assistant into your development environment to generate content, audit structure, and collaborate safely under version control!
