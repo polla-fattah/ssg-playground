@@ -4,6 +4,10 @@ Welcome to the hands-on playground repository for **Chapter 7** of *Static Site 
 
 This branch (`chapter-07`) is **additive from `chapter-06`**. It takes your locally tracked Hugo website and publishes it live to the web using **GitHub Pages** powered by an automated **GitHub Actions** CI/CD deployment pipeline.
 
+## Part of the Open-Source Book
+
+This playground is part of the open-source book **Static Site Generators in the Age of AI**. The original book is available at [polla-fattah/ssg-book](https://github.com/polla-fattah/ssg-book).
+
 ---
 
 ## 🎯 Chapter 7 Goal
