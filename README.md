@@ -10,7 +10,7 @@ This playground is part of the open-source book **Static Site Generators in the 
 
 ---
 
-## 🎯 Chapter 3 Goal
+##  Chapter 3 Goal
 
 Transform your website from isolated pages into a coherent, navigable system:
 - Add a standalone **About** page
@@ -22,7 +22,7 @@ Transform your website from isolated pages into a coherent, navigable system:
 
 ---
 
-## 🗺️ Complete Website Structure Map
+##  Complete Website Structure Map
 
 | Source File | Published Preview URL | Role & Page Type |
 | :--- | :--- | :--- |
@@ -40,7 +40,7 @@ Transform your website from isolated pages into a coherent, navigable system:
 
 ---
 
-## 🚀 How to Run the Website Locally
+##  How to Run the Website Locally
 
 Start the standard preview server:
 
@@ -57,7 +57,7 @@ Navigate through the top menu: **Home**, **About**, **Articles**, **Projects**, 
 
 ---
 
-## 📁 What Changed in Chapter 3 (Additive from Chapter 2)
+##  What Changed in Chapter 3 (Additive from Chapter 2)
 
 ```text
 my-knowledge-site/
@@ -84,7 +84,7 @@ my-knowledge-site/
 
 ---
 
-## ✍️ Guided Exercises for Chapter 3
+##  Guided Exercises for Chapter 3
 
 ### 1. The Power of Shared Layouts
 - Notice `layouts/all.html`: By updating only the `<nav>` element, every single page on the site now displays the same navigation row.
@@ -102,7 +102,7 @@ my-knowledge-site/
 
 ---
 
-## 🧪 Automated Tests
+##  Automated Tests
 
 Run the Chapter 3 automated tests:
 
@@ -127,7 +127,7 @@ OK
 
 ---
 
-## 🛠️ Common Troubleshooting
+##  Common Troubleshooting
 
 | Issue | Cause & Fix |
 | :--- | :--- |
@@ -138,5 +138,5 @@ OK
 
 ---
 
-## ⏭️ What's Next?
+##  What's Next?
 In **Chapter 4**, we will open Developer Tools and inspect the actual **HTML structure** behind these pages, connecting your Markdown source directly to browser elements.
