@@ -1,4 +1,4 @@
-# SSG Playground — Chapter 06: Track and Recover Your Hugo Site with Git
+# SSG Playground - Chapter 06: Track and Recover Your Hugo Site with Git
 
 Welcome to the hands-on playground repository for **Chapter 6** of *Static Site Generators in the Age of AI*.
 
@@ -28,22 +28,22 @@ Master the fundamental local Git workflow:
 
 ```text
 my-knowledge-site/
-├── .gitignore                                         # [UPDATED] Exclude /public/, /resources/, .lock, OS files
-├── hugo.toml
-├── layouts/
-│   └── all.html
-├── static/css/site.css
-└── content/
-    ├── _index.md
-    ├── about/
-    │   └── index.md                                  # [UPDATED] Refined introductory summary (Sec 6.7)
-    ├── articles/
-    │   ├── _index.md
-    │   └── first-learning-note/
-    │       ├── index.md                              # [UPDATED] Added "My publishing checklist" (Sec 6.4)
-    │       └── notebook-preview.png
-    ├── projects/
-    └── resources/
++-- .gitignore                                         # [UPDATED] Exclude /public/, /resources/, .lock, OS files
++-- hugo.toml
++-- layouts/
+|   +-- all.html
++-- static/css/site.css
++-- content/
+    +-- _index.md
+    +-- about/
+    |   +-- index.md                                  # [UPDATED] Refined introductory summary (Sec 6.7)
+    +-- articles/
+    |   +-- _index.md
+    |   +-- first-learning-note/
+    |       +-- index.md                              # [UPDATED] Added "My publishing checklist" (Sec 6.4)
+    |       +-- notebook-preview.png
+    +-- projects/
+    +-- resources/
 ```
 
 ### 1. Publishing Checklist Added (`content/articles/first-learning-note/index.md`)
